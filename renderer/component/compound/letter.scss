@@ -2,14 +2,12 @@
 
 
 .letter {
-  background: linear-gradient(to right bottom, hsl(0, 0%, 80%), hsl(0, 0%, 80%));
-  background-clip: text;
-  background-attachment: fixed;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: hsl(0, 0%, 90%);
+  text-shadow: 0em 0em 0.3em hsla(0, 0%, 0%, 0.8);
 }
 
 .letter-char {
   text-align: center;
   display: inline-block;
+  transform: skew(-3deg, 0deg);
 }
