@@ -17,14 +17,17 @@ import {
 
 
 const COMMON_WINDOW_OPTIONS = {
+  transparent: true,
+  frame: false,
+  toolbar: false,
+  alwaysOnTop: true,
   resizable: true,
+  minimizable: false,
+  maximizable: false,
   fullscreenable: false,
   autoHideMenuBar: true,
   acceptFirstMouse: true,
   useContentSize: true,
-  spellcheck: false,
-  title: "Clock",
-  backgroundColor: "#F5F8FA",
   webPreferences: {preload: joinPath(__dirname, "preload.js"), devTools: true}
 };
 const PRODUCTION_WINDOW_OPTIONS = {
@@ -90,6 +93,7 @@ export class Main {
     window.loadFile(joinPath(__dirname, "index.html"), {query: {...options.query, mode, idString}});
     window.setMenu(null);
     window.show();
+    window.webContents.openDevTools();
     window.once("closed", () => {
       this.windows.delete(id);
     });
