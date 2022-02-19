@@ -9,6 +9,7 @@
 
 半透明のウィンドウに時刻が表示されます。
 ストップウォッチ機能もあります。
+
 <div align="center">
-<img src="document/image.png?ver=2">
+  <img src="document/image.png?ver=2">
 </div>
