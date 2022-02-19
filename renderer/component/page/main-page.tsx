@@ -16,6 +16,10 @@ import {
   GregorianInstant,
   HairianInstant
 } from "../../module/instant";
+import {
+  LiteralType,
+  LiteralUtilType
+} from "../../module/literal-type";
 import Clock from "../compound/clock";
 import {
   create
@@ -28,20 +32,31 @@ const MainPage = create(
   }: {
   }): ReactElement {
 
-    let [gregorianInstant, setGregorianInstant] = useState(new GregorianInstant());
-    let [hairianInstant, setHairianInstant] = useState(new HairianInstant());
+    let [mode, setMode] = useState<ClockMode>("gregorian");
+    let [gregorianInstant] = useState(new GregorianInstant());
+    let [hairianInstant] = useState(new HairianInstant());
+    let instants = [gregorianInstant, hairianInstant];
     let rerender = useRerender();
 
+    useEvent("keydown", (event) => {
+      let key = event.key;
+      if (key === "ArrowRight") {
+        setMode((mode) => ClockModeUtil.next(mode));
+      } else if (key === "ArrowLeft") {
+        setMode((mode) => ClockModeUtil.previous(mode));
+      }
+    });
+
     useInterval(() => {
-      gregorianInstant.update();
-      hairianInstant.update();
+      instants.forEach((instance) => instance.update());
       rerender();
     }, 10);
 
+    let instant = (mode === "gregorian") ? gregorianInstant : hairianInstant;
     let node = (
       <div className="main">
         <div className="clock-container">
-          <Clock instant={gregorianInstant}/>
+          <Clock instant={instant}/>
         </div>
         <div className="menu-container">
         </div>
@@ -52,5 +67,9 @@ const MainPage = create(
   }
 );
 
+
+const CLOCK_MODES = ["gregorian", "hairian"] as const;
+export let ClockModeUtil = LiteralUtilType.create(CLOCK_MODES);
+export type ClockMode = LiteralType<typeof CLOCK_MODES>;
 
 export default MainPage;
