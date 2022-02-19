@@ -8,20 +8,11 @@ import {
 } from "./instant";
 
 
-export class HairianInstant implements Instant {
-
-  public year: number = 1;
-  public month: number = 1;
-  public day: number = 1;
-  public hairia: number = 1;
-  public hours: number = 0;
-  public minutes: number = 0;
-  public seconds: number = 0;
-  public prefix: null = null;
-  private shift: boolean;
+export class HairianInstant extends Instant {
 
   public constructor() {
-    this.shift = true;
+    super();
+    this.prefix = "HT";
   }
 
   public update(): void {
@@ -34,10 +25,6 @@ export class HairianInstant implements Instant {
     this.hours = date.getHours(shift);
     this.minutes = date.getMinutes(shift);
     this.seconds = date.getSeconds(shift);
-  }
-
-  public setShift(shift: boolean): void {
-    this.shift = shift;
   }
 
 }

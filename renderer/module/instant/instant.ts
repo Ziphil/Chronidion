@@ -1,17 +1,26 @@
 //
 
 
-export interface Instant {
+export abstract class Instant {
 
-  year: number | null;
-  month: number | null;
-  day: number | null;
-  hairia: number | null;
-  hours: number | null;
-  minutes: number | null;
-  seconds: number | null;
-  prefix: string | null;
+  public year: number | null = null;
+  public month: number | null = null;
+  public day: number | null = null;
+  public hairia: number | null = null;
+  public hours: number | null = null;
+  public minutes: number | null = null;
+  public seconds: number | null = null;
+  public prefix: string | null = null;
+  protected shift: boolean;
 
-  update(): void;
+  public constructor() {
+    this.shift = true;
+  }
+
+  public abstract update(): void;
+
+  public toggleShift(): void {
+    this.shift = !this.shift;
+  }
 
 }
