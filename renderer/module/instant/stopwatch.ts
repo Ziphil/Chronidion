@@ -29,10 +29,12 @@ export class StopwatchInstant extends Instant {
       this.hours = FloorMath.div(FloorMath.mod(duration, 360000000), 3600000);
       this.minutes = FloorMath.div(FloorMath.mod(duration, 3600000), 60000);
       this.seconds = FloorMath.div(FloorMath.mod(duration, 60000), 1000);
+      this.minutesSeparator = ":";
     } else {
       this.hours = FloorMath.div(FloorMath.mod(duration, 3600000), 60000);
       this.minutes = FloorMath.div(FloorMath.mod(duration, 60000), 1000);
       this.seconds = FloorMath.div(FloorMath.mod(duration, 1000), 10);
+      this.minutesSeparator = ".";
     }
   }
 

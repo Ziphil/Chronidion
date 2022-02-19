@@ -11,6 +11,10 @@ export abstract class Instant {
   public minutes: number | null = null;
   public seconds: number | null = null;
   public prefix: string | null = null;
+  public yearSeparator: string = "/";
+  public monthSeparator: string = "/";
+  public hoursSeparator: string = ":";
+  public minutesSeparator: string = ":";
   protected shift: boolean;
 
   public constructor() {

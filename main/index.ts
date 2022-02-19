@@ -93,6 +93,7 @@ export class Main {
     window.loadFile(joinPath(__dirname, "index.html"), {query: {...options.query, mode, idString}});
     window.setMenu(null);
     window.show();
+    window.webContents.openDevTools();
     window.once("closed", () => {
       this.windows.delete(id);
     });

@@ -6,6 +6,9 @@ import {
   useMemo
 } from "react";
 import {
+  DataUtil
+} from "../../module/data";
+import {
   create
 } from "../create";
 
@@ -29,7 +32,14 @@ const Letter = create(
       }
       return actualString;
     }, [string, length]);
-    let innerNode = (split) ? actualString.split("").map((char, index) => <span className="letter-char" key={index}>{char}</span>) : <span className="letter-char">{actualString}</span>;
+    let innerNode = (() => {
+      if (split) {
+        let innerNode = actualString.split("").map((char, index) => <span key={index} className="letter-char" {...DataUtil.create({content: char})}>{char}</span>);
+        return innerNode;
+      } else {
+        return <span className="letter-char" {...DataUtil.create({content: actualString})}>{actualString}</span>;
+      }
+    })();
     let node = (
       <span className="letter">
         {innerNode}

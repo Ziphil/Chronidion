@@ -5,6 +5,9 @@ import {
   ReactElement
 } from "react";
 import {
+  DataUtil
+} from "../../module/data";
+import {
   Instant
 } from "../../module/instant/instant";
 import {
@@ -30,9 +33,9 @@ const Clock = create(
         );
         return yearNode;
       } else {
-        let yearClassName = (instant.year !== null) ? "clock-year-prefixed" : "clock-year-alone";
+        let data = DataUtil.create({type: {if: instant.year !== null, true: "prefixed", false: "alone"}});
         let yearNode = (
-          <span className={yearClassName}>
+          <span className="clock-year" {...data}>
             <Letter string={instant.prefix}/>
             <Letter string={instant.year ?? ""} length={2} split={true}/>
           </span>
@@ -45,14 +48,14 @@ const Clock = create(
         <div className="clock-date">
           <div className="clock-date-full">
             {yearNode}
-            <span className="clock-slash">
-              <Letter string={(instant.year !== null) ? "/" : ""}/>
+            <span className="clock-separator">
+              <Letter string={(instant.year !== null) ? instant.yearSeparator : ""}/>
             </span>
             <span className="clock-month">
               <Letter string={instant.month ?? ""} length={2} split={true}/>
             </span>
-            <span className="clock-slash">
-              <Letter string={(instant.month !== null) ? "/" : ""}/>
+            <span className="clock-separator">
+              <Letter string={(instant.month !== null) ? instant.monthSeparator : ""}/>
             </span>
             <span className="clock-day">
               <Letter string={instant.day ?? ""} length={2} split={true}/>
@@ -68,14 +71,14 @@ const Clock = create(
           <span className="clock-hours">
             <Letter string={instant.hours ?? ""} length={2} split={true}/>
           </span>
-          <span className="clock-colon">
-            <Letter string=":"/>
+          <span className="clock-separator">
+            <Letter string={instant.hoursSeparator}/>
           </span>
           <span className="clock-minutes">
             <Letter string={instant.minutes ?? ""} length={2} split={true}/>
           </span>
-          <span className="clock-colon">
-            <Letter string=":"/>
+          <span className="clock-separator">
+            <Letter string={instant.minutesSeparator}/>
           </span>
           <span className="clock-seconds">
             <Letter string={instant.seconds ?? ""} length={2} split={true}/>
