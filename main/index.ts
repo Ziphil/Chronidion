@@ -4,7 +4,9 @@ import {
   App,
   BrowserWindow,
   BrowserWindowConstructorOptions,
-  app as electronApp
+  app as electronApp,
+  ipcMain,
+  screen
 } from "electron";
 import {
   client
@@ -46,6 +48,7 @@ export class Main {
 
   public main(): void {
     this.setupEventHandlers();
+    this.setupIpc();
   }
 
   private setupEventHandlers(): void {
@@ -59,6 +62,21 @@ export class Main {
     });
     this.app.on("window-all-closed", async () => {
       this.app.quit();
+    });
+  }
+
+  private setupIpc(): void {
+    ipcMain.on("resize", (event, id, width, height) => {
+      let window = this.windows.get(id);
+      if (window !== undefined) {
+        window.setContentSize(width, height);
+      }
+    });
+    ipcMain.on("move-default-position", (event, id) => {
+      let window = this.windows.get(id);
+      if (window !== undefined) {
+        this.moveDefaultPosition(window);
+      }
     });
   }
 
@@ -86,6 +104,14 @@ export class Main {
     this.mainWindow = window;
     this.connectReloadClient(window);
     return window;
+  }
+
+  private moveDefaultPosition(window: BrowserWindow): void {
+    let displayBounds = screen.getPrimaryDisplay().bounds;
+    let windowBounds = window.getBounds();
+    let x = displayBounds.width - windowBounds.width - 15;
+    let y = displayBounds.height - windowBounds.height - 40;
+    window.setPosition(x, y);
   }
 
   private connectReloadClient(window: BrowserWindow): void {
