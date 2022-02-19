@@ -103,7 +103,7 @@ export class Main {
   }
 
   private createMainWindow(): BrowserWindow {
-    let options = {width: 720, height: 720, minWidth: 640, minHeight: 480};
+    let options = {width: 350, height: 120, minWidth: 350, minHeight: 120};
     let window = this.createWindow("main", null, {}, options);
     this.mainWindow = window;
     this.connectReloadClient(window);
