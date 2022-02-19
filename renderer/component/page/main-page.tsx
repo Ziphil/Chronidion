@@ -37,13 +37,17 @@ const MainPage = create(
     let [gregorianInstant] = useState(new GregorianInstant());
     let [hairianInstant] = useState(new HairianInstant());
     let [stopwatchInstant] = useState(new StopwatchInstant());
-    let instants = [gregorianInstant, hairianInstant, stopwatchInstant];
     let rerender = useRerender();
 
     useEvent("keydown", (event) => {
       let key = event.key;
       if (key === "ArrowUp" || key === "ArrowDown") {
-        instants.forEach((instance) => instance.toggleShift());
+        if (mode !== "stopwatch") {
+          gregorianInstant.toggleShift();
+          hairianInstant.toggleShift();
+        } else {
+          stopwatchInstant.toggleShift();
+        }
       }
       if (key === "ArrowRight") {
         setMode((mode) => ClockModeUtil.next(mode));
@@ -76,6 +80,7 @@ const MainPage = create(
     });
 
     useInterval(() => {
+      let instants = [gregorianInstant, hairianInstant, stopwatchInstant];
       instants.forEach((instance) => instance.update());
       rerender();
     }, 10);
