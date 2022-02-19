@@ -22,26 +22,30 @@
   align-self: flex-end;
 }
 
-.clock-date-full >*:nth-child(1) >*,
-.clock-date-full >*:nth-child(3) >*,
-.clock-date-full >*:nth-child(5) >*,
-.clock-date-hairia >*:nth-child(1) >*,
-.clock-time >*:nth-child(1) >*,
-.clock-time >*:nth-child(3) >*,
-.clock-time >*:nth-child(5) >* {
+.clock-year >* >*,
+.clock-year-prefixed >*:nth-child(2) >*,
+.clock-month >* >*,
+.clock-date >* >*,
+.clock-hairia >* >*,
+.clock-hours >* >*,
+.clock-minutes >* >*,
+.clock-seconds >* >* {
   width: 0.55em;
 }
 
-.clock-date-full >*:nth-child(2),
-.clock-date-full >*:nth-child(4) {
-  margin: 0em 0.1em;
-  bottom: 0.03em;
-  position: relative;
+.clock-year-prefixed >*:nth-child(1) >* {
+  width: 0.55em * 2 / 0.8;
+  font-size: 80%;
 }
 
-.clock-time >*:nth-child(2),
-.clock-time >*:nth-child(4) {
+.clock-slash >* >* {
+  margin: 0em 0.08em;
+  vertical-align: 0.08em;
+  line-height: 0;
+}
+
+.clock-colon >* >* {
   margin: 0em 0.02em;
-  bottom: 0.08em;
-  position: relative;
+  vertical-align: 0.08em;
+  line-height: 0;
 }
