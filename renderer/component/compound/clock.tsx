@@ -30,8 +30,9 @@ const Clock = create(
         );
         return yearNode;
       } else {
+        let yearClassName = (instant.year !== null) ? "clock-year-prefixed" : "clock-year-alone";
         let yearNode = (
-          <span className="clock-year-prefixed">
+          <span className={yearClassName}>
             <Letter string={instant.prefix}/>
             <Letter string={instant.year ?? ""} length={2} split={true}/>
           </span>
@@ -45,13 +46,13 @@ const Clock = create(
           <div className="clock-date-full">
             {yearNode}
             <span className="clock-slash">
-              <Letter string="/"/>
+              <Letter string={(instant.year !== null) ? "/" : ""}/>
             </span>
             <span className="clock-month">
               <Letter string={instant.month ?? ""} length={2} split={true}/>
             </span>
             <span className="clock-slash">
-              <Letter string="/"/>
+              <Letter string={(instant.month !== null) ? "/" : ""}/>
             </span>
             <span className="clock-day">
               <Letter string={instant.day ?? ""} length={2} split={true}/>

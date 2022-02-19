@@ -37,7 +37,7 @@ const MainPage = create(
     let [gregorianInstant] = useState(new GregorianInstant());
     let [hairianInstant] = useState(new HairianInstant());
     let [stopwatchInstant] = useState(new StopwatchInstant());
-    let instants = [gregorianInstant, hairianInstant];
+    let instants = [gregorianInstant, hairianInstant, stopwatchInstant];
     let rerender = useRerender();
 
     useEvent("keydown", (event) => {
@@ -52,12 +52,35 @@ const MainPage = create(
       }
     });
 
+    useEvent("keydown", (event) => {
+      let key = event.key;
+      if (mode === "stopwatch") {
+        if (key === " " || key === "Enter") {
+          stopwatchInstant.startOrStop();
+        } else if (key === "Backspace") {
+          stopwatchInstant.reset();
+        } else if (key === "7") {
+          stopwatchInstant.addOffset(3600000);
+        } else if (key === "1") {
+          stopwatchInstant.addOffset(-3600000);
+        } else if (key === "8") {
+          stopwatchInstant.addOffset(60000);
+        } else if (key === "2") {
+          stopwatchInstant.addOffset(-60000);
+        } else if (key === "9") {
+          stopwatchInstant.addOffset(1000);
+        } else if (key === "3") {
+          stopwatchInstant.addOffset(-1000);
+        }
+      }
+    });
+
     useInterval(() => {
       instants.forEach((instance) => instance.update());
       rerender();
     }, 10);
 
-    let instant = (mode === "gregorian") ? gregorianInstant : hairianInstant;
+    let instant = (mode === "gregorian") ? gregorianInstant : (mode === "hairian") ? hairianInstant : stopwatchInstant;
     let node = (
       <div className="main">
         <div className="clock-container">
@@ -73,7 +96,7 @@ const MainPage = create(
 );
 
 
-const CLOCK_MODES = ["gregorian", "hairian"] as const;
+const CLOCK_MODES = ["gregorian", "hairian", "stopwatch"] as const;
 export let ClockModeUtil = LiteralUtilType.create(CLOCK_MODES);
 export type ClockMode = LiteralType<typeof CLOCK_MODES>;
 
