@@ -2,7 +2,8 @@
 
 import * as react from "react";
 import {
-  ReactElement
+  ReactElement,
+  useEffect
 } from "react";
 import Clock from "../compound/clock";
 import {
@@ -13,8 +14,18 @@ import {
 const MainPage = create(
   "MainPage",
   function ({
+    id
   }: {
+    id: number
   }): ReactElement {
+
+    useEffect(() => {
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "F5") {
+          window.api.send("move-default-position", id);
+        }
+      });
+    }, []);
 
     let node = (
       <div className="main">

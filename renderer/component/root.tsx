@@ -1,5 +1,6 @@
 //
 
+import * as queryParser from "query-string";
 import * as react from "react";
 import {
   ReactElement
@@ -16,8 +17,10 @@ const Root = create(
   }: {
   }): ReactElement {
 
+    let query = queryParser.parse(window.location.search);
+    let id = (typeof query.idString === "string") ? parseInt(query.idString) : -1;
     let node = (
-      <MainPage/>
+      <MainPage id={id}/>
     );
     return node;
 

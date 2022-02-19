@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "electron-connect": "^0.6.3",
+    "query-string": "^7.1.1",
     "react": "^16.14.0",
     "react-css-modules": "^4.7.11",
     "react-dom": "^16.14.0",
