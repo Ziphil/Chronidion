@@ -2,8 +2,9 @@
 
 
 .letter {
-  background: hsl(0, 0%, 80%);
+  background: linear-gradient(to right bottom, hsl(0, 15%, 80%), hsl(240, 15%, 85%));
   background-clip: text;
+  background-attachment: fixed;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
