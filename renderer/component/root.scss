@@ -1,31 +1,17 @@
 @charset "utf-8";
 
+@import "./page/main-page.scss";
+@import "./compound/clock.scss";
+@import "./compound/letter.scss";
+
 
 body {
   margin: 0px;
   padding: 0px;
+  font-family: "Jost";
+  font-weight: 400;
+  line-height: 1;
+  font-feature-settings: "tnum" 1;
   overflow: hidden;
   user-select: none;
-}
-
-.main {
-  width: 100vw;
-  height: 100vh;
-  background: hsla(0, 0%, 0%, 0.5);
-  border-radius: 10px;
-  display: flex;
-  overflow: hidden;
-}
-
-.clock {
-  flex-grow: 1;
-}
-
-.menu {
-  flex-basis: 30px;
-  flex-grow: 0;
-  flex-shrink: 0;
-  background: hsl(240, 20%, 5%);
-  cursor: move;
-  -webkit-app-region: drag;
 }

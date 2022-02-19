@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+
+.letter {
+  background: hsl(0, 0%, 80%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.letter-char {
+  text-align: center;
+  display: inline-block;
+}

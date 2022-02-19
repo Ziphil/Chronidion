@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+
+.main {
+  width: 100vw;
+  height: 100vh;
+  background: hsla(0, 0%, 0%, 0.8);
+  border-radius: 10px;
+  display: flex;
+  overflow: hidden;
+}
+
+.clock-container {
+  padding: 0px 20px;
+  flex-grow: 1;
+}
+
+.menu-container {
+  flex-basis: 30px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  background: hsl(0, 0%, 10%);
+  cursor: move;
+  -webkit-app-region: drag;
+}
