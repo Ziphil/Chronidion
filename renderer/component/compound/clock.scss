@@ -1,5 +1,7 @@
 @charset "utf-8";
 
+@use "sass:math" as *;
+
 
 .clock {
   height: 100%;
@@ -34,7 +36,7 @@
 }
 
 .clock-year-prefixed >*:nth-child(1) >* {
-  width: 0.55em * 2 / 0.8;
+  width: div(0.55em * 2, 0.8);
   font-size: 80%;
 }
 
