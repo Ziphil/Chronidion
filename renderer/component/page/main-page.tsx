@@ -14,7 +14,8 @@ import {
 } from "../../hook";
 import {
   GregorianInstant,
-  HairianInstant
+  HairianInstant,
+  StopwatchInstant
 } from "../../module/instant";
 import {
   LiteralType,
@@ -35,11 +36,15 @@ const MainPage = create(
     let [mode, setMode] = useState<ClockMode>("gregorian");
     let [gregorianInstant] = useState(new GregorianInstant());
     let [hairianInstant] = useState(new HairianInstant());
+    let [stopwatchInstant] = useState(new StopwatchInstant());
     let instants = [gregorianInstant, hairianInstant];
     let rerender = useRerender();
 
     useEvent("keydown", (event) => {
       let key = event.key;
+      if (key === "ArrowUp" || key === "ArrowDown") {
+        instants.forEach((instance) => instance.toggleShift());
+      }
       if (key === "ArrowRight") {
         setMode((mode) => ClockModeUtil.next(mode));
       } else if (key === "ArrowLeft") {
