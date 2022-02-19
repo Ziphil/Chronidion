@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+
+body {
+  margin: 0px;
+  padding: 0px;
+  overflow: hidden;
+  user-select: none;
+}
+
+.main {
+  background: hsla(0, 0%, 0%, 0.3);
+  border-radius: 10px;
+}
+
+.menu {
+  -webkit-app-region: drag;
+}

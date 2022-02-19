@@ -7,6 +7,7 @@ import {
 import {
   create
 } from "./create";
+import MainPage from "./page/main-page";
 
 
 const Root = create(
@@ -16,9 +17,7 @@ const Root = create(
   }): ReactElement {
 
     let node = (
-      <div>
-        Hello, Electron!!
-      </div>
+      <MainPage/>
     );
     return node;
 
