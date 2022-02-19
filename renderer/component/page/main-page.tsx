@@ -3,8 +3,19 @@
 import * as react from "react";
 import {
   ReactElement,
-  useEffect
+  useState
 } from "react";
+import {
+  useEvent,
+  useInterval
+} from "react-use";
+import {
+  useRerender
+} from "../../hook";
+import {
+  GregorianInstant,
+  HairianInstant
+} from "../../module/instant";
 import Clock from "../compound/clock";
 import {
   create
@@ -14,23 +25,23 @@ import {
 const MainPage = create(
   "MainPage",
   function ({
-    id
   }: {
-    id: number
   }): ReactElement {
 
-    useEffect(() => {
-      window.addEventListener("keydown", (event) => {
-        if (event.key === "F5") {
-          window.api.send("move-default-position", id);
-        }
-      });
-    }, []);
+    let [gregorianInstant, setGregorianInstant] = useState(new GregorianInstant());
+    let [hairianInstant, setHairianInstant] = useState(new HairianInstant());
+    let rerender = useRerender();
+
+    useInterval(() => {
+      gregorianInstant.update();
+      hairianInstant.update();
+      rerender();
+    }, 10);
 
     let node = (
       <div className="main">
         <div className="clock-container">
-          <Clock/>
+          <Clock instant={gregorianInstant}/>
         </div>
         <div className="menu-container">
         </div>

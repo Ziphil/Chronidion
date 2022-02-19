@@ -40,7 +40,9 @@
     "react": "^16.14.0",
     "react-css-modules": "^4.7.11",
     "react-dom": "^16.14.0",
+    "react-use": "^17.3.2",
     "reflect-metadata": "^0.1.13",
+    "talqis": "^0.1.0",
     "ts-essentials": "^7.0.1"
   },
   "devDependencies": {
