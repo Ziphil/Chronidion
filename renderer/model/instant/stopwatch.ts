@@ -2,7 +2,7 @@
 
 import {
   FloorMath
-} from "../floor-math";
+} from "../../util/floor-math";
 import {
   Instant
 } from "./instant";

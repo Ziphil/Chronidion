@@ -7,7 +7,7 @@ import {
 } from "react";
 import {
   DataUtil
-} from "../../module/data";
+} from "../../util/data";
 import {
   create
 } from "../create";

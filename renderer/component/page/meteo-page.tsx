@@ -11,7 +11,7 @@ import {
 import useSWR from "swr";
 import {
   Meteo
-} from "../../module/meteo";
+} from "../../model/meteo";
 import MeteoPane from "../compound/meteo-pane";
 import {
   create

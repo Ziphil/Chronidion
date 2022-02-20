@@ -5,11 +5,11 @@ import {
   ReactElement
 } from "react";
 import {
-  DataUtil
-} from "../../module/data";
-import {
   Instant
-} from "../../module/instant/instant";
+} from "../../model/instant";
+import {
+  DataUtil
+} from "../../util/data";
 import {
   create
 } from "../create";

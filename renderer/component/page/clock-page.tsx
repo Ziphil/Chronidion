@@ -14,11 +14,11 @@ import {
 import {
   Instant,
   StopwatchInstant
-} from "../../module/instant";
+} from "../../model/instant";
 import {
   LiteralType,
   LiteralUtilType
-} from "../../module/literal-type";
+} from "../../util/literal-type";
 import ClockPane from "../compound/clock-pane";
 import {
   create
