@@ -32,7 +32,7 @@ const MeteoPage = create(
 
     let [index, setIndex] = useState(0);
     let [kind, setKind] = useState<MeteoKind>("temperature");
-    let {data, error} = useSWR("/weather", fetchMeteos);
+    let {data, error} = useSWR("/weather", fetchMeteos, {refreshInterval: 5 * 60 * 1000});
 
     useEvent("keydown", (event) => {
       if (show) {
