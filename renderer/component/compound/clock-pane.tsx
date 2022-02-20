@@ -16,8 +16,8 @@ import {
 import Letter from "./letter";
 
 
-const Clock = create(
-  "Clock",
+const ClockPane = create(
+  "ClockPane",
   function ({
     instant
   }: {
@@ -92,4 +92,4 @@ const Clock = create(
 );
 
 
-export default Clock;
+export default ClockPane;

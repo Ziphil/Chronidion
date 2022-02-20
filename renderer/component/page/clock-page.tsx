@@ -19,7 +19,7 @@ import {
   LiteralType,
   LiteralUtilType
 } from "../../module/literal-type";
-import Clock from "../compound/clock";
+import ClockPane from "../compound/clock-pane";
 import {
   create
 } from "../create";
@@ -72,7 +72,7 @@ const ClockPage = create(
 
     let node = (
       <div className="clock-page">
-        <Clock instant={instant}/>
+        <ClockPane instant={instant}/>
       </div>
     );
     return node;
