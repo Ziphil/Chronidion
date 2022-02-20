@@ -64,8 +64,6 @@ const Root = create(
         return <ClockPage instant={hairianInstant}/>;
       } else if (mode === "stopwatch") {
         return <ClockPage instant={stopwatchInstant}/>;
-      } else {
-        return null;
       }
     })();
     let node = (
