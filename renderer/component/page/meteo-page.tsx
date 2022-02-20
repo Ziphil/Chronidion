@@ -21,17 +21,19 @@ import {
 const MeteoPage = create(
   "MeteoPage",
   function ({
+    show
   }: {
-  }): ReactElement {
+    show: boolean
+  }): ReactElement | null {
 
     let {data, error} = useSWR("/weather", fetchMeteo);
 
-    let node = (
+    let node = (show) && (
       <div className="meteo-page">
         {data !== undefined && <MeteoPane meteo={data}/>}
       </div>
     );
-    return node;
+    return node || null;
 
   }
 );

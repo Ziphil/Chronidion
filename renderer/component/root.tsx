@@ -31,10 +31,7 @@ const Root = create(
   }: {
   }): ReactElement | null {
 
-    let [mode, setMode] = useState<ClockMode>("gregorian");
-    let [gregorianInstant] = useState(new GregorianInstant());
-    let [hairianInstant] = useState(new HairianInstant());
-    let [stopwatchInstant] = useState(new StopwatchInstant());
+    let [mode, setMode] = useState<PageMode>("gregorian");
 
     useEvent("keydown", (event) => {
       let key = event.key;
@@ -50,31 +47,23 @@ const Root = create(
     useEvent("keydown", (event) => {
       let key = event.key;
       if (key === "1") {
-        setMode(ClockModeUtil.cast(0));
+        setMode(PageModeUtil.cast(0));
       } else if (key === "2") {
-        setMode(ClockModeUtil.cast(1));
+        setMode(PageModeUtil.cast(1));
       } else if (key === "3") {
-        setMode(ClockModeUtil.cast(2));
+        setMode(PageModeUtil.cast(2));
       } else if (key === "4") {
-        setMode(ClockModeUtil.cast(3));
+        setMode(PageModeUtil.cast(3));
       }
     });
 
-    let innerNode = (() => {
-      if (mode === "gregorian") {
-        return <ClockPage instant={gregorianInstant}/>;
-      } else if (mode === "hairian") {
-        return <ClockPage instant={hairianInstant}/>;
-      } else if (mode === "stopwatch") {
-        return <ClockPage instant={stopwatchInstant}/>;
-      } else if (mode === "meteo") {
-        return <MeteoPage/>;
-      }
-    })();
     let node = (
       <div className="main">
         <div className="page-container">
-          {innerNode}
+          <ClockPage initialInstant={new GregorianInstant()} show={mode === "gregorian"}/>
+          <ClockPage initialInstant={new HairianInstant()} show={mode === "hairian"}/>
+          <ClockPage initialInstant={new StopwatchInstant()} show={mode === "stopwatch"}/>
+          <MeteoPage show={mode === "meteo"}/>
         </div>
         <div className="menu-container">
         </div>
@@ -86,8 +75,8 @@ const Root = create(
 );
 
 
-const CLOCK_MODES = ["gregorian", "hairian", "stopwatch", "meteo"] as const;
-export let ClockModeUtil = LiteralUtilType.create(CLOCK_MODES);
-export type ClockMode = LiteralType<typeof CLOCK_MODES>;
+const PAGE_MODES = ["gregorian", "hairian", "stopwatch", "meteo"] as const;
+export let PageModeUtil = LiteralUtilType.create(PAGE_MODES);
+export type PageMode = LiteralType<typeof PAGE_MODES>;
 
 export default Root;

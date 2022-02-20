@@ -2,7 +2,8 @@
 
 import * as react from "react";
 import {
-  ReactElement
+  ReactElement,
+  useState
 } from "react";
 import {
   useEvent,
@@ -28,11 +29,14 @@ import {
 const ClockPage = create(
   "ClockPage",
   function ({
-    instant
+    initialInstant,
+    show
   }: {
-    instant: Instant
-  }): ReactElement {
+    initialInstant: Instant,
+    show: boolean
+  }): ReactElement | null {
 
+    let [instant] = useState(initialInstant);
     let rerender = useRerender();
 
     useEvent("keydown", (event) => {
@@ -70,12 +74,12 @@ const ClockPage = create(
       rerender();
     }, 13);
 
-    let node = (
+    let node = (show) && (
       <div className="clock-page">
         <ClockPane instant={instant}/>
       </div>
     );
-    return node;
+    return node || null;
 
   }
 );
