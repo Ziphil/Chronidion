@@ -75,6 +75,12 @@ export class Main {
         window.setContentSize(width, height);
       }
     });
+    ipcMain.on("open-dev-tools", (event, id, width, height) => {
+      let window = this.windows.get(id);
+      if (window !== undefined) {
+        window.webContents.openDevTools();
+      }
+    });
     ipcMain.on("move-default-position", (event, id) => {
       let window = this.windows.get(id);
       if (window !== undefined) {
