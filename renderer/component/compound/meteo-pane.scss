@@ -11,16 +11,16 @@
 }
 
 .meteo-date {
-  font-size: 22px;
+  font-size: 20px;
   display: flex;
   justify-content: space-between;
   align-self: stretch;
 }
 
 .meteo-main {
-  margin-top: 4px;
+  margin-top: 2px;
   margin-bottom: -4px;
-  font-size: 52px;
+  font-size: 54px;
   display: flex;
   justify-content: space-between;
   align-self: stretch;
@@ -33,7 +33,7 @@
 
 .meteo-icon {
   color: hsl(0, 0%, 90%);
-  font-size: 44px;
+  font-size: 46px;
   path {
     filter: drop-shadow(0em 0em 0.3em hsla(0, 0%, 0%, 0.8));
   }
