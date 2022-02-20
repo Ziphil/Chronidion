@@ -32,7 +32,7 @@ const MeteoPane = create(
         <div className="meteo-main">
           <div className="meteo-left">
             <span className="meteo-icon">
-              <FontAwesomeIcon icon="sun"/>
+              <FontAwesomeIcon icon={meteo.wheatherIconName}/>
             </span>
           </div>
           <div className="meteo-right">

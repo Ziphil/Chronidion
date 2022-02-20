@@ -40,12 +40,8 @@ const MeteoPage = create(
 async function fetchMeteo(): Promise<Meteo> {
   let key = process.env["WEATHER_KEY"];
   let response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=35.6895&lon=139.6917&units=metric&appid=${key}`);
-  let data = response.data;
-  let wheather = data["weather"][0]["id"];
-  let temperature = data["main"]["temp"];
-  let pressure = data["main"]["pressure"];
-  let humidity = data["main"]["humidity"];
-  return {wheather, temperature, pressure, humidity};
+  let meteo = Meteo.fromCurrentData(response.data);
+  return meteo;
 }
 
 export default MeteoPage;
