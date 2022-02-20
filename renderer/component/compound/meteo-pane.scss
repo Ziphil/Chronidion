@@ -55,8 +55,8 @@
   line-height: 0;
 }
 
-.meteo-value-unit >* >* {
-  margin: 0em 0em 0em div(0.05em, 1);
+.meteo-value-unit >* >*[data-content="°"] {
+  margin: 0em 0em 0em div(0.08em, 1);
   vertical-align: -0.02em;
   line-height: 0;
 }
