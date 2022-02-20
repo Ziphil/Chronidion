@@ -1,5 +1,6 @@
 // @ts-nocheck
 
+import dotenv from "dotenv";
 import electronReload from "electron-reload-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import * as path from "path";
@@ -8,6 +9,8 @@ import {
 } from "webpack";
 import merge from "webpack-merge";
 
+
+dotenv.config({path: "./variable.env"});
 
 let electronReloadPlugin = electronReload({
   path: path.join(__dirname, "dist", "index.js"),
@@ -99,6 +102,7 @@ export let commonRenderer = {
   plugins: [
     new DefinePlugin({
       "process.env": {},
+      "process.env.WEATHER_KEY": JSON.stringify(process.env["WEATHER_KEY"]),
       "global": "globalThis"
     }),
     new HtmlWebpackPlugin({
