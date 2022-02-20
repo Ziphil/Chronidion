@@ -37,13 +37,7 @@ const MeteoPane = create(
           </div>
           <div className="meteo-right">
             <span className="meteo-temperature-number">
-              <Letter string={Math.floor(meteo.temperature)} split={true}/>
-            </span>
-            <span className="meteo-temperature-point">
-              <Letter string="."/>
-            </span>
-            <span className="meteo-temperature-number">
-              <Letter string={Math.round(meteo.temperature * 10) % 10} split={true}/>
+              <Letter string={meteo.temperature} decimalLength={1} split={true}/>
             </span>
             <span className="meteo-temperature-unit">
               <Letter string="°"/>

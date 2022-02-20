@@ -18,10 +18,12 @@ const Letter = create(
   function ({
     string,
     length,
+    decimalLength,
     split = false
   }: {
     string: string | number,
     length?: number,
+    decimalLength?: number
     split?: boolean
   }): ReactElement {
 
@@ -34,9 +36,13 @@ const Letter = create(
         return actualString;
       } else {
         let sign = Math.sign(string);
-        let actualString = Math.abs(string).toString();
+        let actualString = (decimalLength !== undefined) ? Math.abs(string).toFixed(decimalLength) : Math.abs(string).toString();
         if (length !== undefined) {
-          actualString = actualString.padStart((sign < 0) ? length - 1 : length, "0");
+          let stringLength = (decimalLength !== undefined) ? length + decimalLength + 1 : length;
+          if (sign < 0) {
+            stringLength = stringLength - 1;
+          }
+          actualString = actualString.padStart(stringLength, "0");
         }
         if (sign < 0) {
           actualString = "−" + actualString;
