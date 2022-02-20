@@ -1,0 +1,67 @@
+on:
+  - push
+  - pull_request
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Node 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - name: Install packages
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Pack for Windows
+        run: npm run pack:windows
+      - name: Upload for Windows
+        uses: actions/upload-artifact@v2
+        with:
+          name: chronidion-windows
+          path: product/*.exe
+  build-mac:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Node 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - name: Install packages
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Pack for Mac
+        run: npm run pack:mac
+      - name: Upload for Mac
+        uses: actions/upload-artifact@v2
+        with:
+          name: chronidion-mac
+          path: product/*.dmg
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Node 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - name: Install packages
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Pack for Linux
+        run: npm run pack:linux
+      - name: Tar files
+        run: tar -cvf chronidion-linux.tar product/*.AppImage
+      - name: Upload for Linux
+        uses: actions/upload-artifact@v2
+        with:
+          name: chronidion-linux
+          path: chronidion-linux.tar
