@@ -56,9 +56,10 @@ const MeteoPage = create(
       }
     });
 
+    let innerNode = (data !== undefined) && <MeteoPane meteo={data[index]} kind={kind}/>;
     let node = (show) && (
       <div className="meteo-page">
-        {data !== undefined && <MeteoPane meteo={data[index]} kind={kind}/>}
+        {innerNode}
       </div>
     );
     return node || null;
