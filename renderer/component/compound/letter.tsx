@@ -26,11 +26,23 @@ const Letter = create(
   }): ReactElement {
 
     let actualString = useMemo(() => {
-      let actualString = string.toString();
-      if (length !== undefined) {
-        actualString = actualString.padStart(length, (typeof string === "string") ? " " : "0");
+      if (typeof string === "string") {
+        let actualString = string;
+        if (length !== undefined) {
+          actualString = actualString.padStart(length, " ");
+        }
+        return actualString;
+      } else {
+        let sign = Math.sign(string);
+        let actualString = Math.abs(string).toString();
+        if (length !== undefined) {
+          actualString = actualString.padStart((sign < 0) ? length - 1 : length, "0");
+        }
+        if (sign < 0) {
+          actualString = "−" + actualString;
+        }
+        return actualString;
       }
-      return actualString;
     }, [string, length]);
     let innerNode = (() => {
       if (split) {

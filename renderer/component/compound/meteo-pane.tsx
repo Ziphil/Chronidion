@@ -1,18 +1,15 @@
 //
 
+import {
+  FontAwesomeIcon
+} from "@fortawesome/react-fontawesome";
 import * as react from "react";
 import {
   ReactElement
 } from "react";
 import {
-  Instant
-} from "../../model/instant/instant";
-import {
   Meteo
 } from "../../model/meteo";
-import {
-  DataUtil
-} from "../../util/data";
 import {
   create
 } from "../create";
@@ -30,9 +27,28 @@ const MeteoPane = create(
     let node = (
       <div className="meteo">
         <div className="meteo-date">
-          <Letter string="Current"/>
+          <Letter string="Temperature"/>
         </div>
         <div className="meteo-main">
+          <div className="meteo-left">
+            <span className="meteo-icon">
+              <FontAwesomeIcon icon="sun"/>
+            </span>
+          </div>
+          <div className="meteo-right">
+            <span className="meteo-temperature-number">
+              <Letter string={Math.floor(meteo.temperature)} split={true}/>
+            </span>
+            <span className="meteo-temperature-point">
+              <Letter string="."/>
+            </span>
+            <span className="meteo-temperature-number">
+              <Letter string={Math.round(meteo.temperature * 10) % 10} split={true}/>
+            </span>
+            <span className="meteo-temperature-unit">
+              <Letter string="°"/>
+            </span>
+          </div>
         </div>
       </div>
     );
