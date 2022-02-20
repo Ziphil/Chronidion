@@ -11,7 +11,7 @@
 ストップウォッチ機能や天気予報表示機能もあります。
 
 <div align="center">
-  <img src="document/clock.png">　<img src="document/wheather.png">
+  <img src="document/clock.png">　<img src="document/weather.png">
 </div>
 
 ## 操作方法
