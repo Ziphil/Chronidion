@@ -22,6 +22,7 @@ import {
   create
 } from "./create";
 import ClockPage from "./page/clock-page";
+import MeteoPage from "./page/meteo-page";
 
 
 const Root = create(
@@ -54,6 +55,8 @@ const Root = create(
         setMode(ClockModeUtil.cast(1));
       } else if (key === "3") {
         setMode(ClockModeUtil.cast(2));
+      } else if (key === "4") {
+        setMode(ClockModeUtil.cast(3));
       }
     });
 
@@ -64,6 +67,8 @@ const Root = create(
         return <ClockPage instant={hairianInstant}/>;
       } else if (mode === "stopwatch") {
         return <ClockPage instant={stopwatchInstant}/>;
+      } else if (mode === "meteo") {
+        return <MeteoPage/>;
       }
     })();
     let node = (
@@ -81,7 +86,7 @@ const Root = create(
 );
 
 
-const CLOCK_MODES = ["gregorian", "hairian", "stopwatch"] as const;
+const CLOCK_MODES = ["gregorian", "hairian", "stopwatch", "meteo"] as const;
 export let ClockModeUtil = LiteralUtilType.create(CLOCK_MODES);
 export type ClockMode = LiteralType<typeof CLOCK_MODES>;
 
