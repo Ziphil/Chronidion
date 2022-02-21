@@ -1,9 +1,5 @@
 //
 
-import {
-  FontAwesomeIcon
-} from "@fortawesome/react-fontawesome";
-import dayjs from "dayjs";
 import * as react from "react";
 import {
   ReactElement
@@ -15,6 +11,7 @@ import {
   LiteralType,
   LiteralUtilType
 } from "../../util/literal-type";
+import Icon from "../atom/icon";
 import Letter from "../atom/letter";
 import {
   create
@@ -98,7 +95,7 @@ const MeteoPane = create(
         <div className="meteo-main">
           <div className="meteo-left">
             <span className="meteo-icon">
-              <FontAwesomeIcon icon={meteo.weatherIconName}/>
+              <Icon name={meteo.weatherIconName}/>
             </span>
           </div>
           {rightNode}
