@@ -35,6 +35,12 @@
   width: 0.55em;
 }
 
+.clock-hairia-prefix >* >* {
+  font-size: 70%;
+  vertical-align: 0.3em;
+  line-height: 0;
+}
+
 .clock-year[data-type="prefixed"] >*:nth-child(1) >* {
   width: div(0.55em * 2, 0.8);
   font-size: 80%;

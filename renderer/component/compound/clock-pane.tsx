@@ -62,6 +62,9 @@ const ClockPane = create(
             </span>
           </div>
           <div className="clock-date-hairia">
+            <span className="clock-hairia-prefix">
+              <Letter string={(instant.hairia !== null) ? "H" : ""}/>
+            </span>
             <span className="clock-hairia">
               <Letter string={instant.hairia ?? ""} length={4} split={true}/>
             </span>
