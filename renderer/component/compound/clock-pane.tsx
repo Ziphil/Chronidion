@@ -10,10 +10,10 @@ import {
 import {
   DataUtil
 } from "../../util/data";
+import Letter from "../atom/letter";
 import {
   create
 } from "../create";
-import Letter from "./letter";
 
 
 const ClockPane = create(

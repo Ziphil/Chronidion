@@ -15,10 +15,10 @@ import {
   LiteralType,
   LiteralUtilType
 } from "../../util/literal-type";
+import Letter from "../atom/letter";
 import {
   create
 } from "../create";
-import Letter from "./letter";
 
 
 const MeteoPane = create(
