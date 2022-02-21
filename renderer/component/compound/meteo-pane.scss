@@ -65,3 +65,8 @@
   margin: 0em 0em 0em div(0.1em, 0.8);
   font-size: 80%;
 }
+
+.meteo-value-none >* >*[data-content="—"] {
+  vertical-align: 0.05em;
+  line-height: 0;
+}
