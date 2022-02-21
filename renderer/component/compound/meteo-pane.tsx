@@ -119,11 +119,11 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): [string, number | unde
   } else if (kind === "minTemperature") {
     return ["Min Temp", meteo.temperatures.min, 1, "°"];
   } else if (kind === "pressure") {
-    return ["Press", meteo.pressure, undefined, "hPa"];
+    return ["Press", Math.round(meteo.pressure), undefined, "hPa"];
   } else if (kind === "humidity") {
-    return ["Humid", meteo.humidity, undefined, "%"];
+    return ["Humid", Math.round(meteo.humidity), undefined, "%"];
   } else if (kind === "precipitation") {
-    return ["Precip", meteo.precipitation, undefined, "%"];
+    return ["Precip", meteo.precipitation && Math.round(meteo.precipitation), undefined, "%"];
   } else {
     return ["", undefined, undefined, ""];
   }
