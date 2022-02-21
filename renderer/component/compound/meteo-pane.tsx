@@ -28,7 +28,7 @@ const MeteoPane = create(
     kind: MeteoKind
   }): ReactElement {
 
-    let [kindName, value, decimalLength, unit] = getMeteoKindSpec(meteo, kind);
+    let [iconNode, value, decimalLength, unit] = getMeteoKindSpec(meteo, kind);
     let dateFullNode = (() => {
       if (meteo.date === undefined) {
         let dateFullNode = (
@@ -89,7 +89,7 @@ const MeteoPane = create(
         <div className="meteo-date">
           {dateFullNode}
           <div className="meteo-kind">
-            <Letter string={kindName}/>
+            {iconNode}
           </div>
         </div>
         <div className="meteo-main">
@@ -108,21 +108,19 @@ const MeteoPane = create(
 );
 
 
-function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): [string, number | undefined, number | undefined, string] {
+function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): [iconNode: ReactElement, value: number | undefined, decimalLength: number | undefined, unit: string] {
   if (kind === "temperature") {
-    return ["Temp", meteo.temperatures.day, 1, "°"];
+    return [<Icon name="temperature-half"/>, meteo.temperatures.day, 1, "°"];
   } else if (kind === "maxTemperature") {
-    return ["Max Temp", meteo.temperatures.max, 1, "°"];
+    return [<><Icon name="angles-up"/><Icon name="temperature-half"/></>, meteo.temperatures.max, 1, "°"];
   } else if (kind === "minTemperature") {
-    return ["Min Temp", meteo.temperatures.min, 1, "°"];
-  } else if (kind === "pressure") {
-    return ["Press", Math.round(meteo.pressure), undefined, "hPa"];
+    return [<><Icon name="angles-down"/><Icon name="temperature-half"/></>, meteo.temperatures.min, 1, "°"];
   } else if (kind === "humidity") {
-    return ["Humid", Math.round(meteo.humidity), undefined, "%"];
+    return [<Icon name="water"/>, Math.round(meteo.humidity), undefined, "%"];
   } else if (kind === "precipitation") {
-    return ["Precip", meteo.precipitation && Math.round(meteo.precipitation), undefined, "%"];
+    return [<Icon name="droplet"/>, meteo.precipitation && Math.round(meteo.precipitation), undefined, "%"];
   } else {
-    return ["", undefined, undefined, ""];
+    return [<></>, undefined, undefined, ""];
   }
 }
 

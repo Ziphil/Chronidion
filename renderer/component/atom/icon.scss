@@ -3,6 +3,8 @@
 
 .icon {
   color: hsl(0, 0%, 90%);
+  display: inline-block;
+  line-height: 0;
   path {
     filter: drop-shadow(0em 0em 0.3em hsla(0, 0%, 0%, 0.8));
   }

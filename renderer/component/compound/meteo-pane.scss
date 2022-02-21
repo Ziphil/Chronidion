@@ -17,6 +17,14 @@
   align-self: stretch;
 }
 
+.meteo-kind {
+  font-size: 17px;
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+}
+
 .meteo-main {
   margin-top: 2px;
   margin-bottom: -4px;
@@ -32,8 +40,7 @@
 }
 
 .meteo-icon {
-  color: hsl(0, 0%, 90%);
-  font-size: 85%;
+  font-size: 45px;
 }
 
 .meteo-value-number >* >* {
