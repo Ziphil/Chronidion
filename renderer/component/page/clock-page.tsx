@@ -6,10 +6,10 @@ import {
   useState
 } from "react";
 import {
-  useEvent,
   useInterval
 } from "react-use";
 import {
+  useKeyEvent,
   useRerender
 } from "../../hook";
 import {
@@ -39,39 +39,41 @@ const ClockPage = create(
     let [instant] = useState(initialInstant);
     let rerender = useRerender();
 
-    useEvent("keydown", (event) => {
-      if (show) {
-        let key = event.key;
-        if (key === "z") {
-          instant.toggleShift();
-        }
+    useKeyEvent((key) => {
+      if (key === "z") {
+        instant.toggleShift();
+        rerender();
       }
-    });
+    }, show);
 
-    useEvent("keydown", (event) => {
-      if (show) {
-        let key = event.key;
-        if (instant instanceof StopwatchInstant) {
-          if (key === " " || key === "Enter") {
-            instant.startOrStop();
-          } else if (key === "Backspace") {
-            instant.reset();
-          } else if (key === "q") {
-            instant.addOffset(3600000);
-          } else if (key === "a") {
-            instant.addOffset(-3600000);
-          } else if (key === "w") {
-            instant.addOffset(60000);
-          } else if (key === "s") {
-            instant.addOffset(-60000);
-          } else if (key === "e") {
-            instant.addOffset(1000);
-          } else if (key === "d") {
-            instant.addOffset(-1000);
-          }
-        }
+    useKeyEvent((key) => {
+      let stopwatchInstant = instant as StopwatchInstant;
+      if (key === " " || key === "Enter") {
+        stopwatchInstant.startOrStop();
+        rerender();
+      } else if (key === "Backspace") {
+        stopwatchInstant.reset();
+        rerender();
+      } else if (key === "q") {
+        stopwatchInstant.addOffset(3600000);
+        rerender();
+      } else if (key === "a") {
+        stopwatchInstant.addOffset(-3600000);
+        rerender();
+      } else if (key === "w") {
+        stopwatchInstant.addOffset(60000);
+        rerender();
+      } else if (key === "s") {
+        stopwatchInstant.addOffset(-60000);
+        rerender();
+      } else if (key === "e") {
+        stopwatchInstant.addOffset(1000);
+        rerender();
+      } else if (key === "d") {
+        stopwatchInstant.addOffset(-1000);
+        rerender();
       }
-    });
+    }, show && instant instanceof StopwatchInstant);
 
     useInterval(() => {
       instant.update();

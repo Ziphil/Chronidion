@@ -6,10 +6,10 @@ import {
   ReactElement,
   useState
 } from "react";
-import {
-  useEvent
-} from "react-use";
 import useSWR from "swr";
+import {
+  useKeyEvent
+} from "../../hook";
 import {
   Meteo
 } from "../../model/meteo";
@@ -34,27 +34,24 @@ const MeteoPage = create(
     let [kind, setKind] = useState<MeteoKind>("temperature");
     let {data, error} = useSWR("/meteo", fetchMeteos, {refreshInterval: 5 * 60 * 1000});
 
-    useEvent("keydown", (event) => {
-      if (show) {
-        let key = event.key;
-        if (key === "q") {
-          setIndex((index) => Math.max(index - 1, 0));
-        } else if (key === "a") {
-          setIndex((index) => Math.min(index + 1, 7));
-        }
-        if (key === "z") {
-          setKind("temperature");
-        } else if (key === "x") {
-          setKind("maxTemperature");
-        } else if (key === "c") {
-          setKind("minTemperature");
-        } else if (key === "v") {
-          setKind("humidity");
-        } else if (key === "b") {
-          setKind("precipitation");
-        }
+    useKeyEvent((key) => {
+      if (key === "q") {
+        setIndex((index) => Math.max(index - 1, 0));
+      } else if (key === "a") {
+        setIndex((index) => Math.min(index + 1, 7));
       }
-    });
+      if (key === "z") {
+        setKind("temperature");
+      } else if (key === "x") {
+        setKind("maxTemperature");
+      } else if (key === "c") {
+        setKind("minTemperature");
+      } else if (key === "v") {
+        setKind("humidity");
+      } else if (key === "b") {
+        setKind("precipitation");
+      }
+    }, show);
 
     let innerNode = (data !== undefined) && <MeteoPane meteo={data[index]} kind={kind}/>;
     let node = (show) && (
