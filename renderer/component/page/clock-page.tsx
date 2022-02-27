@@ -78,7 +78,7 @@ const ClockPage = create(
     useInterval(() => {
       instant.update();
       rerender();
-    }, 13);
+    }, 23);
 
     let node = (show) && (
       <div className="clock-page">
