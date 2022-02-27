@@ -17,7 +17,7 @@
   align-self: stretch;
 }
 
-.meteo-kind {
+.meteo-kind-icon {
   font-size: 17px;
   line-height: 0;
   display: flex;
@@ -35,42 +35,11 @@
 }
 
 .meteo-left {
-  line-height: 0;
   align-self: center;
+  line-height: 0;
 }
 
-.meteo-icon {
+.meteo-weather-icon {
   font-size: 45px;
-}
-
-.meteo-value-number >* >* {
-  width: 0.55em;
-}
-
-.meteo-value-number >* >*[data-content="−"] {
-  vertical-align: 0.05em;
-  line-height: 0;
-}
-
-.meteo-value-number >* >*[data-content="."] {
-  margin: 0em -0.02em 0em 0.02em;
-  width: 0.3em;
-  vertical-align: 0em;
-  line-height: 0;
-}
-
-.meteo-value-unit >* >*[data-content="°"] {
-  margin: 0em 0em 0em div(0.08em, 1);
-  vertical-align: -0.02em;
-  line-height: 0;
-}
-
-.meteo-value-unit >* >*[data-content="%"] {
-  margin: 0em 0em 0em div(0.1em, 0.8);
-  font-size: 80%;
-}
-
-.meteo-value-none >* >*[data-content="—"] {
-  vertical-align: 0.05em;
   line-height: 0;
 }

@@ -68,7 +68,7 @@ const MeteoPane = create(
               <Letter string={value ?? 0} decimalLength={decimalLength} split={true}/>
             </span>
             <span className="meteo-value-unit">
-              <Letter string={unit}/>
+              <Letter string={unit} unit={true}/>
             </span>
           </div>
         );
@@ -88,13 +88,13 @@ const MeteoPane = create(
       <div className="meteo">
         <div className="meteo-date">
           {dateFullNode}
-          <div className="meteo-kind">
+          <div className="meteo-kind-icon">
             {iconNode}
           </div>
         </div>
         <div className="meteo-main">
           <div className="meteo-left">
-            <span className="meteo-icon">
+            <span className="meteo-weather-icon">
               <Icon name={meteo.weatherIconName}/>
             </span>
           </div>

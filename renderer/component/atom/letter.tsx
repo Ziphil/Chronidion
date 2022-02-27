@@ -19,12 +19,14 @@ const Letter = create(
     string,
     length,
     decimalLength,
-    split = false
+    split = false,
+    unit = false
   }: {
     string: string | number,
     length?: number,
     decimalLength?: number
-    split?: boolean
+    split?: boolean,
+    unit?: boolean
   }): ReactElement {
 
     let actualString = useMemo(() => {
@@ -50,17 +52,21 @@ const Letter = create(
         return actualString;
       }
     }, [string, length]);
-    let innerNode = (() => {
-      if (split) {
-        let innerNode = actualString.split("").map((char, index) => <span key={index} className="letter-char" {...DataUtil.create({content: char})}>{char}</span>);
-        return innerNode;
-      } else {
-        return <span className="letter-char" {...DataUtil.create({content: actualString})}>{actualString}</span>;
-      }
-    })();
+    let chars = (split) ? actualString.split("") : [actualString];
+    let innerNodes = chars.map((char, index) => {
+      let data = DataUtil.create({
+        content: char,
+        numeral: {if: char.match(/^\d$/) !== null, true: "true"},
+        unit: {if: unit, true: "true"}
+      });
+      let innerNode = (
+        <span key={index} className="letter-char" {...data}>{char}</span>
+      );
+      return innerNode;
+    });
     let node = (
       <span className="letter">
-        {innerNode}
+        {innerNodes}
       </span>
     );
     return node;
