@@ -112,9 +112,9 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): [iconNode: ReactElemen
   if (kind === "temperature") {
     return [<Icon name="temperature-half"/>, meteo.temperatures.day, 1, "°"];
   } else if (kind === "maxTemperature") {
-    return [<><Icon name="angles-up"/><Icon name="temperature-half"/></>, meteo.temperatures.max, 1, "°"];
+    return [<><Icon name="angles-up"/><Icon name="temperature-full"/></>, meteo.temperatures.max, 1, "°"];
   } else if (kind === "minTemperature") {
-    return [<><Icon name="angles-down"/><Icon name="temperature-half"/></>, meteo.temperatures.min, 1, "°"];
+    return [<><Icon name="angles-down"/><Icon name="temperature-empty"/></>, meteo.temperatures.min, 1, "°"];
   } else if (kind === "humidity") {
     return [<Icon name="water"/>, Math.round(meteo.humidity), undefined, "%"];
   } else if (kind === "precipitation") {
