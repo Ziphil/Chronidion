@@ -10,6 +10,9 @@ import {
   useEvent
 } from "react-use";
 import {
+  useKeyEvent
+} from "../hook";
+import {
   GregorianInstant,
   HairianInstant,
   StopwatchInstant
@@ -33,8 +36,7 @@ const Root = create(
 
     let [mode, setMode] = useState<PageMode>("gregorian");
 
-    useEvent("keydown", (event) => {
-      let key = event.key;
+    useKeyEvent((key) => {
       let query = queryParser.parse(window.location.search);
       let id = (typeof query.idString === "string") ? parseInt(query.idString) : -1;
       if (key === "F5") {
@@ -42,10 +44,9 @@ const Root = create(
       } else if (key === "F12") {
         window.api.send("open-dev-tools", id);
       }
-    });
+    }, true);
 
-    useEvent("keydown", (event) => {
-      let key = event.key;
+    useKeyEvent((key) => {
       if (key === "1") {
         setMode(PageModeUtil.cast(0));
       } else if (key === "2") {
@@ -55,7 +56,7 @@ const Root = create(
       } else if (key === "4") {
         setMode(PageModeUtil.cast(3));
       }
-    });
+    }, true);
 
     let node = (
       <div className="main">
