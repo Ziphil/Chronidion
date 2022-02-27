@@ -14,6 +14,9 @@ import {
 import {
   join as joinPath
 } from "path";
+import {
+  get as getSystemInfo
+} from "systeminformation";
 
 
 const COMMON_WINDOW_OPTIONS = {
