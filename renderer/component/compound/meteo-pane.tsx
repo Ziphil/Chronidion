@@ -28,7 +28,7 @@ const MeteoPane = create(
     kind: MeteoKind
   }): ReactElement {
 
-    let [iconNode, value, decimalLength, unit] = getMeteoKindSpec(meteo, kind);
+    let {iconNode, value, decimalLength, unit} = getMeteoKindSpec(meteo, kind);
     let dateFullNode = (() => {
       if (meteo.date === undefined) {
         let dateFullNode = (
@@ -108,19 +108,55 @@ const MeteoPane = create(
 );
 
 
-function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): [iconNode: ReactElement, value: number | undefined, decimalLength: number | undefined, unit: string] {
+function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElement, value: number | undefined, decimalLength: number | undefined, unit: string} {
   if (kind === "temperature") {
-    return [<Icon name="temperature-half"/>, meteo.temperatures.day, 1, "°"];
+    let spec = {
+      iconNode: <Icon name="temperature-half"/>,
+      value: meteo.temperatures.day,
+      decimalLength: 1,
+      unit: "°"
+    };
+    return spec;
   } else if (kind === "maxTemperature") {
-    return [<><Icon name="angles-up"/><Icon name="temperature-full"/></>, meteo.temperatures.max, 1, "°"];
+    let spec = {
+      iconNode: <><Icon name="angles-up"/><Icon name="temperature-full"/></>,
+      value: meteo.temperatures.max,
+      decimalLength: 1,
+      unit: "°"
+    };
+    return spec;
   } else if (kind === "minTemperature") {
-    return [<><Icon name="angles-down"/><Icon name="temperature-empty"/></>, meteo.temperatures.min, 1, "°"];
+    let spec = {
+      iconNode: <><Icon name="angles-down"/><Icon name="temperature-empty"/></>,
+      value: meteo.temperatures.min,
+      decimalLength: 1,
+      unit: "°"
+    };
+    return spec;
   } else if (kind === "humidity") {
-    return [<Icon name="water"/>, Math.round(meteo.humidity), undefined, "%"];
+    let spec = {
+      iconNode: <Icon name="water"/>,
+      value: Math.round(meteo.humidity),
+      decimalLength: undefined,
+      unit: "%"
+    };
+    return spec;
   } else if (kind === "precipitation") {
-    return [<Icon name="droplet"/>, meteo.precipitation && Math.round(meteo.precipitation), undefined, "%"];
+    let spec = {
+      iconNode: <Icon name="droplet"/>,
+      value: meteo.precipitation && Math.round(meteo.precipitation),
+      decimalLength: undefined,
+      unit: "%"
+    };
+    return spec;
   } else {
-    return [<></>, undefined, undefined, ""];
+    let spec = {
+      iconNode: <></>,
+      value: undefined,
+      decimalLength: undefined,
+      unit: ""
+    };
+    return spec;
   }
 }
 
