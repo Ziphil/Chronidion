@@ -12,7 +12,8 @@ import {
   useKeyEvent
 } from "../../hook";
 import {
-  SystemInfo
+  SystemInfo,
+  SystemInfoFactory
 } from "../../model/system-info";
 import {
   MeteoKind
@@ -63,7 +64,7 @@ async function fetchSystemInfo(): Promise<SystemInfo> {
     cpuTemperature: "*",
     mem: "*"
   });
-  let info = SystemInfo.fromData(data);
+  let info = SystemInfoFactory.fromData(data);
   return info;
 }
 

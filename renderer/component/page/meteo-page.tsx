@@ -11,7 +11,8 @@ import {
   useKeyEvent
 } from "../../hook";
 import {
-  Meteo
+  Meteo,
+  MeteoFactory
 } from "../../model/meteo";
 import MeteoPane from "../compound/meteo-pane";
 import {
@@ -68,8 +69,8 @@ const MeteoPage = create(
 async function fetchMeteos(): Promise<Array<Meteo>> {
   let url = "https://api.openweathermap.org/data/2.5";
   let key = process.env["WEATHER_KEY"];
-  let currentPromise = axios.get(`${url}/weather?lat=35.6895&lon=139.6917&units=metric&appid=${key}`).then((response) => Meteo.fromCurrentData(response.data));
-  let forecastPromise = axios.get(`${url}/forecast/daily?lat=35.6895&lon=139.6917&cnt=7&units=metric&appid=${key}`).then((response) => Meteo.fromForecastData(response.data));
+  let currentPromise = axios.get(`${url}/weather?lat=35.6895&lon=139.6917&units=metric&appid=${key}`).then((response) => MeteoFactory.fromCurrentData(response.data));
+  let forecastPromise = axios.get(`${url}/forecast/daily?lat=35.6895&lon=139.6917&cnt=7&units=metric&appid=${key}`).then((response) => MeteoFactory.fromForecastData(response.data));
   let [currentMeteo, forecastMeteos] = await Promise.all([currentPromise, forecastPromise]);
   console.log([currentMeteo, ...forecastMeteos]);
   return [currentMeteo, ...forecastMeteos];

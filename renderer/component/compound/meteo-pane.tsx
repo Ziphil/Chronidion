@@ -95,7 +95,7 @@ const MeteoPane = create(
         <div className="meteo-main">
           <div className="meteo-left">
             <span className="meteo-weather-icon">
-              <Icon name={meteo.weatherIconName}/>
+              <Icon name={meteo.weather.iconName}/>
             </span>
           </div>
           {rightNode}

@@ -1,14 +1,15 @@
 //
 
 
-export class SystemInfo {
+export interface SystemInfo {
 
-  public readonly cpu!: {load?: number, speed?: number, temperature?: number};
-  public readonly memory!: {usedSize?: number, ratio?: number};
+  readonly cpu: {load?: number, speed?: number, temperature?: number};
+  readonly memory: {usedSize?: number, ratio?: number};
 
-  private constructor(object: any) {
-    Object.assign(this, object);
-  }
+}
+
+
+export class SystemInfoFactory {
 
   public static fromData(data: any): SystemInfo {
     let cpu = {
@@ -20,7 +21,7 @@ export class SystemInfo {
       usedSize: data.mem.used / (1024 * 1024 * 1024),
       ratio: data.mem.used / data.mem.total * 100
     };
-    let info = new SystemInfo({cpu, memory});
+    let info = {cpu, memory};
     return info;
   }
 
