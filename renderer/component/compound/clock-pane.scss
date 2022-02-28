@@ -1,34 +1,31 @@
 @charset "utf-8";
 
 
-.clock {
+.pane {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.clock-date {
+.pane-head {
   font-size: 20px;
   display: flex;
   justify-content: space-between;
   align-self: stretch;
 }
 
-.clock-time {
+.pane-main {
   margin-top: 2px;
   margin-bottom: -4px;
   font-size: 54px;
-  align-self: flex-end;
+  display: flex;
+  justify-content: space-between;
+  align-self: stretch;
 }
 
-.clock-hairia-prefix >* >* {
+.clock-hairia-prefix >* {
   font-size: 70%;
   vertical-align: 0.3em;
   line-height: 0;
-}
-
-.clock-year[data-type="prefixed"] >*:nth-child(1) >* {
-  width: div(0.55em * 2, 0.8);
-  font-size: 80%;
 }

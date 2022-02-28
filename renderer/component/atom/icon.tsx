@@ -18,13 +18,15 @@ import {
 const Icon = create(
   "Icon",
   function ({
-    name
+    name,
+    className
   }: {
-    name: IconName
+    name: IconName,
+    className?: string
   }): ReactElement {
 
     let node = (
-      <span className="icon">
+      <span className={"icon" + ((className) ? ` ${className}` : "")}>
         <FontAwesomeIcon icon={name}/>
       </span>
     );

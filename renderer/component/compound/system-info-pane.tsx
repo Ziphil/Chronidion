@@ -2,6 +2,7 @@
 
 import * as react from "react";
 import {
+  Fragment,
   ReactElement
 } from "react";
 import {
@@ -29,42 +30,41 @@ const SystemInfoPane = create(
   }): ReactElement {
 
     let {iconNode, value, decimalLength, unit} = getSystemInfoKindSpec(info, kind);
-    let rightNode = (() => {
+    let rightMainNode = (() => {
       if (value !== undefined) {
-        let rightNode = (
-          <div className="meteo-right">
-            <span className="meteo-value-number">
-              <Letter string={value ?? 0} decimalLength={decimalLength} split={true}/>
-            </span>
-            <span className="meteo-value-unit">
-              <Letter string={unit} unit={true}/>
-            </span>
-          </div>
+        let rightMainNode = (
+          <Fragment>
+            <Letter string={value ?? 0} decimalLength={decimalLength} split={true}/>
+            <Letter string={unit} unit={true}/>
+          </Fragment>
         );
-        return rightNode;
+        return rightMainNode;
       } else {
-        let rightNode = (
-          <div className="meteo-right">
-            <span className="meteo-value-none">
-              <Letter string="—"/>
-            </span>
-          </div>
+        let rightMainNode = (
+          <Fragment>
+            <Letter string="—"/>
+          </Fragment>
         );
-        return rightNode;
+        return rightMainNode;
       }
     })();
     let node = (
-      <div className="meteo">
-        <div className="meteo-date">
-          <div className="meteo-date-current">
-            System
+      <div className="pane">
+        <div className="pane-head">
+          <div className="pane-head-left">
+            <Letter string="System"/>
           </div>
-          <div className="meteo-kind-icon">
-            {iconNode}
+          <div className="pane-head-right">
+            <span className="pane-head-icon">
+              {iconNode}
+            </span>
           </div>
         </div>
-        <div className="clock-time">
-          {rightNode}
+        <div className="pane-main">
+          <div className="pane-main-left"/>
+          <div className="pane-main-right">
+            {rightMainNode}
+          </div>
         </div>
       </div>
     );

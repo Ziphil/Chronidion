@@ -56,7 +56,7 @@ const MeteoPage = create(
 
     let innerNode = (data !== undefined) && <MeteoPane meteo={data[index]} kind={kind}/>;
     let node = (show) && (
-      <div className="meteo-page">
+      <div className="page">
         {innerNode}
       </div>
     );

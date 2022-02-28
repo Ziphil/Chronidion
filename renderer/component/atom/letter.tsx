@@ -20,13 +20,15 @@ const Letter = create(
     length,
     decimalLength,
     split = false,
-    unit = false
+    unit = false,
+    className
   }: {
     string: string | number,
     length?: number,
     decimalLength?: number
     split?: boolean,
-    unit?: boolean
+    unit?: boolean,
+    className?: string
   }): ReactElement {
 
     let actualString = useMemo(() => {
@@ -65,7 +67,7 @@ const Letter = create(
       return innerNode;
     });
     let node = (
-      <span className="letter">
+      <span className={"letter" + ((className) ? ` ${className}` : "")}>
         {innerNodes}
       </span>
     );

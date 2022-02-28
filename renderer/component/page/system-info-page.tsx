@@ -48,7 +48,7 @@ const SystemInfoPage = create(
 
     let innerNode = (info !== null) && <SystemInfoPane info={info} kind={kind}/>;
     let node = (show) && (
-      <div className="system-info-page">
+      <div className="page">
         {innerNode}
       </div>
     );

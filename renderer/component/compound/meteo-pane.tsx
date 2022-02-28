@@ -2,6 +2,7 @@
 
 import * as react from "react";
 import {
+  Fragment,
   ReactElement
 } from "react";
 import {
@@ -29,76 +30,66 @@ const MeteoPane = create(
   }): ReactElement {
 
     let {iconNode, value, decimalLength, unit} = getMeteoKindSpec(meteo, kind);
-    let dateFullNode = (() => {
+    let leftHeadNode = (() => {
       if (meteo.date === undefined) {
-        let dateFullNode = (
-          <div className="meteo-date-current">
+        let leftHeadNode = (
+          <Fragment>
             <Letter string="Current"/>
-          </div>
+          </Fragment>
         );
-        return dateFullNode;
+        return leftHeadNode;
       } else {
-        let dateFullNode = (
-          <div className="clock-date-full">
-            <span className="clock-year">
-              <Letter string={meteo.date.year()} length={4} split={true}/>
-            </span>
-            <span className="clock-separator">
-              <Letter string="/"/>
-            </span>
-            <span className="clock-month">
-              <Letter string={meteo.date.month() + 1} length={2} split={true}/>
-            </span>
-            <span className="clock-separator">
-              <Letter string="/"/>
-            </span>
-            <span className="clock-day">
-              <Letter string={meteo.date.date()} length={2} split={true}/>
-            </span>
-          </div>
+        let leftHeadNode = (
+          <Fragment>
+            <Letter string={meteo.date.year() % 100} length={2} split={true}/>
+            <Letter string="/"/>
+            <Letter string={meteo.date.month() + 1} length={2} split={true}/>
+            <Letter string="/"/>
+            <Letter string={meteo.date.date()} length={2} split={true}/>
+          </Fragment>
         );
-        return dateFullNode;
+        return leftHeadNode;
       }
     })();
-    let rightNode = (() => {
+    let rightMainNode = (() => {
       if (value !== undefined) {
-        let rightNode = (
-          <div className="meteo-right">
-            <span className="meteo-value-number">
-              <Letter string={value ?? 0} decimalLength={decimalLength} split={true}/>
-            </span>
-            <span className="meteo-value-unit">
-              <Letter string={unit} unit={true}/>
-            </span>
-          </div>
+        let rightMainNode = (
+          <Fragment>
+            <Letter string={value ?? 0} decimalLength={decimalLength} split={true}/>
+            <Letter string={unit} unit={true}/>
+          </Fragment>
         );
-        return rightNode;
+        return rightMainNode;
       } else {
-        let rightNode = (
-          <div className="meteo-right">
-            <span className="meteo-value-none">
-              <Letter string="—"/>
-            </span>
-          </div>
+        let rightMainNode = (
+          <Fragment>
+            <Letter string="—"/>
+          </Fragment>
         );
-        return rightNode;
+        return rightMainNode;
       }
     })();
     let node = (
-      <div className="meteo">
-        <div className="meteo-date">
-          {dateFullNode}
-          <div className="meteo-kind-icon">
-            {iconNode}
+      <div className="pane">
+        <div className="pane-head">
+          <div className="pane-head-left">
+            {leftHeadNode}
+          </div>
+          <div className="pane-head-right">
+            <span className="pane-head-icon">
+              {iconNode}
+            </span>
           </div>
         </div>
-        <div className="meteo-main">
-          <div className="meteo-left">
-            <span className="meteo-weather-icon">
+        <div className="pane-main">
+          <div className="pane-main-left">
+            <span className="pane-main-icon">
               <Icon name={meteo.weather.iconName}/>
             </span>
           </div>
-          {rightNode}
+          <div className="pane-main-right">
+            {rightMainNode}
+          </div>
         </div>
       </div>
     );

@@ -81,7 +81,7 @@ const ClockPage = create(
     }, 37);
 
     let node = (show) && (
-      <div className="clock-page">
+      <div className="page">
         <ClockPane instant={instant}/>
       </div>
     );
