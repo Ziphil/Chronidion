@@ -72,13 +72,17 @@ export class Main {
   }
 
   private setupIpc(): void {
+    ipcMain.handle("get-system-info", async (event, configs) => {
+      let data = await getSystemInfo(configs);
+      return data;
+    });
     ipcMain.on("resize", (event, id, width, height) => {
       let window = this.windows.get(id);
       if (window !== undefined) {
         window.setContentSize(width, height);
       }
     });
-    ipcMain.on("open-dev-tools", (event, id, width, height) => {
+    ipcMain.on("open-dev-tools", (event, id) => {
       let window = this.windows.get(id);
       if (window !== undefined) {
         window.webContents.openDevTools();

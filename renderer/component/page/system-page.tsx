@@ -1,6 +1,5 @@
 //
 
-import axios from "axios";
 import * as react from "react";
 import {
   ReactElement,
@@ -13,8 +12,8 @@ import {
   useKeyEvent
 } from "../../hook";
 import {
-  Meteo
-} from "../../model/meteo";
+  SystemInfo
+} from "../../model/system-info";
 import {
   MeteoKind
 } from "../compound/meteo-pane";
@@ -32,14 +31,20 @@ const SystemPage = create(
   }): ReactElement | null {
 
     let [kind, setKind] = useState<MeteoKind>("temperature");
+    let [info, setInfo] = useState<SystemInfo | null>(null);
 
     useKeyEvent((key) => {
     }, show);
 
     useInterval(async () => {
+      if (show) {
+        let info = await fetchSystemInfo();
+        console.log(info);
+        setInfo(info);
+      }
     }, 1000);
 
-    let innerNode = null;
+    let innerNode = (info !== null) && null;
     let node = (show) && (
       <div className="system-page">
         {innerNode}
@@ -51,14 +56,15 @@ const SystemPage = create(
 );
 
 
-async function fetchMeteos(): Promise<Array<Meteo>> {
-  let url = "https://api.openweathermap.org/data/2.5";
-  let key = process.env["WEATHER_KEY"];
-  let currentPromise = axios.get(`${url}/weather?lat=35.6895&lon=139.6917&units=metric&appid=${key}`).then((response) => Meteo.fromCurrentData(response.data));
-  let forecastPromise = axios.get(`${url}/forecast/daily?lat=35.6895&lon=139.6917&cnt=7&units=metric&appid=${key}`).then((response) => Meteo.fromForecastData(response.data));
-  let [currentMeteo, forecastMeteos] = await Promise.all([currentPromise, forecastPromise]);
-  console.log([currentMeteo, ...forecastMeteos]);
-  return [currentMeteo, ...forecastMeteos];
+async function fetchSystemInfo(): Promise<SystemInfo> {
+  let data = await window.api.invoke("get-system-info", {
+    currentLoad: "*",
+    cpuCurrentSpeed: "*",
+    cpuTemperature: "*",
+    mem: "*"
+  });
+  let info = SystemInfo.fromData(data);
+  return info;
 }
 
 export default SystemPage;
