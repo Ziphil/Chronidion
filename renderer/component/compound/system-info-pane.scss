@@ -1,0 +1,45 @@
+@charset "utf-8";
+
+@use "sass:math" as *;
+
+
+.meteo {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.meteo-date {
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-self: stretch;
+}
+
+.meteo-kind-icon {
+  font-size: 17px;
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.2em;
+}
+
+.meteo-main {
+  margin-top: 2px;
+  margin-bottom: -4px;
+  font-size: 54px;
+  display: flex;
+  justify-content: space-between;
+  align-self: stretch;
+}
+
+.meteo-left {
+  align-self: center;
+  line-height: 0;
+}
+
+.meteo-weather-icon {
+  font-size: 45px;
+  line-height: 0;
+}

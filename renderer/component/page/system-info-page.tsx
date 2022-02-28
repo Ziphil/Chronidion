@@ -15,23 +15,24 @@ import {
   SystemInfo,
   SystemInfoFactory
 } from "../../model/system-info";
+import SystemInfoPane from "../compound/system-info-pane";
 import {
-  MeteoKind
-} from "../compound/meteo-pane";
+  SystemInfoKind
+} from "../compound/system-info-pane";
 import {
   create
 } from "../create";
 
 
-const SystemPage = create(
-  "SystemPage",
+const SystemInfoPage = create(
+  "SystemInfoPage",
   function ({
     show
   }: {
     show: boolean
   }): ReactElement | null {
 
-    let [kind, setKind] = useState<MeteoKind>("temperature");
+    let [kind, setKind] = useState<SystemInfoKind>("cpuLoad");
     let [info, setInfo] = useState<SystemInfo | null>(null);
 
     useKeyEvent((key) => {
@@ -45,9 +46,9 @@ const SystemPage = create(
       }
     }, 1000);
 
-    let innerNode = (info !== null) && null;
+    let innerNode = (info !== null) && <SystemInfoPane info={info} kind={kind}/>;
     let node = (show) && (
-      <div className="system-page">
+      <div className="system-info-page">
         {innerNode}
       </div>
     );
@@ -68,4 +69,4 @@ async function fetchSystemInfo(): Promise<SystemInfo> {
   return info;
 }
 
-export default SystemPage;
+export default SystemInfoPage;

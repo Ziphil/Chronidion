@@ -7,9 +7,6 @@ import {
   useState
 } from "react";
 import {
-  useEvent
-} from "react-use";
-import {
   useKeyEvent
 } from "../hook";
 import {
@@ -26,7 +23,7 @@ import {
 } from "./create";
 import ClockPage from "./page/clock-page";
 import MeteoPage from "./page/meteo-page";
-import SystemPage from "./page/system-page";
+import SystemInfoPage from "./page/system-info-page";
 
 
 const Root = create(
@@ -68,7 +65,7 @@ const Root = create(
           <ClockPage initialInstant={new HairianInstant()} show={mode === "hairian"}/>
           <ClockPage initialInstant={new StopwatchInstant()} show={mode === "stopwatch"}/>
           <MeteoPage show={mode === "meteo"}/>
-          <SystemPage show={mode === "system"}/>
+          <SystemInfoPage show={mode === "systemInfo"}/>
         </div>
         <div className="menu-container">
         </div>
@@ -80,7 +77,7 @@ const Root = create(
 );
 
 
-const PAGE_MODES = ["gregorian", "hairian", "stopwatch", "meteo", "system"] as const;
+const PAGE_MODES = ["gregorian", "hairian", "stopwatch", "meteo", "systemInfo"] as const;
 export let PageModeUtil = LiteralUtilType.create(PAGE_MODES);
 export type PageMode = LiteralType<typeof PAGE_MODES>;
 
