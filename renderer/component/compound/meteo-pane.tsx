@@ -102,41 +102,41 @@ const MeteoPane = create(
 function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElement, value: number | undefined, decimalLength: number | undefined, unit: string} {
   if (kind === "temperature") {
     let spec = {
-      iconNode: <Icon name="temperature-half"/>,
-      value: Math.round(meteo.temperatures.day),
-      decimalLength: undefined,
+      iconNode: <><Icon name="temperature-half"/></>,
+      value: meteo.temperatures.day,
+      decimalLength: 1,
       unit: "°C"
     };
     return spec;
   } else if (kind === "maxTemperature") {
     let spec = {
       iconNode: <><Icon name="angles-up"/><Icon name="temperature-full"/></>,
-      value: meteo.temperatures.max && Math.round(meteo.temperatures.max),
-      decimalLength: undefined,
+      value: meteo.temperatures.max,
+      decimalLength: 1,
       unit: "°C"
     };
     return spec;
   } else if (kind === "minTemperature") {
     let spec = {
       iconNode: <><Icon name="angles-down"/><Icon name="temperature-empty"/></>,
-      value: meteo.temperatures.min && Math.round(meteo.temperatures.min),
-      decimalLength: undefined,
+      value: meteo.temperatures.min,
+      decimalLength: 1,
       unit: "°C"
     };
     return spec;
   } else if (kind === "humidity") {
     let spec = {
-      iconNode: <Icon name="water"/>,
-      value: Math.round(meteo.humidity),
-      decimalLength: undefined,
+      iconNode: <><Icon name="water"/></>,
+      value: meteo.humidity,
+      decimalLength: 0,
       unit: "%"
     };
     return spec;
   } else if (kind === "precipitation") {
     let spec = {
-      iconNode: <Icon name="droplet"/>,
-      value: meteo.precipitation && Math.round(meteo.precipitation),
-      decimalLength: undefined,
+      iconNode: <><Icon name="droplet"/></>,
+      value: meteo.precipitation,
+      decimalLength: 0,
       unit: "%"
     };
     return spec;

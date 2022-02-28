@@ -13,18 +13,23 @@ export interface SystemInfo {
 export class SystemInfoFactory {
 
   public static fromData(data: any): SystemInfo {
+    let networkStatsData = data["networkStats"] as Array<any>;
+    let receivedBytesData = networkStatsData.map((statData) => statData["rx_sec"]);
+    let transferredBytesData = networkStatsData.map((statData) => statData["tx_sec"]);
+    let receivedByte = receivedBytesData.every((byteData) => byteData !== null) ? receivedBytesData.reduce((previous, current) => previous + current) : null;
+    let transferredByte = transferredBytesData.every((byteData) => byteData !== null) ? receivedBytesData.reduce((previous, current) => previous + current) : null;
     let cpu = {
-      load: data["currentLoad"]["currentLoad"],
-      speed: data["cpuCurrentSpeed"]["avg"],
-      temperature: data["cpuTemperature"]["main"]
+      load: data["currentLoad"]["currentLoad"] ?? undefined,
+      speed: data["cpuCurrentSpeed"]["avg"] ?? undefined,
+      temperature: data["cpuTemperature"]["main"] ?? undefined
     };
     let memory = {
-      percentage: data["mem"]["used"] / data["mem"]["total"] * 100,
-      usedSize: data["mem"]["used"] / (1024 * 1024 * 1024)
+      percentage: (data["mem"]["used"] !== null && data["mem"]["total"] !== null) ? data["mem"]["used"] / data["mem"]["total"] * 100 : undefined,
+      usedSize: (data["mem"]["used"] !== null) ? data["mem"]["used"] / (1024 * 1024 * 1024) : undefined
     };
     let network = {
-      received: data["networkStats"][0]["rx_sec"] * 8 / (1000 * 1),
-      transferred: data["networkStats"][0]["tx_sec"] * 8 / (1000 * 1)
+      received: (receivedByte !== null) ? Math.min(receivedByte / 125, 99999) : undefined,
+      transferred: (transferredByte !== null) ? Math.min(transferredByte / (125 * 1), 99999) : undefined
     };
     let info = {cpu, memory, network};
     return info;

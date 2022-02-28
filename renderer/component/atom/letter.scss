@@ -16,14 +16,8 @@
     width: 0.55em;
   }
   &[data-unit] {
-    margin: 0em 0em 0em div(0.1em, 0.8);
-    font-size: 70%;
-    &[data-content="°"] {
-      margin: 0em 0em 0em div(0.08em, 1);
-      font-size: 100%;
-      vertical-align: -0.02em;
-      line-height: 0;
-    }
+    margin: 0em 0em 0em div(0.095em, 0.55);
+    font-size: 55%;
   }
   &[data-content="−"] {
     vertical-align: 0.05em;

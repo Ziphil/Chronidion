@@ -72,7 +72,6 @@ async function fetchMeteos(): Promise<Array<Meteo>> {
   let currentPromise = axios.get(`${url}/weather?lat=35.6895&lon=139.6917&units=metric&appid=${key}`).then((response) => MeteoFactory.fromCurrentData(response.data));
   let forecastPromise = axios.get(`${url}/forecast/daily?lat=35.6895&lon=139.6917&cnt=7&units=metric&appid=${key}`).then((response) => MeteoFactory.fromForecastData(response.data));
   let [currentMeteo, forecastMeteos] = await Promise.all([currentPromise, forecastPromise]);
-  console.log([currentMeteo, ...forecastMeteos]);
   return [currentMeteo, ...forecastMeteos];
 }
 
