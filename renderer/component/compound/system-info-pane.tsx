@@ -31,7 +31,7 @@ const SystemInfoPane = create(
 
     let {iconNode, value, decimalLength, unit} = getSystemInfoKindSpec(info, kind);
     let rightMainNode = (() => {
-      if (value !== undefined) {
+      if (value !== undefined && value !== null) {
         let rightMainNode = (
           <Fragment>
             <Letter string={value ?? 0} decimalLength={decimalLength} split={true}/>
@@ -77,10 +77,42 @@ const SystemInfoPane = create(
 function getSystemInfoKindSpec(info: SystemInfo, kind: SystemInfoKind): {iconNode: ReactElement, value: number | undefined, decimalLength: number | undefined, unit: string} {
   if (kind === "cpuLoad") {
     let spec = {
-      iconNode: <><Icon name="microchip"/><Icon name="percent"/></>,
+      iconNode: <><Icon name="microchip"/></>,
       value: info.cpu.load && Math.round(info.cpu.load),
       decimalLength: undefined,
       unit: "%"
+    };
+    return spec;
+  } else if (kind === "cpuSpeed") {
+    let spec = {
+      iconNode: <><Icon name="microchip"/></>,
+      value: info.cpu.speed,
+      decimalLength: 1,
+      unit: "GHz"
+    };
+    return spec;
+  } else if (kind === "cpuTemperature") {
+    let spec = {
+      iconNode: <><Icon name="temperature-half"/><Icon name="microchip"/></>,
+      value: info.cpu.temperature && Math.round(info.cpu.temperature),
+      decimalLength: undefined,
+      unit: "°C"
+    };
+    return spec;
+  } else if (kind === "memoryPercentage") {
+    let spec = {
+      iconNode: <><Icon name="memory"/></>,
+      value: info.memory.percentage && Math.round(info.memory.percentage),
+      decimalLength: undefined,
+      unit: "%"
+    };
+    return spec;
+  } else if (kind === "memoryUsedSize") {
+    let spec = {
+      iconNode: <><Icon name="memory"/></>,
+      value: info.memory.usedSize,
+      decimalLength: 1,
+      unit: "GB"
     };
     return spec;
   } else {
@@ -94,7 +126,7 @@ function getSystemInfoKindSpec(info: SystemInfo, kind: SystemInfoKind): {iconNod
   }
 }
 
-const SYSTEM_INFO_KINDS = ["cpuLoad"] as const;
+const SYSTEM_INFO_KINDS = ["cpuLoad", "cpuSpeed", "cpuTemperature", "memoryPercentage", "memoryUsedSize"] as const;
 export let SystemInfoKindUtil = LiteralUtilType.create(SYSTEM_INFO_KINDS);
 export type SystemInfoKind = LiteralType<typeof SYSTEM_INFO_KINDS>;
 

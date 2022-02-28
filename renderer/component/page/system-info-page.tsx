@@ -3,6 +3,7 @@
 import * as react from "react";
 import {
   ReactElement,
+  useEffect,
   useState
 } from "react";
 import {
@@ -36,13 +37,26 @@ const SystemInfoPage = create(
     let [info, setInfo] = useState<SystemInfo | null>(null);
 
     useKeyEvent((key) => {
+      if (key === "z") {
+        setKind("cpuLoad");
+      } else if (key === "a") {
+        setKind("cpuSpeed");
+      } else if (key === "q") {
+        setKind("cpuTemperature");
+      } else if (key === "x") {
+        setKind("memoryPercentage");
+      } else if (key === "s") {
+        setKind("memoryUsedSize");
+      }
     }, show);
+
+    useEffect(() => {
+      fetchSystemInfo().then(setInfo);
+    }, [show]);
 
     useInterval(async () => {
       if (show) {
-        let info = await fetchSystemInfo();
-        console.log(info);
-        setInfo(info);
+        fetchSystemInfo().then(setInfo);
       }
     }, 1000);
 

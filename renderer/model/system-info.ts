@@ -4,7 +4,7 @@
 export interface SystemInfo {
 
   readonly cpu: {load?: number, speed?: number, temperature?: number};
-  readonly memory: {usedSize?: number, ratio?: number};
+  readonly memory: {percentage?: number, usedSize?: number};
 
 }
 
@@ -18,8 +18,8 @@ export class SystemInfoFactory {
       temperature: data.cpuTemperature.main
     };
     let memory = {
-      usedSize: data.mem.used / (1024 * 1024 * 1024),
-      ratio: data.mem.used / data.mem.total * 100
+      percentage: data.mem.used / data.mem.total * 100,
+      usedSize: data.mem.used / (1024 * 1024 * 1024)
     };
     let info = {cpu, memory};
     return info;
