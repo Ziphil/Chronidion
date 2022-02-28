@@ -47,6 +47,10 @@ const SystemInfoPage = create(
         setKind("memoryPercentage");
       } else if (key === "s") {
         setKind("memoryUsedSize");
+      } else if (key === "c") {
+        setKind("networkReceived");
+      } else if (key === "d") {
+        setKind("networkTransferred");
       }
     }, show);
 
@@ -77,7 +81,8 @@ async function fetchSystemInfo(): Promise<SystemInfo> {
     currentLoad: "*",
     cpuCurrentSpeed: "*",
     cpuTemperature: "*",
-    mem: "*"
+    mem: "*",
+    networkStats: "*"
   });
   let info = SystemInfoFactory.fromData(data);
   return info;

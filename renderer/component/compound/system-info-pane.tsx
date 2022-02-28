@@ -115,6 +115,22 @@ function getSystemInfoKindSpec(info: SystemInfo, kind: SystemInfoKind): {iconNod
       unit: "GB"
     };
     return spec;
+  } else if (kind === "networkReceived") {
+    let spec = {
+      iconNode: <><Icon name="arrow-down"/><Icon name="wifi"/></>,
+      value: info.network.received,
+      decimalLength: 0,
+      unit: "kbps"
+    };
+    return spec;
+  } else if (kind === "networkTransferred") {
+    let spec = {
+      iconNode: <><Icon name="arrow-up"/><Icon name="wifi"/></>,
+      value: info.network.transferred,
+      decimalLength: 0,
+      unit: "kbps"
+    };
+    return spec;
   } else {
     let spec = {
       iconNode: <></>,
@@ -126,7 +142,7 @@ function getSystemInfoKindSpec(info: SystemInfo, kind: SystemInfoKind): {iconNod
   }
 }
 
-const SYSTEM_INFO_KINDS = ["cpuLoad", "cpuSpeed", "cpuTemperature", "memoryPercentage", "memoryUsedSize"] as const;
+const SYSTEM_INFO_KINDS = ["cpuLoad", "cpuSpeed", "cpuTemperature", "memoryPercentage", "memoryUsedSize", "networkReceived", "networkTransferred"] as const;
 export let SystemInfoKindUtil = LiteralUtilType.create(SYSTEM_INFO_KINDS);
 export type SystemInfoKind = LiteralType<typeof SYSTEM_INFO_KINDS>;
 
