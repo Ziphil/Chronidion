@@ -40,7 +40,7 @@ const ClockPage = create(
     let rerender = useRerender();
 
     useKeyEvent((key) => {
-      if (key === "z") {
+      if (key === "Tab") {
         instant.toggleShift();
         rerender();
       }
@@ -54,22 +54,22 @@ const ClockPage = create(
       } else if (key === "Backspace") {
         stopwatchInstant.reset();
         rerender();
-      } else if (key === "q") {
+      } else if (key === "a") {
         stopwatchInstant.addOffset(3600000);
         rerender();
-      } else if (key === "a") {
+      } else if (key === "z") {
         stopwatchInstant.addOffset(-3600000);
         rerender();
-      } else if (key === "w") {
+      } else if (key === "s") {
         stopwatchInstant.addOffset(60000);
         rerender();
-      } else if (key === "s") {
+      } else if (key === "x") {
         stopwatchInstant.addOffset(-60000);
         rerender();
-      } else if (key === "e") {
+      } else if (key === "d") {
         stopwatchInstant.addOffset(1000);
         rerender();
-      } else if (key === "d") {
+      } else if (key === "c") {
         stopwatchInstant.addOffset(-1000);
         rerender();
       }

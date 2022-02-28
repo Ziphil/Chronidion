@@ -33,28 +33,28 @@ const MeteoPage = create(
 
     let [index, setIndex] = useState(0);
     let [kind, setKind] = useState<MeteoKind>("temperature");
-    let {data, error} = useSWR("/meteo", fetchMeteos, {refreshInterval: 5 * 60 * 1000});
+    let {data: meteos} = useSWR("/meteo", fetchMeteos, {refreshInterval: 5 * 60 * 1000});
 
     useKeyEvent((key) => {
-      if (key === "q") {
+      if (key === "ArrowUp") {
         setIndex((index) => Math.max(index - 1, 0));
-      } else if (key === "a") {
+      } else if (key === "ArrowDown") {
         setIndex((index) => Math.min(index + 1, 7));
       }
       if (key === "z") {
         setKind("temperature");
-      } else if (key === "x") {
+      } else if (key === "q") {
         setKind("maxTemperature");
-      } else if (key === "c") {
+      } else if (key === "a") {
         setKind("minTemperature");
-      } else if (key === "v") {
+      } else if (key === "x") {
         setKind("humidity");
-      } else if (key === "b") {
+      } else if (key === "c") {
         setKind("precipitation");
       }
     }, show);
 
-    let innerNode = (data !== undefined) && <MeteoPane meteo={data[index]} kind={kind}/>;
+    let innerNode = (meteos !== undefined) && <MeteoPane meteo={meteos[index]} kind={kind}/>;
     let node = (show) && (
       <div className="page">
         {innerNode}
