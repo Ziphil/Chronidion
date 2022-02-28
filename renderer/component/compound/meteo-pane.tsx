@@ -112,25 +112,25 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElemen
   if (kind === "temperature") {
     let spec = {
       iconNode: <Icon name="temperature-half"/>,
-      value: meteo.temperatures.day,
-      decimalLength: 1,
-      unit: "°"
+      value: Math.round(meteo.temperatures.day),
+      decimalLength: undefined,
+      unit: "°C"
     };
     return spec;
   } else if (kind === "maxTemperature") {
     let spec = {
       iconNode: <><Icon name="angles-up"/><Icon name="temperature-full"/></>,
-      value: meteo.temperatures.max,
-      decimalLength: 1,
-      unit: "°"
+      value: meteo.temperatures.max && Math.round(meteo.temperatures.max),
+      decimalLength: undefined,
+      unit: "°C"
     };
     return spec;
   } else if (kind === "minTemperature") {
     let spec = {
       iconNode: <><Icon name="angles-down"/><Icon name="temperature-empty"/></>,
-      value: meteo.temperatures.min,
-      decimalLength: 1,
-      unit: "°"
+      value: meteo.temperatures.min && Math.round(meteo.temperatures.min),
+      decimalLength: undefined,
+      unit: "°C"
     };
     return spec;
   } else if (kind === "humidity") {
