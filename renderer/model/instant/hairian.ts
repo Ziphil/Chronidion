@@ -4,6 +4,9 @@ import {
   NewHairianDate
 } from "talqis";
 import {
+  FloorMath
+} from "../../util/floor-math";
+import {
   Instant
 } from "./instant";
 
@@ -20,6 +23,7 @@ export class HairianInstant extends Instant {
     this.year = date.getYear(shift) % 100;
     this.month = date.getMonth(shift);
     this.day = date.getDate(shift);
+    this.weekday = FloorMath.mod(date.getHairia(shift) - 1, 7) + 1;
     this.hairia = date.getHairia(shift);
     this.hours = date.getHours(shift);
     this.minutes = date.getMinutes(shift);

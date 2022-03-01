@@ -35,6 +35,8 @@ const ClockPane = create(
             <Letter string={instant.month ?? ""} length={2} split={true}/>
             <Letter string={(instant.month !== null) ? instant.monthSeparator : ""}/>
             <Letter string={instant.day ?? ""} length={2} split={true}/>
+            <Letter className="clock-weekday-separator" string={(instant.weekday !== null) ? instant.weekdaySeparator : ""}/>
+            <Letter string={instant.weekday ?? ""} length={1} split={true}/>
           </div>
           <div className="pane-head-right">
             <Letter className="clock-hairia-prefix" string={(instant.hairia !== null) ? "H" : ""}/>

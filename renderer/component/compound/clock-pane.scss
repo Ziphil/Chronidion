@@ -24,6 +24,10 @@
   align-self: stretch;
 }
 
+.clock-weekday-separator >* {
+  margin: 0em 0.05em 0em 0.09em !important;
+}
+
 .clock-hairia-prefix >* {
   font-size: 70%;
   vertical-align: 0.3em;
