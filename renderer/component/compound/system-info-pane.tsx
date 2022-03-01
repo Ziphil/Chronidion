@@ -93,7 +93,7 @@ function getSystemInfoKindSpec(info: SystemInfo, kind: SystemInfoKind): {iconNod
     return spec;
   } else if (kind === "cpuTemperature") {
     let spec = {
-      iconNode: <><Icon name="temperature-half"/><Icon name="microchip"/></>,
+      iconNode: <><Icon name="microchip"/></>,
       value: info.cpu.temperature && Math.round(info.cpu.temperature),
       decimalLength: undefined,
       unit: "°C"
