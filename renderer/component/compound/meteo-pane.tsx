@@ -64,6 +64,7 @@ const MeteoPane = create(
         let rightMainNode = (
           <Fragment>
             <Letter string="—"/>
+            <Letter string={unit} unit={true}/>
           </Fragment>
         );
         return rightMainNode;
