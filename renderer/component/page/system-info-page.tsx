@@ -40,8 +40,6 @@ const SystemInfoPage = create(
       if (key === "z") {
         setKind("cpuLoad");
       } else if (key === "a") {
-        setKind("cpuSpeed");
-      } else if (key === "q") {
         setKind("cpuTemperature");
       } else if (key === "x") {
         setKind("memoryPercentage");
@@ -51,16 +49,20 @@ const SystemInfoPage = create(
         setKind("networkReceived");
       } else if (key === "d") {
         setKind("networkTransferred");
+      } else if (key === "v") {
+        setKind("batteryPercentage");
+      } else if (key === "f") {
+        setKind("batteryTime");
       }
     }, show);
 
     useEffect(() => {
-      fetchSystemInfo().then(setInfo);
+      SystemInfoFactory.fetch().then(setInfo);
     }, [show]);
 
     useInterval(async () => {
       if (show) {
-        fetchSystemInfo().then(setInfo);
+        SystemInfoFactory.fetch().then(setInfo);
       }
     }, 1000);
 
@@ -75,17 +77,5 @@ const SystemInfoPage = create(
   }
 );
 
-
-async function fetchSystemInfo(): Promise<SystemInfo> {
-  let data = await window.api.invoke("get-system-info", {
-    currentLoad: "*",
-    cpuCurrentSpeed: "*",
-    cpuTemperature: "*",
-    mem: "*",
-    networkStats: "*"
-  });
-  let info = SystemInfoFactory.fromData(data);
-  return info;
-}
 
 export default SystemInfoPage;

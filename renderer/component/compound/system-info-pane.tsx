@@ -31,7 +31,7 @@ const SystemInfoPane = create(
 
     let {iconNode, value, decimalLength, unit} = getSystemInfoKindSpec(info, kind);
     let rightMainNode = (() => {
-      if (value !== undefined && value !== null) {
+      if (value !== undefined && value !== null && !isNaN(value)) {
         let rightMainNode = (
           <Fragment>
             <Letter string={value ?? 0} decimalLength={decimalLength} split={true}/>
@@ -131,6 +131,22 @@ function getSystemInfoKindSpec(info: SystemInfo, kind: SystemInfoKind): {iconNod
       unit: "kbps"
     };
     return spec;
+  } else if (kind === "batteryPercentage") {
+    let spec = {
+      iconNode: <><Icon name="battery-half"/></>,
+      value: info.battery.percentage,
+      decimalLength: 0,
+      unit: "%"
+    };
+    return spec;
+  } else if (kind === "batteryTime") {
+    let spec = {
+      iconNode: <><Icon name="battery-half"/></>,
+      value: info.battery.time,
+      decimalLength: 0,
+      unit: "min"
+    };
+    return spec;
   } else {
     let spec = {
       iconNode: <></>,
@@ -142,7 +158,7 @@ function getSystemInfoKindSpec(info: SystemInfo, kind: SystemInfoKind): {iconNod
   }
 }
 
-const SYSTEM_INFO_KINDS = ["cpuLoad", "cpuSpeed", "cpuTemperature", "memoryPercentage", "memoryUsedSize", "networkReceived", "networkTransferred"] as const;
+const SYSTEM_INFO_KINDS = ["cpuLoad", "cpuSpeed", "cpuTemperature", "memoryPercentage", "memoryUsedSize", "networkReceived", "networkTransferred", "batteryPercentage", "batteryTime"] as const;
 export let SystemInfoKindUtil = LiteralUtilType.create(SYSTEM_INFO_KINDS);
 export type SystemInfoKind = LiteralType<typeof SYSTEM_INFO_KINDS>;
 

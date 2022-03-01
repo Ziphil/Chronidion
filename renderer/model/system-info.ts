@@ -6,11 +6,25 @@ export interface SystemInfo {
   readonly cpu: {load?: number, speed?: number, temperature?: number};
   readonly memory: {percentage?: number, usedSize?: number};
   readonly network: {received?: number, transferred?: number};
+  readonly battery: {percentage?: number, time?: number};
 
 }
 
 
 export class SystemInfoFactory {
+
+  public static async fetch(): Promise<SystemInfo> {
+    let data = await window.api.invoke("get-system-info", {
+      currentLoad: "*",
+      cpuCurrentSpeed: "*",
+      cpuTemperature: "*",
+      mem: "*",
+      networkStats: "*",
+      battery: "*"
+    });
+    let info = SystemInfoFactory.fromData(data);
+    return info;
+  }
 
   public static fromData(data: any): SystemInfo {
     let networkStatsData = data["networkStats"] as Array<any>;
@@ -31,7 +45,11 @@ export class SystemInfoFactory {
       received: (receivedByte !== null) ? Math.min(receivedByte / 125, 99999) : undefined,
       transferred: (transferredByte !== null) ? Math.min(transferredByte / 125, 99999) : undefined
     };
-    let info = {cpu, memory, network};
+    let battery = {
+      percentage: (data["battery"]["percent"] !== null) ? data["battery"]["percent"] : undefined,
+      time: (data["battery"]["timeRemaining"] !== null) ? data["battery"]["timeRemaining"] : undefined
+    };
+    let info = {cpu, memory, network, battery};
     return info;
   }
 
