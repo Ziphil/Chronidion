@@ -15,12 +15,12 @@ export class SystemInfoFactory {
 
   public static async fetch(): Promise<SystemInfo> {
     let data = await window.api.invoke("get-system-info", {
-      currentLoad: "*",
-      cpuCurrentSpeed: "*",
-      cpuTemperature: "*",
-      mem: "*",
-      networkStats: "*",
-      battery: "*"
+      currentLoad: "currentLoad",
+      cpuCurrentSpeed: "avg",
+      cpuTemperature: "main",
+      mem: "used, total",
+      networkStats: "rx_sec, tx_sec",
+      battery: "percent, timeRemaining"
     });
     let info = SystemInfoFactory.fromData(data);
     return info;
