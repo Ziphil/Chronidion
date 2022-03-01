@@ -17,7 +17,7 @@ export class SystemInfoFactory {
     let receivedBytesData = networkStatsData.map((statData) => statData["rx_sec"]);
     let transferredBytesData = networkStatsData.map((statData) => statData["tx_sec"]);
     let receivedByte = receivedBytesData.every((byteData) => byteData !== null) ? receivedBytesData.reduce((previous, current) => previous + current) : null;
-    let transferredByte = transferredBytesData.every((byteData) => byteData !== null) ? receivedBytesData.reduce((previous, current) => previous + current) : null;
+    let transferredByte = transferredBytesData.every((byteData) => byteData !== null) ? transferredBytesData.reduce((previous, current) => previous + current) : null;
     let cpu = {
       load: data["currentLoad"]["currentLoad"] ?? undefined,
       speed: data["cpuCurrentSpeed"]["avg"] ?? undefined,
@@ -29,7 +29,7 @@ export class SystemInfoFactory {
     };
     let network = {
       received: (receivedByte !== null) ? Math.min(receivedByte / 125, 99999) : undefined,
-      transferred: (transferredByte !== null) ? Math.min(transferredByte / (125 * 1), 99999) : undefined
+      transferred: (transferredByte !== null) ? Math.min(transferredByte / 125, 99999) : undefined
     };
     let info = {cpu, memory, network};
     return info;
