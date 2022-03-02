@@ -49,10 +49,6 @@ const SystemInfoPage = create(
         setKind("networkReceived");
       } else if (key === "d") {
         setKind("networkTransferred");
-      } else if (key === "v") {
-        setKind("batteryPercentage");
-      } else if (key === "f") {
-        setKind("batteryTime");
       }
     }, show);
 

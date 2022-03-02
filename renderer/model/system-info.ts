@@ -19,8 +19,7 @@ export class SystemInfoFactory {
       cpuCurrentSpeed: "avg",
       cpuTemperature: "main",
       mem: "used, total",
-      networkStats: "rx_sec, tx_sec",
-      battery: "percent, timeRemaining"
+      networkStats: "rx_sec, tx_sec"
     });
     let info = SystemInfoFactory.fromData(data);
     return info;
@@ -46,8 +45,8 @@ export class SystemInfoFactory {
       transferred: (transferredByte !== null) ? Math.min(transferredByte / 125, 99999) : undefined
     };
     let battery = {
-      percentage: (data["battery"]["percent"] !== null) ? data["battery"]["percent"] : undefined,
-      time: (data["battery"]["timeRemaining"] !== null) ? data["battery"]["timeRemaining"] : undefined
+      percentage: (false) ? data["battery"]["percent"] : undefined,
+      time: (false) ? data["battery"]["timeRemaining"] : undefined
     };
     let info = {cpu, memory, network, battery};
     return info;
