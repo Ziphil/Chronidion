@@ -11,9 +11,13 @@
 @import "./compound/system-info-pane.scss";
 
 
+html {
+  font-size: min(100vw / 241, 100vh / 95);
+}
+
 body {
-  margin: 0px;
-  padding: 0px;
+  margin: 0rem;
+  padding: 0rem;
   font-family: "Jost";
   font-weight: 300;
   line-height: 1;
@@ -25,19 +29,21 @@ body {
 .main {
   width: 100vw;
   height: 100vh;
-  border-radius: 10px;
+  border-radius: 10rem;
+  background: hsla(0, 0%, 0%, 0.7);
   display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  -webkit-app-region: drag;
 }
 
 .page-container {
-  background: hsla(0, 0%, 0%, 0.7);
-  flex-grow: 1;
+  width: 241rem;
+  height: 95rem;
 }
 
 .menu-container {
-  flex-basis: 0px;
+  flex-basis: 0rem;
   flex-grow: 0;
   flex-shrink: 0;
   background: hsla(0, 0%, 0%, 0.8);

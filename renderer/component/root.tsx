@@ -39,6 +39,8 @@ const Root = create(
       let id = (typeof query.idString === "string") ? parseInt(query.idString) : -1;
       if (key === "F5") {
         window.api.send("move-default-position", id);
+      } else if (key === "F11") {
+        window.api.send("maximize", id);
       } else if (key === "F12") {
         window.api.send("open-dev-tools", id);
       }

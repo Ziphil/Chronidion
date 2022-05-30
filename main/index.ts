@@ -24,10 +24,10 @@ const COMMON_WINDOW_OPTIONS = {
   frame: false,
   toolbar: false,
   alwaysOnTop: true,
-  resizable: false,
+  resizable: true,
   minimizable: true,
-  maximizable: false,
-  fullscreenable: false,
+  maximizable: true,
+  fullscreenable: true,
   autoHideMenuBar: true,
   acceptFirstMouse: true,
   useContentSize: true,
@@ -82,6 +82,12 @@ export class Main {
         window.setContentSize(width, height);
       }
     });
+    ipcMain.on("maximize", (event, id, width, height) => {
+      let window = this.windows.get(id);
+      if (window !== undefined) {
+        window.maximize();
+      }
+    });
     ipcMain.on("open-dev-tools", (event, id) => {
       let window = this.windows.get(id);
       if (window !== undefined) {
@@ -123,6 +129,7 @@ export class Main {
   }
 
   private moveDefaultPosition(window: BrowserWindow): void {
+    window.setSize(241, 95);
     let displayBounds = screen.getPrimaryDisplay().bounds;
     let windowBounds = window.getBounds();
     let x = displayBounds.width - windowBounds.width - 15;
