@@ -13,10 +13,10 @@
   display: inline-block;
   transform: skew(-2deg, 0deg);
   &[data-numeral] {
-    width: 0.55em;
+    inline-size: 0.55em;
   }
   &[data-unit] {
-    margin-inline-start: div(0.095em, 0.55);
+    margin-inline-start: div(0.09em, 0.55);
     margin-inline-end: -0.05em;
     letter-spacing: 0.05em;
     font-size: 55%;

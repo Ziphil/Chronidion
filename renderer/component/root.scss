@@ -27,8 +27,8 @@ body {
 }
 
 .main {
-  width: 100vw;
-  height: 100vh;
+  inline-size: 100vw;
+  block-size: 100vh;
   border-radius: 10rem;
   background: hsla(0, 0%, 0%, 0.7);
   display: flex;
@@ -38,8 +38,8 @@ body {
 }
 
 .page-container {
-  width: 241rem;
-  height: 98rem;
+  inline-size: 241rem;
+  block-size: 98rem;
 }
 
 .menu-container {
