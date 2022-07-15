@@ -30,51 +30,23 @@ const MeteoPane = create(
   }): ReactElement {
 
     let {iconNode, value, decimalLength, unit} = getMeteoKindSpec(meteo, kind);
-    let leftHeadNode = (() => {
-      if (meteo.date === undefined) {
-        let leftHeadNode = (
-          <Fragment>
-            <Letter string="Current"/>
-          </Fragment>
-        );
-        return leftHeadNode;
-      } else {
-        let leftHeadNode = (
-          <Fragment>
-            <Letter string={meteo.date.year() % 100} length={2} split={true}/>
-            <Letter string="/"/>
-            <Letter string={meteo.date.month() + 1} length={2} split={true}/>
-            <Letter string="/"/>
-            <Letter string={meteo.date.date()} length={2} split={true}/>
-          </Fragment>
-        );
-        return leftHeadNode;
-      }
-    })();
-    let rightMainNode = (() => {
-      if (value !== undefined) {
-        let rightMainNode = (
-          <Fragment>
-            <Letter string={value ?? 0} decimalLength={decimalLength} split={true}/>
-            <Letter string={unit} unit={true}/>
-          </Fragment>
-        );
-        return rightMainNode;
-      } else {
-        let rightMainNode = (
-          <Fragment>
-            <Letter string="—"/>
-            <Letter string={unit} unit={true}/>
-          </Fragment>
-        );
-        return rightMainNode;
-      }
-    })();
     let node = (
       <div className="pane">
         <div className="pane-head">
           <div className="pane-head-left">
-            {leftHeadNode}
+            {(meteo.date === undefined) ? (
+              <Fragment>
+                <Letter string="Current" wide={true}/>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <Letter string={meteo.date.year() % 100} length={2} split={true}/>
+                <Letter string="/"/>
+                <Letter string={meteo.date.month() + 1} length={2} split={true}/>
+                <Letter string="/"/>
+                <Letter string={meteo.date.date()} length={2} split={true}/>
+              </Fragment>
+            )}
           </div>
           <div className="pane-head-right">
             <span className="pane-head-icon">
@@ -89,7 +61,17 @@ const MeteoPane = create(
             </span>
           </div>
           <div className="pane-main-right">
-            {rightMainNode}
+            {(value !== undefined) ? (
+              <Fragment>
+                <Letter string={value ?? 0} decimalLength={decimalLength} split={true}/>
+                <Letter string={unit} unit={true}/>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <Letter string="—"/>
+                <Letter string={unit} unit={true}/>
+              </Fragment>
+            )}
           </div>
         </div>
       </div>

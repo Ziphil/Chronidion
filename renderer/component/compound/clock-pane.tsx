@@ -7,12 +7,8 @@ import {
 import {
   Instant
 } from "../../model/instant";
-import {
-  DataUtil
-} from "../../util/data";
 import Letter from "../atom/letter";
 import {
-  StylesRecord,
   create
 } from "../create";
 
@@ -25,12 +21,11 @@ const ClockPane = create(
     instant: Instant
   }): ReactElement {
 
-    let yearNode = (instant.prefix !== null) ? <Letter string={instant.prefix}/> : <Letter string={instant.year ?? ""} length={2} split={true}/>;
     let node = (
       <div className="pane">
         <div className="pane-head">
           <div className="pane-head-left">
-            {yearNode}
+            {(instant.prefix !== null) ? <Letter string={instant.prefix} wide={true}/> : <Letter string={instant.year ?? ""} length={2} split={true}/>}
             <Letter string={(instant.year !== null) ? instant.yearSeparator : ""}/>
             <Letter string={instant.month ?? ""} length={2} split={true}/>
             <Letter string={(instant.month !== null) ? instant.monthSeparator : ""}/>

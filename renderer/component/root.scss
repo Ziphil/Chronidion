@@ -12,13 +12,13 @@
 
 
 html {
-  font-size: min(100vw / 241, 100vh / 95);
+  font-size: min(100vw / 241, 100vh / 98);
 }
 
 body {
   margin: 0rem;
   padding: 0rem;
-  font-family: "Jost";
+  font-family: "Gill Sans Nova";
   font-weight: 300;
   line-height: 1;
   font-feature-settings: "tnum" 1;
@@ -39,7 +39,7 @@ body {
 
 .page-container {
   width: 241rem;
-  height: 95rem;
+  height: 98rem;
 }
 
 .menu-container {

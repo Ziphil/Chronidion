@@ -30,30 +30,11 @@ const SystemInfoPane = create(
   }): ReactElement {
 
     let {iconNode, value, decimalLength, unit} = getSystemInfoKindSpec(info, kind);
-    let rightMainNode = (() => {
-      if (value !== undefined && value !== null && !isNaN(value)) {
-        let rightMainNode = (
-          <Fragment>
-            <Letter string={value ?? 0} decimalLength={decimalLength} split={true}/>
-            <Letter string={unit} unit={true}/>
-          </Fragment>
-        );
-        return rightMainNode;
-      } else {
-        let rightMainNode = (
-          <Fragment>
-            <Letter string="—"/>
-            <Letter string={unit} unit={true}/>
-          </Fragment>
-        );
-        return rightMainNode;
-      }
-    })();
     let node = (
       <div className="pane">
         <div className="pane-head">
           <div className="pane-head-left">
-            <Letter string="System"/>
+            <Letter string="System" wide={true}/>
           </div>
           <div className="pane-head-right">
             <span className="pane-head-icon">
@@ -64,7 +45,17 @@ const SystemInfoPane = create(
         <div className="pane-main">
           <div className="pane-main-left"/>
           <div className="pane-main-right">
-            {rightMainNode}
+            {(value !== undefined && value !== null && !isNaN(value)) ? (
+              <Fragment>
+                <Letter string={value ?? 0} decimalLength={decimalLength} split={true}/>
+                <Letter string={unit} unit={true}/>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <Letter string="—"/>
+                <Letter string={unit} unit={true}/>
+              </Fragment>
+            )}
           </div>
         </div>
       </div>
