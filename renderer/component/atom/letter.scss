@@ -20,8 +20,13 @@
     margin-inline-end: -0.05em;
     letter-spacing: 0.05em;
     font-size: 55%;
+    &[data-content="°C"] {
+      margin-inline-end: 0em;
+      letter-spacing: 0em;
+    }
   }
   &[data-wide] {
+    margin-inline-end: -0.05em;
     letter-spacing: 0.05em;
   }
   &[data-content="−"] {
