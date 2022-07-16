@@ -29,7 +29,8 @@ body {
   inline-size: 100vw;
   block-size: 100vh;
   border-radius: 10rem;
-  background: hsla(0, 0%, 0%, 0.7);
+  background-image: linear-gradient(80deg, hsla(340, 20%, 8%, 0.9), hsla(290, 20%, 8%, 0.9), hsla(240, 30%, 10%, 0.9));
+  background-attachment: fixed;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -11,6 +11,9 @@ import {
   ReactElement
 } from "react";
 import {
+  DataUtil
+} from "../../util/data";
+import {
   create
 } from "../create";
 
@@ -19,14 +22,19 @@ const Icon = create(
   "Icon",
   function ({
     name,
+    large = false,
     className
   }: {
     name: IconName,
+    large?: boolean,
     className?: string
   }): ReactElement {
 
+    let data = DataUtil.create({
+      large: {if: large, true: "true"}
+    });
     let node = (
-      <span className={"icon" + ((className) ? ` ${className}` : "")}>
+      <span className={"icon" + ((className) ? ` ${className}` : "")} {...data}>
         <FontAwesomeIcon icon={name}/>
       </span>
     );
