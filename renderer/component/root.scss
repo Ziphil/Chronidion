@@ -29,7 +29,7 @@ body {
   inline-size: 100vw;
   block-size: 100vh;
   border-radius: 10rem;
-  background-image: repeating-linear-gradient(135deg, black, black 50%, hsl(0, 0%, 5%) 50%, hsl(0, 0%, 5%) 100%), linear-gradient(80deg, hsla(340, 20%, 8%, 0.9), hsla(290, 20%, 8%, 0.9), hsla(240, 30%, 10%, 0.9));
+  background-image: repeating-linear-gradient(135deg, hsl(0, 0%, 12%), hsl(0, 0%, 12%) 50%, black 50%, black 100%), linear-gradient(80deg, var(--first-color), var(--second-color));
   background-attachment: fixed, fixed;
   background-size: 8rem 8rem, auto;
   background-repeat: repeat, repeat;

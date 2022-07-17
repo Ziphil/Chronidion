@@ -4,8 +4,12 @@ import * as queryParser from "query-string";
 import * as react from "react";
 import {
   ReactElement,
+  useCallback,
   useState
 } from "react";
+import {
+  useInterval, useMount
+} from "react-use";
 import {
   useKeyEvent
 } from "../hook";
@@ -34,6 +38,14 @@ const Root = create(
 
     let [mode, setMode] = useState<PageMode>("gregorian");
 
+    let updateColors = useCallback(function (): void {
+      let now = new Date();
+      let ratio = (now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds()) / 86400;
+      let hue = ratio * 360 + 270;
+      document.documentElement.style.setProperty("--first-color", getColorString(hue - 20));
+      document.documentElement.style.setProperty("--second-color", getColorString(hue + 20));
+    }, []);
+
     useKeyEvent((key) => {
       let query = queryParser.parse(window.location.search);
       let id = (typeof query.idString === "string") ? parseInt(query.idString) : -1;
@@ -60,6 +72,9 @@ const Root = create(
       }
     }, true);
 
+    useInterval(updateColors, 10000);
+    useMount(updateColors);
+
     let node = (
       <div className="main">
         <div className="page-container">
@@ -78,6 +93,11 @@ const Root = create(
   }
 );
 
+
+function getColorString(hue: number): string {
+  const modifiedHue = Math.floor((hue + 360) % 360);
+  return `hsl(${modifiedHue}, 15%, 7%)`;
+}
 
 const PAGE_MODES = ["gregorian", "hairian", "stopwatch", "meteo", "systemInfo"] as const;
 export let PageModeUtil = LiteralUtilType.create(PAGE_MODES);
