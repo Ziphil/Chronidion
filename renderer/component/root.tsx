@@ -73,18 +73,6 @@ const Root = create(
       }
     }, true);
 
-    useKeyEvent((key) => {
-      if (key === "1") {
-        setMode(PageModeUtil.cast(0));
-      } else if (key === "2") {
-        setMode(PageModeUtil.cast(1));
-      } else if (key === "3") {
-        setMode(PageModeUtil.cast(2));
-      } else if (key === "4") {
-        setMode(PageModeUtil.cast(3));
-      }
-    }, true);
-
     useInterval(updateColors, 10000);
     useMount(updateColors);
 
