@@ -27,7 +27,6 @@ import {
 } from "./create";
 import ClockPage from "./page/clock-page";
 import MeteoPage from "./page/meteo-page";
-import SystemInfoPage from "./page/system-info-page";
 
 
 const Root = create(
@@ -67,8 +66,6 @@ const Root = create(
         setMode(PageModeUtil.cast(2));
       } else if (key === "4") {
         setMode(PageModeUtil.cast(3));
-      } else if (key === "5") {
-        setMode(PageModeUtil.cast(4));
       }
     }, true);
 
@@ -82,7 +79,6 @@ const Root = create(
           <ClockPage initialInstant={new HairianInstant()} show={mode === "hairian"}/>
           <ClockPage initialInstant={new StopwatchInstant()} show={mode === "stopwatch"}/>
           <MeteoPage show={mode === "meteo"}/>
-          <SystemInfoPage show={mode === "systemInfo"}/>
         </div>
         <div className="menu-container">
         </div>
@@ -99,7 +95,7 @@ function getColorString(hue: number): string {
   return `hsl(${modifiedHue}, 15%, 7%)`;
 }
 
-const PAGE_MODES = ["gregorian", "hairian", "stopwatch", "meteo", "systemInfo"] as const;
+const PAGE_MODES = ["gregorian", "hairian", "stopwatch", "meteo"] as const;
 export let PageModeUtil = LiteralUtilType.create(PAGE_MODES);
 export type PageMode = LiteralType<typeof PAGE_MODES>;
 

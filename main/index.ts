@@ -14,9 +14,6 @@ import {
 import {
   join as joinPath
 } from "path";
-import {
-  get as getSystemInfo
-} from "systeminformation";
 
 
 const COMMON_WINDOW_OPTIONS = {
@@ -72,10 +69,6 @@ export class Main {
   }
 
   private setupIpc(): void {
-    ipcMain.handle("get-system-info", async (event, configs) => {
-      let data = await getSystemInfo(configs);
-      return data;
-    });
     ipcMain.on("resize", (event, id, width, height) => {
       let window = this.windows.get(id);
       if (window !== undefined) {
