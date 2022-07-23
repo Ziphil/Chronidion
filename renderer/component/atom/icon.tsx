@@ -21,9 +21,6 @@ import {
   BsWater
 } from "react-icons/bs";
 import {
-  IconType
-} from "react-icons/lib";
-import {
   DataUtil
 } from "../../util/data";
 import {
@@ -31,7 +28,7 @@ import {
 } from "../create";
 
 
-const ICON_NODES = {
+const ICON_COMPONENTS = {
   temperature: BsThermometerHalf,
   max: BsChevronDoubleUp,
   min: BsChevronDoubleDown,
@@ -45,7 +42,7 @@ const ICON_NODES = {
   snow: BsSnow,
   mist: BsCloudHaze,
   thunder: BsTropicalStorm
-} as {[key: string]: IconType | undefined};
+};
 
 
 const Icon = create(
@@ -55,18 +52,18 @@ const Icon = create(
     large = false,
     className
   }: {
-    name: string,
+    name: IconName,
     large?: boolean,
     className?: string
   }): ReactElement {
 
-    const iconType = ICON_NODES[name];
+    const iconComponent = ICON_COMPONENTS[name];
     const data = DataUtil.create({
       large: {if: large, true: "true"}
     });
     const node = (
       <span className={"icon" + ((className) ? ` ${className}` : "")} {...data}>
-        {(iconType) && createElement(iconType)}
+        {(iconComponent) && createElement(iconComponent)}
       </span>
     );
     return node;
@@ -74,5 +71,7 @@ const Icon = create(
   }
 );
 
+
+export type IconName = keyof typeof ICON_COMPONENTS;
 
 export default Icon;

@@ -1,13 +1,13 @@
 //
 
-import {
-  IconName
-} from "@fortawesome/fontawesome-common-types";
 import axios from "axios";
 import dayjs from "dayjs";
 import {
   Dayjs
 } from "dayjs";
+import {
+  IconName
+} from "../../component/atom/icon";
 import METEO_DATA from "./meteo-data.json";
 
 
