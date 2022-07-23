@@ -9,4 +9,15 @@
 .menu {
   block-size: 100%;
   padding-inline: 15rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-button-group {
+  font-size: 16rem;
+  color: rgba(white, 0.5);
+  block-size: 100%;
+  gap: 3rem;
+  display: flex;
+  align-items: center;
 }

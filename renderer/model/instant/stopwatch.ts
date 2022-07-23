@@ -66,4 +66,8 @@ export class StopwatchInstant extends Instant {
     this.offset += amount;
   }
 
+  public get stopped(): boolean {
+    return this.lastDate === null;
+  }
+
 }

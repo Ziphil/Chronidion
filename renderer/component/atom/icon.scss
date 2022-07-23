@@ -10,4 +10,9 @@
   &[data-large] {
     filter: drop-shadow(0em 0em 0.2em hsla(0, 0%, 80%, 0.5));
   }
+  &[data-simple] {
+    color: inherit;
+    filter: none;
+    mix-blend-mode: normal;
+  }
 }

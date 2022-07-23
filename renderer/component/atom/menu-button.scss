@@ -4,6 +4,17 @@
 
 
 .menu-button {
-  font-size: 20rem;
-  color: white;
+  inline-size: 16rem;
+  block-size: 100%;
+  margin: 0rem;
+  padding: 0rem;
+  font-size: inherit;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  cursor: pointer;
 }

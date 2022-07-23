@@ -6,19 +6,27 @@ import {
   createElement
 } from "react";
 import {
+  BsArrowDown,
+  BsArrowLeft,
+  BsArrowRight,
+  BsArrowUp,
   BsChevronDoubleDown,
   BsChevronDoubleUp,
   BsCloudDrizzle,
   BsCloudHaze,
   BsCloudSun,
   BsCloudy,
+  BsCommand,
   BsDroplet,
+  BsLightning,
+  BsPlay,
   BsSnow,
+  BsStop,
   BsSun,
   BsThermometerHalf,
-  BsTropicalStorm,
   BsUmbrella,
-  BsWater
+  BsWater,
+  BsXCircle
 } from "react-icons/bs";
 import {
   DataUtil
@@ -41,7 +49,15 @@ const ICON_COMPONENTS = {
   rain: BsUmbrella,
   snow: BsSnow,
   mist: BsCloudHaze,
-  thunder: BsTropicalStorm
+  thunder: BsLightning,
+  previousPage: BsArrowLeft,
+  nextPage: BsArrowRight,
+  toggle: BsCommand,
+  start: BsPlay,
+  stop: BsStop,
+  reset: BsXCircle,
+  previousDay: BsArrowUp,
+  nextDay: BsArrowDown
 };
 
 
@@ -50,16 +66,19 @@ const Icon = create(
   function ({
     name,
     large = false,
+    simple = false,
     className
   }: {
     name: IconName,
     large?: boolean,
+    simple?: boolean,
     className?: string
   }): ReactElement {
 
     const iconComponent = ICON_COMPONENTS[name];
     const data = DataUtil.create({
-      large: {if: large, true: "true"}
+      large: {if: large, true: "true"},
+      simple: {if: simple, true: "true"}
     });
     const node = (
       <span className={"icon" + ((className) ? ` ${className}` : "")} {...data}>

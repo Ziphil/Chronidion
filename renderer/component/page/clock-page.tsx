@@ -3,13 +3,13 @@
 import * as react from "react";
 import {
   ReactElement,
+  useCallback,
   useState
 } from "react";
 import {
   useInterval
 } from "react-use";
 import {
-  useKeyEvent,
   useRerender
 } from "../../hook";
 import {
@@ -20,6 +20,7 @@ import {
   LiteralType,
   LiteralUtilType
 } from "../../util/literal-type";
+import Icon from "../atom/icon";
 import MenuButton from "../atom/menu-button";
 import ClockPane from "../compound/clock-pane";
 import {
@@ -45,41 +46,24 @@ const ClockPage = create(
     const [instant] = useState(initialInstant);
     const rerender = useRerender();
 
-    useKeyEvent((key) => {
-      if (key === "Tab") {
-        instant.toggleShift();
-        rerender();
-      }
-    }, show);
+    const handleToggleShift = useCallback(function (): void {
+      instant.toggleShift();
+      rerender();
+    }, [instant, rerender]);
 
-    useKeyEvent((key) => {
-      const stopwatchInstant = instant as StopwatchInstant;
-      if (key === " " || key === "Enter") {
-        stopwatchInstant.startOrStop();
-        rerender();
-      } else if (key === "Backspace") {
-        stopwatchInstant.reset();
-        rerender();
-      } else if (key === "a") {
-        stopwatchInstant.addOffset(3600000);
-        rerender();
-      } else if (key === "z") {
-        stopwatchInstant.addOffset(-3600000);
-        rerender();
-      } else if (key === "s") {
-        stopwatchInstant.addOffset(60000);
-        rerender();
-      } else if (key === "x") {
-        stopwatchInstant.addOffset(-60000);
-        rerender();
-      } else if (key === "d") {
-        stopwatchInstant.addOffset(1000);
-        rerender();
-      } else if (key === "c") {
-        stopwatchInstant.addOffset(-1000);
+    const handleStartOrStop = useCallback(function (): void {
+      if (instant instanceof StopwatchInstant) {
+        instant.startOrStop();
         rerender();
       }
-    }, show && instant instanceof StopwatchInstant);
+    }, [instant, rerender]);
+
+    const handleReset = useCallback(function (): void {
+      if (instant instanceof StopwatchInstant) {
+        instant.reset();
+        rerender();
+      }
+    }, [instant, rerender]);
 
     useInterval(() => {
       instant.update();
@@ -92,8 +76,15 @@ const ClockPage = create(
           <ClockPane instant={instant}/>
         </div>
         <div className="menu">
-          <MenuButton onClick={onPreviousPage}>L</MenuButton>
-          <MenuButton onClick={onNextPage}>R</MenuButton>
+          <div className="menu-button-group">
+            <MenuButton onClick={onPreviousPage}><Icon name="previousPage" simple={true}/></MenuButton>
+            <MenuButton onClick={onNextPage}><Icon name="nextPage" simple={true}/></MenuButton>
+          </div>
+          <div className="menu-button-group">
+            {(instant instanceof StopwatchInstant) && <MenuButton onClick={handleStartOrStop}><Icon name={(instant.stopped) ? "start" : "stop"} simple={true}/></MenuButton>}
+            {(instant instanceof StopwatchInstant) && <MenuButton onClick={handleReset}><Icon name="reset" simple={true}/></MenuButton>}
+            <MenuButton onClick={handleToggleShift}><Icon name="toggle" simple={true}/></MenuButton>
+          </div>
         </div>
       </Page>
     );
