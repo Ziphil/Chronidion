@@ -11,7 +11,7 @@
     "pack:windows": "electron-builder -w",
     "pack:mac": "electron-builder -m",
     "pack:linux": "electron-builder -l",
-    "start": "electron dist/index.js",
+    "start": "electron dist/index.js -- --disable-seccomp-filter-sandbox",
     "lint": "eslint"
   },
   "eslintConfig": {
