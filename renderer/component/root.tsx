@@ -41,8 +41,8 @@ const Root = create(
       let now = new Date();
       let ratio = (now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds()) / 86400;
       let hue = ratio * 360 + 270;
-      document.documentElement.style.setProperty("--first-color", getColorString(hue - 20));
-      document.documentElement.style.setProperty("--second-color", getColorString(hue + 20));
+      document.documentElement.style.setProperty("--first-color", getColorString(hue, 8));
+      document.documentElement.style.setProperty("--second-color", getColorString(hue, 6));
     }, []);
 
     useKeyEvent((key) => {
@@ -90,9 +90,9 @@ const Root = create(
 );
 
 
-function getColorString(hue: number): string {
+function getColorString(hue: number, lightness: number): string {
   const modifiedHue = Math.floor((hue + 360) % 360);
-  return `hsl(${modifiedHue}, 15%, 7%)`;
+  return `hsl(${modifiedHue}, 15%, ${lightness}%)`;
 }
 
 const PAGE_MODES = ["gregorian", "hairian", "stopwatch", "meteo"] as const;
