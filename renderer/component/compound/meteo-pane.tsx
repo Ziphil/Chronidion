@@ -85,7 +85,7 @@ const MeteoPane = create(
 function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElement, value: number | undefined, decimalLength: number | undefined, unit: string} {
   if (kind === "temperature") {
     const spec = {
-      iconNode: <><Icon name="temperature-half"/></>,
+      iconNode: <><Icon name="temperature"/></>,
       value: meteo.temperatures.day,
       decimalLength: 1,
       unit: "°C"
@@ -93,7 +93,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElemen
     return spec;
   } else if (kind === "maxTemperature") {
     const spec = {
-      iconNode: <><Icon name="angles-up"/><Icon name="temperature-full"/></>,
+      iconNode: <><Icon name="max"/><Icon name="temperature"/></>,
       value: meteo.temperatures.max,
       decimalLength: 1,
       unit: "°C"
@@ -101,7 +101,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElemen
     return spec;
   } else if (kind === "minTemperature") {
     const spec = {
-      iconNode: <><Icon name="angles-down"/><Icon name="temperature-empty"/></>,
+      iconNode: <><Icon name="min"/><Icon name="temperature"/></>,
       value: meteo.temperatures.min,
       decimalLength: 1,
       unit: "°C"
@@ -109,7 +109,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElemen
     return spec;
   } else if (kind === "humidity") {
     const spec = {
-      iconNode: <><Icon name="water"/></>,
+      iconNode: <><Icon name="humidity"/></>,
       value: meteo.humidity,
       decimalLength: 0,
       unit: "%"
@@ -117,7 +117,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElemen
     return spec;
   } else if (kind === "precipitation") {
     const spec = {
-      iconNode: <><Icon name="droplet"/></>,
+      iconNode: <><Icon name="precipitation"/></>,
       value: meteo.precipitation,
       decimalLength: 0,
       unit: "%"

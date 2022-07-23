@@ -2,15 +2,17 @@
 
 
 .pane-head-icon {
-  font-size: 17rem;
+  font-size: 16rem;
   line-height: 0;
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  position: relative;
+  bottom: -0.2em;
 }
 
 .pane-main-icon {
-  font-size: 45rem;
+  font-size: 42rem;
   line-height: 0;
-  vertical-align: 0.03em;
+  position: relative;
+  bottom: -0.05em;
 }
