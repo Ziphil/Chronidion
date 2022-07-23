@@ -48,7 +48,6 @@
     "react-use": "^17.3.2",
     "reflect-metadata": "^0.1.13",
     "swr": "^1.2.2",
-    "systeminformation": "^5.11.5",
     "talqis": "^0.1.0",
     "ts-essentials": "^7.0.1"
   },
