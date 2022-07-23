@@ -45,6 +45,22 @@ const Root = create(
       document.documentElement.style.setProperty("--second-color", getColorString(hue, 6));
     }, []);
 
+    const handlePreviousPage = useCallback(function (): void {
+      setMode((mode) => {
+        const nextIndex = PageModeUtil.indexOf(mode) - 1;
+        const nextMode = PageModeUtil.cast((nextIndex + 4) % 4);
+        return nextMode;
+      });
+    }, []);
+
+    const handleNextPage = useCallback(function (): void {
+      setMode((mode) => {
+        const nextIndex = PageModeUtil.indexOf(mode) + 1;
+        const nextMode = PageModeUtil.cast((nextIndex + 4) % 4);
+        return nextMode;
+      });
+    }, []);
+
     useKeyEvent((key) => {
       const query = queryParser.parse(window.location.search);
       const id = (typeof query.idString === "string") ? parseInt(query.idString) : -1;
@@ -72,12 +88,13 @@ const Root = create(
     useInterval(updateColors, 10000);
     useMount(updateColors);
 
+    const commonProps = {onPreviousPage: handlePreviousPage, onNextPage: handleNextPage};
     const node = (
       <>
-        <ClockPage initialInstant={new GregorianInstant()} show={mode === "gregorian"}/>
-        <ClockPage initialInstant={new HairianInstant()} show={mode === "hairian"}/>
-        <ClockPage initialInstant={new StopwatchInstant()} show={mode === "stopwatch"}/>
-        <MeteoPage show={mode === "meteo"}/>
+        <ClockPage initialInstant={new GregorianInstant()} show={mode === "gregorian"} {...commonProps}/>
+        <ClockPage initialInstant={new HairianInstant()} show={mode === "hairian"} {...commonProps}/>
+        <ClockPage initialInstant={new StopwatchInstant()} show={mode === "stopwatch"} {...commonProps}/>
+        <MeteoPage show={mode === "meteo"} {...commonProps}/>
       </>
     );
     return node;

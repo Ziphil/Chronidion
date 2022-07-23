@@ -12,6 +12,7 @@ import {
 import {
   MeteoFactory
 } from "../../model/meteo";
+import MenuButton from "../atom/menu-button";
 import MeteoPane from "../compound/meteo-pane";
 import {
   MeteoKind
@@ -25,9 +26,13 @@ import Page from "./page";
 const MeteoPage = create(
   "MeteoPage",
   function ({
-    show
+    show,
+    onPreviousPage,
+    onNextPage
   }: {
-    show: boolean
+    show: boolean,
+    onPreviousPage: () => unknown,
+    onNextPage: () => unknown
   }): ReactElement | null {
 
     const [index, setIndex] = useState(0);
@@ -59,7 +64,8 @@ const MeteoPage = create(
           {(meteos !== undefined) && <MeteoPane meteo={meteos[index]} kind={kind}/>}
         </div>
         <div className="menu">
-          Hello
+          <MenuButton onClick={onPreviousPage}>L</MenuButton>
+          <MenuButton onClick={onNextPage}>R</MenuButton>
         </div>
       </Page>
     );

@@ -20,6 +20,7 @@ import {
   LiteralType,
   LiteralUtilType
 } from "../../util/literal-type";
+import MenuButton from "../atom/menu-button";
 import ClockPane from "../compound/clock-pane";
 import {
   create
@@ -31,10 +32,14 @@ const ClockPage = create(
   "ClockPage",
   function ({
     initialInstant,
-    show
+    show,
+    onPreviousPage,
+    onNextPage
   }: {
     initialInstant: Instant,
-    show: boolean
+    show: boolean,
+    onPreviousPage: () => unknown,
+    onNextPage: () => unknown
   }): ReactElement | null {
 
     const [instant] = useState(initialInstant);
@@ -87,7 +92,8 @@ const ClockPage = create(
           <ClockPane instant={instant}/>
         </div>
         <div className="menu">
-          Hello
+          <MenuButton onClick={onPreviousPage}>L</MenuButton>
+          <MenuButton onClick={onNextPage}>R</MenuButton>
         </div>
       </Page>
     );
