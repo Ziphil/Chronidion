@@ -21,7 +21,7 @@ class Main {
   }
 
   private setupIcon(): void {
-    fontawesomeLibrary.add(iconFas);
+    fontawesomeLibrary.add(iconFas as any);
   }
 
   private render(): void {

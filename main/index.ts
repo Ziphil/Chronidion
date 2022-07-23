@@ -121,6 +121,9 @@ export class Main {
     const window = this.createWindow("main", null, {}, options);
     this.mainWindow = window;
     this.connectReloadClient(window);
+    if (process.env["FULLSCREEN"] === "true") {
+      window.maximize();
+    }
     return window;
   }
 
