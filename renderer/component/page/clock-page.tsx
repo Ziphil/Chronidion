@@ -77,12 +77,11 @@ const ClockPage = create(
         </div>
         <div className="menu">
           <div className="menu-button-group">
-            <MenuButton onClick={onPreviousPage}><Icon name="previousPage" simple={true}/></MenuButton>
-            <MenuButton onClick={onNextPage}><Icon name="nextPage" simple={true}/></MenuButton>
+            <MenuButton onClick={onNextPage}><Icon name="page" simple={true}/></MenuButton>
           </div>
           <div className="menu-button-group">
-            {(instant instanceof StopwatchInstant) && <MenuButton onClick={handleStartOrStop}><Icon name={(instant.stopped) ? "start" : "stop"} simple={true}/></MenuButton>}
             {(instant instanceof StopwatchInstant) && <MenuButton onClick={handleReset}><Icon name="reset" simple={true}/></MenuButton>}
+            {(instant instanceof StopwatchInstant) && <MenuButton onClick={handleStartOrStop}><Icon name={(instant.stopped) ? "start" : "stop"} simple={true}/></MenuButton>}
             <MenuButton onClick={handleToggleShift}><Icon name="toggle" simple={true}/></MenuButton>
           </div>
         </div>

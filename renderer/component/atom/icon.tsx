@@ -6,10 +6,7 @@ import {
   createElement
 } from "react";
 import {
-  BsArrowDown,
-  BsArrowLeft,
-  BsArrowRight,
-  BsArrowUp,
+  BsArrowLeftRight,
   BsChevronDoubleDown,
   BsChevronDoubleUp,
   BsCloudDrizzle,
@@ -19,14 +16,13 @@ import {
   BsCommand,
   BsDroplet,
   BsLightning,
-  BsPlay,
   BsSnow,
-  BsStop,
+  BsStopwatch,
   BsSun,
   BsThermometerHalf,
   BsUmbrella,
   BsWater,
-  BsXCircle
+  BsXDiamond
 } from "react-icons/bs";
 import {
   DataUtil
@@ -50,14 +46,11 @@ const ICON_COMPONENTS = {
   snow: BsSnow,
   mist: BsCloudHaze,
   thunder: BsLightning,
-  previousPage: BsArrowLeft,
-  nextPage: BsArrowRight,
-  toggle: BsCommand,
-  start: BsPlay,
-  stop: BsStop,
-  reset: BsXCircle,
-  previousDay: BsArrowUp,
-  nextDay: BsArrowDown
+  page: BsCommand,
+  toggle: BsArrowLeftRight,
+  start: BsStopwatch,
+  stop: BsStopwatch,
+  reset: BsXDiamond
 };
 
 
