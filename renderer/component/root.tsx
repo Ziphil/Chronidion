@@ -73,16 +73,12 @@ const Root = create(
     useMount(updateColors);
 
     let node = (
-      <div className="main">
-        <div className="page-container">
-          <ClockPage initialInstant={new GregorianInstant()} show={mode === "gregorian"}/>
-          <ClockPage initialInstant={new HairianInstant()} show={mode === "hairian"}/>
-          <ClockPage initialInstant={new StopwatchInstant()} show={mode === "stopwatch"}/>
-          <MeteoPage show={mode === "meteo"}/>
-        </div>
-        <div className="menu-container">
-        </div>
-      </div>
+      <>
+        <ClockPage initialInstant={new GregorianInstant()} show={mode === "gregorian"}/>
+        <ClockPage initialInstant={new HairianInstant()} show={mode === "hairian"}/>
+        <ClockPage initialInstant={new StopwatchInstant()} show={mode === "stopwatch"}/>
+        <MeteoPage show={mode === "meteo"}/>
+      </>
     );
     return node;
 

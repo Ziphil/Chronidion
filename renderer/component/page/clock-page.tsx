@@ -24,6 +24,7 @@ import ClockPane from "../compound/clock-pane";
 import {
   create
 } from "../create";
+import Page from "./page";
 
 
 const ClockPage = create(
@@ -80,12 +81,17 @@ const ClockPage = create(
       rerender();
     }, 37);
 
-    let node = (show) && (
-      <div className="page">
-        <ClockPane instant={instant}/>
-      </div>
+    let node =(
+      <Page show={show}>
+        <div className="page">
+          <ClockPane instant={instant}/>
+        </div>
+        <div className="menu">
+          Hello
+        </div>
+      </Page>
     );
-    return node || null;
+    return node;
 
   }
 );

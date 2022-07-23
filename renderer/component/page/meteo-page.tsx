@@ -20,6 +20,7 @@ import {
 import {
   create
 } from "../create";
+import Page from "./page";
 
 
 const MeteoPage = create(
@@ -53,12 +54,17 @@ const MeteoPage = create(
       }
     }, show);
 
-    let node = (show) && (
-      <div className="page">
-        {(meteos !== undefined) && <MeteoPane meteo={meteos[index]} kind={kind}/>}
-      </div>
+    let node = (
+      <Page show={show}>
+        <div className="page">
+          {(meteos !== undefined) && <MeteoPane meteo={meteos[index]} kind={kind}/>}
+        </div>
+        <div className="menu">
+          Hello
+        </div>
+      </Page>
     );
-    return node || null;
+    return node;
 
   }
 );

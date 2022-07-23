@@ -114,7 +114,7 @@ export class Main {
   }
 
   private createMainWindow(): BrowserWindow {
-    let options = {width: 241, height: 98, minWidth: 241, minHeight: 98};
+    let options = {width: 241, height: 128, minWidth: 241, minHeight: 128};
     let window = this.createWindow("main", null, {}, options);
     this.mainWindow = window;
     this.connectReloadClient(window);
@@ -122,7 +122,7 @@ export class Main {
   }
 
   private moveDefaultPosition(window: BrowserWindow): void {
-    window.setSize(241, 95);
+    window.setSize(241, 128);
     let displayBounds = screen.getPrimaryDisplay().bounds;
     let windowBounds = window.getBounds();
     let x = displayBounds.width - windowBounds.width - 15;

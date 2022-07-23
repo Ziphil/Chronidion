@@ -8,8 +8,12 @@
 @import "./compound/meteo-pane.scss";
 
 
+$page-width: 241rem;
+$page-height: 98rem;
+$menu-height: 24rem;
+
 html {
-  font-size: min(100vw / 241, 100vh / 98);
+  font-size: min(100vw / ($page-width / 1rem), 100vh / (($page-height + $menu-height) / 1rem));
 }
 
 body {
@@ -32,19 +36,37 @@ body {
   background-repeat: repeat, repeat;
   background-blend-mode: color-dodge;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
 
+.page-container-wrapper {
+  inline-size: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
 .page-container {
-  inline-size: 241rem;
-  block-size: 98rem;
+  inline-size: $page-width;
+  block-size: $page-height;
+}
+
+.menu-container-wrapper {
+  inline-size: 100%;
+  background: hsla(0, 0%, 0%, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: $menu-height;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 .menu-container {
-  flex-basis: 0rem;
-  flex-grow: 0;
-  flex-shrink: 0;
-  background: hsla(0, 0%, 0%, 0.8);
+  inline-size: $page-width;
+  block-size: $menu-height;
 }
