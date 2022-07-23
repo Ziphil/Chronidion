@@ -4,8 +4,8 @@
 export class DataUtil {
 
   public static create(object: Record<string, DataSpec>): Record<`data-${string}`, string> {
-    let dataEntries = [];
-    for (let [name, spec] of Object.entries(object)) {
+    const dataEntries = [];
+    for (const [name, spec] of Object.entries(object)) {
       if (spec !== null && spec !== undefined) {
         if (typeof spec === "string") {
           dataEntries.push([`data-${name}`, spec]);
@@ -18,7 +18,7 @@ export class DataUtil {
         }
       }
     }
-    let data = Object.fromEntries(dataEntries);
+    const data = Object.fromEntries(dataEntries);
     return data;
   }
 

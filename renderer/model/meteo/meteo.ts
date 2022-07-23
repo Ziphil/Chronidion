@@ -26,46 +26,46 @@ export interface Meteo {
 export class MeteoFactory {
 
   public static async fetch(): Promise<Array<Meteo>> {
-    let url = "https://api.openweathermap.org/data/2.5";
-    let key = process.env["WEATHER_KEY"];
-    let currentPromise = axios.get(`${url}/weather?lat=35.6895&lon=139.6917&units=metric&appid=${key}`).then((response) => MeteoFactory.fromCurrentData(response.data));
-    let forecastPromise = axios.get(`${url}/forecast/daily?lat=35.6895&lon=139.6917&cnt=7&units=metric&appid=${key}`).then((response) => MeteoFactory.fromForecastData(response.data));
-    let [currentMeteo, forecastMeteos] = await Promise.all([currentPromise, forecastPromise]);
+    const url = "https://api.openweathermap.org/data/2.5";
+    const key = process.env["WEATHER_KEY"];
+    const currentPromise = axios.get(`${url}/weather?lat=35.6895&lon=139.6917&units=metric&appid=${key}`).then((response) => MeteoFactory.fromCurrentData(response.data));
+    const forecastPromise = axios.get(`${url}/forecast/daily?lat=35.6895&lon=139.6917&cnt=7&units=metric&appid=${key}`).then((response) => MeteoFactory.fromForecastData(response.data));
+    const [currentMeteo, forecastMeteos] = await Promise.all([currentPromise, forecastPromise]);
     return [currentMeteo, ...forecastMeteos];
   }
 
   public static fromCurrentData(data: any): Meteo {
-    let meteoData = METEO_DATA as any;
-    let weather = {
+    const meteoData = METEO_DATA as any;
+    const weather = {
       id: data["weather"][0]["id"],
       iconName: meteoData[data["weather"][0]["id"]]["iconName"]
     };
-    let temperatures = {
+    const temperatures = {
       day: data["main"]["temp"]
     };
-    let pressure = data["main"]["pressure"];
-    let humidity = data["main"]["humidity"];
-    let meteo = {weather, temperatures, pressure, humidity};
+    const pressure = data["main"]["pressure"];
+    const humidity = data["main"]["humidity"];
+    const meteo = {weather, temperatures, pressure, humidity};
     return meteo;
   }
 
   public static fromForecastData(data: {list: Array<any>}): Array<Meteo> {
-    let meteoData = METEO_DATA as any;
-    let meteos = data["list"].map((dailyData) => {
-      let date = dayjs(dailyData["dt"] * 1000);
-      let weather = {
+    const meteoData = METEO_DATA as any;
+    const meteos = data["list"].map((dailyData) => {
+      const date = dayjs(dailyData["dt"] * 1000);
+      const weather = {
         id: dailyData["weather"][0]["id"],
         iconName: meteoData[dailyData["weather"][0]["id"]]["iconName"]
       };
-      let temperatures = {
+      const temperatures = {
         day: dailyData["temp"]["day"],
         max: dailyData["temp"]["max"],
         min: dailyData["temp"]["min"]
       };
-      let pressure = dailyData["pressure"];
-      let humidity = dailyData["humidity"];
-      let precipitation = dailyData["pop"] * 100;
-      let meteo = {date, weather, temperatures, pressure, humidity, precipitation};
+      const pressure = dailyData["pressure"];
+      const humidity = dailyData["humidity"];
+      const precipitation = dailyData["pop"] * 100;
+      const meteo = {date, weather, temperatures, pressure, humidity, precipitation};
       return meteo;
     });
     return meteos;

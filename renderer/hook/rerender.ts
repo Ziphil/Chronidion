@@ -7,8 +7,8 @@ import {
 
 
 export function useRerender(): () => void {
-  let [dummy, setDummy] = useState(0);
-  let rerender = useCallback(function (): void {
+  const [dummy, setDummy] = useState(0);
+  const rerender = useCallback(function (): void {
     setDummy((dummy) => dummy + 1);
   }, []);
   return rerender;

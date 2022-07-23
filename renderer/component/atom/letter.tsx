@@ -26,16 +26,16 @@ const Letter = create(
   }: {
     string: string | number,
     length?: number,
-    decimalLength?: number
+    decimalLength?: number,
     split?: boolean,
     unit?: boolean,
     wide?: boolean,
     className?: string
   }): ReactElement {
 
-    let actualString = useMemo(() => getActualString(string, length, decimalLength) , [string, length, decimalLength]);
-    let chars = (split) ? actualString.split("") : [actualString];
-    let node = (
+    const actualString = useMemo(() => getActualString(string, length, decimalLength), [string, length, decimalLength]);
+    const chars = (split) ? actualString.split("") : [actualString];
+    const node = (
       <span className={"letter" + ((className) ? ` ${className}` : "")}>
         {chars.map((char, index) => (
           <LetterChar key={index} {...{char, unit, wide}}/>
@@ -60,13 +60,13 @@ const LetterChar = create(
     wide: boolean
   }): ReactElement {
 
-    let data = DataUtil.create({
+    const data = DataUtil.create({
       content: char,
       numeral: {if: char.match(/^\d$/) !== null, true: "true"},
       unit: {if: unit, true: "true"},
       wide: {if: wide, true: "true"}
     });
-    let node = (
+    const node = (
       <span className="letter-char" {...data}>{char}</span>
     );
     return node;
@@ -83,12 +83,12 @@ function getActualString(string: string | number, length?: number, decimalLength
     }
     return actualString;
   } else {
-    let sign = Math.sign(string);
+    const sign = Math.sign(string);
     let actualString = (decimalLength !== undefined) ? Math.abs(string).toFixed(decimalLength) : Math.abs(string).toString();
     if (length !== undefined) {
       let stringLength = (decimalLength !== undefined) ? length + decimalLength + 1 : length;
       if (sign < 0) {
-        stringLength = stringLength - 1;
+        stringLength -= 1;
       }
       actualString = actualString.padStart(stringLength, "0");
     }

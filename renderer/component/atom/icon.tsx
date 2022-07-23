@@ -30,10 +30,10 @@ const Icon = create(
     className?: string
   }): ReactElement {
 
-    let data = DataUtil.create({
+    const data = DataUtil.create({
       large: {if: large, true: "true"}
     });
-    let node = (
+    const node = (
       <span className={"icon" + ((className) ? ` ${className}` : "")} {...data}>
         <FontAwesomeIcon icon={name}/>
       </span>

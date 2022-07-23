@@ -10,7 +10,6 @@ import {
   useKeyEvent
 } from "../../hook";
 import {
-  Meteo,
   MeteoFactory
 } from "../../model/meteo";
 import MeteoPane from "../compound/meteo-pane";
@@ -31,9 +30,9 @@ const MeteoPage = create(
     show: boolean
   }): ReactElement | null {
 
-    let [index, setIndex] = useState(0);
-    let [kind, setKind] = useState<MeteoKind>("temperature");
-    let {data: meteos} = useSWR("/meteo", MeteoFactory.fetch, {refreshInterval: 5 * 60 * 1000});
+    const [index, setIndex] = useState(0);
+    const [kind, setKind] = useState<MeteoKind>("temperature");
+    const {data: meteos} = useSWR("/meteo", MeteoFactory.fetch, {refreshInterval: 5 * 60 * 1000});
 
     useKeyEvent((key) => {
       if (key === "ArrowUp") {
@@ -54,7 +53,7 @@ const MeteoPage = create(
       }
     }, show);
 
-    let node = (
+    const node = (
       <Page show={show}>
         <div className="page">
           {(meteos !== undefined) && <MeteoPane meteo={meteos[index]} kind={kind}/>}

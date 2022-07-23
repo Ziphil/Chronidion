@@ -21,7 +21,7 @@ const ClockPane = create(
     instant: Instant
   }): ReactElement {
 
-    let node = (
+    const node = (
       <div className="pane">
         <div className="pane-head">
           <div className="pane-head-left">

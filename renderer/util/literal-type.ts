@@ -17,8 +17,8 @@ export class LiteralUtilType<T extends string> {
 
   public cast(value: string | number | null): T {
     if (typeof value === "string") {
-      let castValue = value as T;
-      let index = this.values.indexOf(castValue);
+      const castValue = value as T;
+      const index = this.values.indexOf(castValue);
       if (index >= 0) {
         return this.values[index];
       } else {
@@ -36,16 +36,16 @@ export class LiteralUtilType<T extends string> {
   }
 
   public indexOf(value: string): number {
-    let anyValue = value as any;
-    let index = this.values.indexOf(anyValue);
+    const anyValue = value as any;
+    const index = this.values.indexOf(anyValue);
     return index;
   }
 
   public previous(value: string): T {
-    let castValue = value as T;
-    let index = this.values.indexOf(castValue);
+    const castValue = value as T;
+    const index = this.values.indexOf(castValue);
     if (index >= 0) {
-      let previousIndex = FloorMath.mod(index - 1, this.values.length);
+      const previousIndex = FloorMath.mod(index - 1, this.values.length);
       return this.values[previousIndex];
     } else {
       return this.defaultValue;
@@ -53,10 +53,10 @@ export class LiteralUtilType<T extends string> {
   }
 
   public next(value: string): T {
-    let castValue = value as T;
-    let index = this.values.indexOf(castValue);
+    const castValue = value as T;
+    const index = this.values.indexOf(castValue);
     if (index >= 0) {
-      let nextIndex = FloorMath.mod(index + 1, this.values.length);
+      const nextIndex = FloorMath.mod(index + 1, this.values.length);
       return this.values[nextIndex];
     } else {
       return this.defaultValue;
@@ -64,9 +64,9 @@ export class LiteralUtilType<T extends string> {
   }
 
   public static create<T extends string>(values: {0: T} & ArrayLike<T>): LiteralUtilType<T> {
-    let castValues = Array.from(values);
-    let defaultValue = values[0];
-    let result = new LiteralUtilType(castValues, defaultValue);
+    const castValues = Array.from(values);
+    const defaultValue = values[0];
+    const result = new LiteralUtilType(castValues, defaultValue);
     return result;
   }
 

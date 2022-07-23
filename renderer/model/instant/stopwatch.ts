@@ -19,8 +19,8 @@ export class StopwatchInstant extends Instant {
   }
 
   public update(): void {
-    let date = new Date();
-    let duration = ((this.lastDate !== null) ? date.getTime() - this.lastDate.getTime() : 0) + this.offset;
+    const date = new Date();
+    const duration = ((this.lastDate !== null) ? date.getTime() - this.lastDate.getTime() : 0) + this.offset;
     this.year = null;
     this.month = null;
     this.day = null;
@@ -39,12 +39,12 @@ export class StopwatchInstant extends Instant {
   }
 
   public start(): void {
-    let date = new Date();
+    const date = new Date();
     this.lastDate = date;
   }
 
   public stop(): void {
-    let date = new Date();
+    const date = new Date();
     this.offset += (this.lastDate !== null) ? date.getTime() - this.lastDate.getTime() : 0;
     this.lastDate = null;
   }

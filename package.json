@@ -12,11 +12,20 @@
     "pack:mac": "electron-builder -m",
     "pack:linux": "electron-builder -l",
     "start": "electron dist/index.js -- --disable-seccomp-filter-sandbox",
-    "lint": "eslint"
+    "lint": "eslint main/**/*.ts renderer/**/*.ts renderer/**/*.tsx",
+    "lint:fix": "eslint --fix main/**/*.ts renderer/**/*.ts renderer/**/*.tsx"
   },
   "eslintConfig": {
     "extends": "ziphil",
-    "ignorePatterns": "webpack-*.ts"
+    "ignorePatterns": "webpack-*.ts",
+    "rules": {
+      "prefer-const": [
+        "warn",
+        {
+          "destructuring": "all"
+        }
+      ]
+    }
   },
   "build": {
     "appId": "com.ziphil.chronidion",

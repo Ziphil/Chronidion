@@ -73,25 +73,25 @@ export class Main {
 
   private setupIpc(): void {
     ipcMain.on("resize", (event, id, width, height) => {
-      let window = this.windows.get(id);
+      const window = this.windows.get(id);
       if (window !== undefined) {
         window.setContentSize(width, height);
       }
     });
     ipcMain.on("maximize", (event, id, width, height) => {
-      let window = this.windows.get(id);
+      const window = this.windows.get(id);
       if (window !== undefined) {
         window.maximize();
       }
     });
     ipcMain.on("open-dev-tools", (event, id) => {
-      let window = this.windows.get(id);
+      const window = this.windows.get(id);
       if (window !== undefined) {
         window.webContents.openDevTools();
       }
     });
     ipcMain.on("move-default-position", (event, id) => {
-      let window = this.windows.get(id);
+      const window = this.windows.get(id);
       if (window !== undefined) {
         this.moveDefaultPosition(window);
       }
@@ -99,12 +99,12 @@ export class Main {
   }
 
   public createWindow(mode: string, parentId: number | null, props: object, options: BrowserWindowConstructorOptions & {query?: Record<string, string>}): BrowserWindow {
-    let show = false;
-    let parent = (parentId !== null) ? this.windows.get(parentId) : undefined;
-    let additionalOptions = (!this.app.isPackaged) ? {} : PRODUCTION_WINDOW_OPTIONS;
-    let window = new BrowserWindow({...COMMON_WINDOW_OPTIONS, ...additionalOptions, show, parent, ...options});
-    let id = window.webContents.id;
-    let idString = id.toString();
+    const show = false;
+    const parent = (parentId !== null) ? this.windows.get(parentId) : undefined;
+    const additionalOptions = (!this.app.isPackaged) ? {} : PRODUCTION_WINDOW_OPTIONS;
+    const window = new BrowserWindow({...COMMON_WINDOW_OPTIONS, ...additionalOptions, show, parent, ...options});
+    const id = window.webContents.id;
+    const idString = id.toString();
     window.loadFile(joinPath(__dirname, "index.html"), {query: {...options.query, mode, idString}});
     window.setMenu(null);
     window.show();
@@ -117,8 +117,8 @@ export class Main {
   }
 
   private createMainWindow(): BrowserWindow {
-    let options = {width: 241, height: 128, minWidth: 241, minHeight: 128};
-    let window = this.createWindow("main", null, {}, options);
+    const options = {width: 241, height: 128, minWidth: 241, minHeight: 128};
+    const window = this.createWindow("main", null, {}, options);
     this.mainWindow = window;
     this.connectReloadClient(window);
     return window;
@@ -126,10 +126,10 @@ export class Main {
 
   private moveDefaultPosition(window: BrowserWindow): void {
     window.setSize(241, 128);
-    let displayBounds = screen.getPrimaryDisplay().bounds;
-    let windowBounds = window.getBounds();
-    let x = displayBounds.width - windowBounds.width - 15;
-    let y = displayBounds.height - windowBounds.height - 45;
+    const displayBounds = screen.getPrimaryDisplay().bounds;
+    const windowBounds = window.getBounds();
+    const x = displayBounds.width - windowBounds.width - 15;
+    const y = displayBounds.height - windowBounds.height - 45;
     window.setPosition(x, y);
   }
 
@@ -144,5 +144,5 @@ export class Main {
 }
 
 
-let main = new Main(electronApp);
+const main = new Main(electronApp);
 main.main();

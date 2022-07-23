@@ -20,7 +20,7 @@ const Page = create(
     children: [ReactNode, ReactNode]
   }): ReactElement | null {
 
-    let node = (show) && (
+    const node = (show) && (
       <div className="main">
         <div className="page-container-wrapper">
           <div className="page-container">

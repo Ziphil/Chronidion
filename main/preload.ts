@@ -6,8 +6,8 @@ import {
 } from "electron";
 
 
-let send = ipcRenderer.send.bind(ipcRenderer);
-let on = ipcRenderer.on.bind(ipcRenderer);
-let invoke = ipcRenderer.invoke.bind(ipcRenderer);
+const send = ipcRenderer.send.bind(ipcRenderer);
+const on = ipcRenderer.on.bind(ipcRenderer);
+const invoke = ipcRenderer.invoke.bind(ipcRenderer);
 
 contextBridge.exposeInMainWorld("api", {send, on, invoke});

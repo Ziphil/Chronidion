@@ -18,8 +18,8 @@ export class HairianInstant extends Instant {
   }
 
   public update(): void {
-    let date = NewHairianDate.current();
-    let shift = this.shift;
+    const date = NewHairianDate.current();
+    const shift = this.shift;
     this.year = date.getYear(shift) % 100;
     this.month = date.getMonth(shift);
     this.day = date.getDate(shift);

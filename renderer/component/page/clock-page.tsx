@@ -37,8 +37,8 @@ const ClockPage = create(
     show: boolean
   }): ReactElement | null {
 
-    let [instant] = useState(initialInstant);
-    let rerender = useRerender();
+    const [instant] = useState(initialInstant);
+    const rerender = useRerender();
 
     useKeyEvent((key) => {
       if (key === "Tab") {
@@ -48,7 +48,7 @@ const ClockPage = create(
     }, show);
 
     useKeyEvent((key) => {
-      let stopwatchInstant = instant as StopwatchInstant;
+      const stopwatchInstant = instant as StopwatchInstant;
       if (key === " " || key === "Enter") {
         stopwatchInstant.startOrStop();
         rerender();
@@ -81,7 +81,7 @@ const ClockPage = create(
       rerender();
     }, 37);
 
-    let node =(
+    const node = (
       <Page show={show}>
         <div className="page">
           <ClockPane instant={instant}/>
@@ -98,7 +98,7 @@ const ClockPage = create(
 
 
 const CLOCK_MODES = ["gregorian", "hairian", "stopwatch"] as const;
-export let ClockModeUtil = LiteralUtilType.create(CLOCK_MODES);
+export const ClockModeUtil = LiteralUtilType.create(CLOCK_MODES);
 export type ClockMode = LiteralType<typeof CLOCK_MODES>;
 
 export default ClockPage;

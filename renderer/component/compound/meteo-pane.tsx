@@ -29,8 +29,8 @@ const MeteoPane = create(
     kind: MeteoKind
   }): ReactElement {
 
-    let {iconNode, value, decimalLength, unit} = getMeteoKindSpec(meteo, kind);
-    let node = (
+    const {iconNode, value, decimalLength, unit} = getMeteoKindSpec(meteo, kind);
+    const node = (
       <div className="pane">
         <div className="pane-head">
           <div className="pane-head-left">
@@ -84,7 +84,7 @@ const MeteoPane = create(
 
 function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElement, value: number | undefined, decimalLength: number | undefined, unit: string} {
   if (kind === "temperature") {
-    let spec = {
+    const spec = {
       iconNode: <><Icon name="temperature-half"/></>,
       value: meteo.temperatures.day,
       decimalLength: 1,
@@ -92,7 +92,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElemen
     };
     return spec;
   } else if (kind === "maxTemperature") {
-    let spec = {
+    const spec = {
       iconNode: <><Icon name="angles-up"/><Icon name="temperature-full"/></>,
       value: meteo.temperatures.max,
       decimalLength: 1,
@@ -100,7 +100,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElemen
     };
     return spec;
   } else if (kind === "minTemperature") {
-    let spec = {
+    const spec = {
       iconNode: <><Icon name="angles-down"/><Icon name="temperature-empty"/></>,
       value: meteo.temperatures.min,
       decimalLength: 1,
@@ -108,7 +108,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElemen
     };
     return spec;
   } else if (kind === "humidity") {
-    let spec = {
+    const spec = {
       iconNode: <><Icon name="water"/></>,
       value: meteo.humidity,
       decimalLength: 0,
@@ -116,7 +116,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElemen
     };
     return spec;
   } else if (kind === "precipitation") {
-    let spec = {
+    const spec = {
       iconNode: <><Icon name="droplet"/></>,
       value: meteo.precipitation,
       decimalLength: 0,
@@ -124,7 +124,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElemen
     };
     return spec;
   } else {
-    let spec = {
+    const spec = {
       iconNode: <></>,
       value: undefined,
       decimalLength: undefined,
@@ -135,7 +135,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElemen
 }
 
 const METEO_KINDS = ["temperature", "maxTemperature", "minTemperature", "pressure", "humidity", "precipitation"] as const;
-export let MeteoKindUtil = LiteralUtilType.create(METEO_KINDS);
+export const MeteoKindUtil = LiteralUtilType.create(METEO_KINDS);
 export type MeteoKind = LiteralType<typeof METEO_KINDS>;
 
 export default MeteoPane;
