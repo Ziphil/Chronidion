@@ -1,5 +1,6 @@
 //
 
+import dotenv from "dotenv";
 import {
   App,
   BrowserWindow,
@@ -15,6 +16,8 @@ import {
   join as joinPath
 } from "path";
 
+
+dotenv.config({path: "./variable.env"});
 
 const COMMON_WINDOW_OPTIONS = {
   transparent: true,
@@ -131,7 +134,7 @@ export class Main {
   }
 
   private connectReloadClient(window: BrowserWindow): void {
-    if (!this.app.isPackaged) {
+    if (process.env["DEBUG"] === "true" && !this.app.isPackaged) {
       client.create(window, {}, () => {
         console.log("Reload client connected");
       });
