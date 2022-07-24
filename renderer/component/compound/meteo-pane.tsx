@@ -130,7 +130,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
       headNode: <><Letter string="Wind" wide={true}/></>,
       value: meteo.wind.speed,
       decimalLength: 1,
-      unit: "m"
+      unit: "m/s"
     };
     return spec;
   } else {
