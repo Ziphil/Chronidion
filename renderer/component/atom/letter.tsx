@@ -22,6 +22,7 @@ const Letter = create(
     split = false,
     unit = false,
     wide = false,
+    simple = false,
     className
   }: {
     string: string | number,
@@ -30,13 +31,18 @@ const Letter = create(
     split?: boolean,
     unit?: boolean,
     wide?: boolean,
+    simple?: boolean,
     className?: string
   }): ReactElement {
 
     const actualString = useMemo(() => getActualString(string, length, decimalLength), [string, length, decimalLength]);
     const chars = (split) ? actualString.split("") : [actualString];
+    const data = DataUtil.create({
+      content: actualString,
+      simple: {if: simple, true: "true"}
+    });
     const node = (
-      <span className={"letter" + ((className) ? ` ${className}` : "")}>
+      <span className={"letter" + ((className) ? ` ${className}` : "")} {...data}>
         {chars.map((char, index) => (
           <LetterChar key={index} {...{char, unit, wide}}/>
         ))}

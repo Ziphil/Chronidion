@@ -8,13 +8,14 @@
 
 .menu {
   block-size: 100%;
+  margin-block-start: -0.6rem;
   padding-inline: 15rem;
   display: flex;
   justify-content: space-between;
 }
 
 .menu-button-group {
-  font-size: 11rem;
+  font-size: 13rem;
   color: hsl(0, 0%, 20%);
   block-size: 100%;
   gap: 6rem;

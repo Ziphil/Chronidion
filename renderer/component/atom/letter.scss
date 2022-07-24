@@ -7,6 +7,11 @@
   color: hsl(0, 0%, 90%);
   filter: drop-shadow(0em 0em 0.2em hsla(0, 0%, 80%, 1));
   mix-blend-mode: color-dodge;
+  &[data-simple] {
+    color: inherit;
+    filter: none;
+    mix-blend-mode: normal;
+  }
 }
 
 .letter-char {

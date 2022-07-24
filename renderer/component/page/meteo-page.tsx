@@ -11,6 +11,7 @@ import {
   MeteoFactory
 } from "../../model/meteo";
 import Icon from "../atom/icon";
+import Letter from "../atom/letter";
 import MenuButton from "../atom/menu-button";
 import MeteoPane from "../compound/meteo-pane";
 import {
@@ -62,9 +63,9 @@ const MeteoPage = create(
             <MenuButton onClick={onNextPage}><Icon name="page" simple={true}/></MenuButton>
           </div>
           <div className="menu-button-group">
-            <MenuButton onClick={() => setKind("humidity")}><Icon name="humidity" simple={true}/></MenuButton>
-            <MenuButton onClick={() => setKind("precipitation")}><Icon name="precipitation" simple={true}/></MenuButton>
-            <MenuButton onClick={handleToggleTemperature}><Icon name="temperature" simple={true}/></MenuButton>
+            <MenuButton onClick={() => setKind("precipitation")}><Letter string="P" simple={true}/></MenuButton>
+            <MenuButton onClick={() => setKind("humidity")}><Letter string="H" simple={true}/></MenuButton>
+            <MenuButton onClick={handleToggleTemperature}><Letter string="T" simple={true}/></MenuButton>
             <MenuButton onClick={() => setIndex((index) => (index + 1) % 8)}><Icon name="toggle" simple={true}/></MenuButton>
           </div>
         </div>

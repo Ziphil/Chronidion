@@ -21,6 +21,7 @@ import {
   LiteralUtilType
 } from "../../util/literal-type";
 import Icon from "../atom/icon";
+import Letter from "../atom/letter";
 import MenuButton from "../atom/menu-button";
 import ClockPane from "../compound/clock-pane";
 import {
@@ -80,8 +81,8 @@ const ClockPage = create(
             <MenuButton onClick={onNextPage}><Icon name="page" simple={true}/></MenuButton>
           </div>
           <div className="menu-button-group">
-            {(instant instanceof StopwatchInstant) && <MenuButton onClick={handleReset}><Icon name="reset" simple={true}/></MenuButton>}
-            {(instant instanceof StopwatchInstant) && <MenuButton onClick={handleStartOrStop}><Icon name={(instant.stopped) ? "start" : "stop"} simple={true}/></MenuButton>}
+            {(instant instanceof StopwatchInstant) && <MenuButton onClick={handleReset}><Letter string="R" simple={true}/></MenuButton>}
+            {(instant instanceof StopwatchInstant) && <MenuButton onClick={handleStartOrStop}><Letter string="S" simple={true}/></MenuButton>}
             <MenuButton onClick={handleToggleShift}><Icon name="toggle" simple={true}/></MenuButton>
           </div>
         </div>
