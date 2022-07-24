@@ -55,7 +55,11 @@ const MeteoPane = create(
         <div className="pane-main">
           <div className="pane-main-left">
             <span className="pane-main-icon">
-              <Icon name={meteo.weather.iconName} large={true}/>
+              {(kind === "wind") ? (
+                <Icon name="arrow" large={true} style={{transform: `rotate(${meteo.wind.direction}deg)`}}/>
+              ) : (
+                <Icon name={meteo.weather.iconName} large={true}/>
+              )}
             </span>
           </div>
           <div className="pane-main-right">

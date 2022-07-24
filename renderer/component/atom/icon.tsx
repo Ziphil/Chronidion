@@ -2,11 +2,13 @@
 
 import * as react from "react";
 import {
+  CSSProperties,
   ReactElement,
   createElement
 } from "react";
 import {
   BsArrowLeftRight,
+  BsArrowUp,
   BsChevronDoubleDown,
   BsChevronDoubleUp,
   BsCloudDrizzle,
@@ -14,15 +16,10 @@ import {
   BsCloudSun,
   BsCloudy,
   BsCommand,
-  BsDroplet,
   BsLightning,
   BsSnow,
-  BsStopwatch,
   BsSun,
-  BsThermometerHalf,
-  BsUmbrella,
-  BsWater,
-  BsXDiamond
+  BsUmbrella
 } from "react-icons/bs";
 import {
   DataUtil
@@ -33,11 +30,6 @@ import {
 
 
 const ICON_COMPONENTS = {
-  temperature: BsThermometerHalf,
-  max: BsChevronDoubleUp,
-  min: BsChevronDoubleDown,
-  humidity: BsWater,
-  precipitation: BsDroplet,
   clear: BsSun,
   cloudClear: BsCloudSun,
   cloud: BsCloudy,
@@ -48,9 +40,9 @@ const ICON_COMPONENTS = {
   thunder: BsLightning,
   page: BsCommand,
   toggle: BsArrowLeftRight,
-  start: BsStopwatch,
-  stop: BsStopwatch,
-  reset: BsXDiamond
+  max: BsChevronDoubleUp,
+  min: BsChevronDoubleDown,
+  arrow: BsArrowUp
 };
 
 
@@ -60,12 +52,14 @@ const Icon = create(
     name,
     large = false,
     simple = false,
-    className
+    className,
+    style
   }: {
     name: IconName,
     large?: boolean,
     simple?: boolean,
-    className?: string
+    className?: string,
+    style?: CSSProperties
   }): ReactElement {
 
     const iconComponent = ICON_COMPONENTS[name];
@@ -74,7 +68,7 @@ const Icon = create(
       simple: {if: simple, true: "true"}
     });
     const node = (
-      <span className={"icon" + ((className) ? ` ${className}` : "")} {...data}>
+      <span className={"icon" + ((className) ? ` ${className}` : "")} style={style} {...data}>
         {(iconComponent) && createElement(iconComponent)}
       </span>
     );
