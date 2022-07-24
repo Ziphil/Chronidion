@@ -63,6 +63,7 @@ const MeteoPage = create(
             <MenuButton onClick={onNextPage}><Icon name="page" simple={true}/></MenuButton>
           </div>
           <div className="menu-button-group">
+            <MenuButton onClick={() => setKind("wind")}><Letter string="W" simple={true}/></MenuButton>
             <MenuButton onClick={() => setKind("precipitation")}><Letter string="P" simple={true}/></MenuButton>
             <MenuButton onClick={() => setKind("humidity")}><Letter string="H" simple={true}/></MenuButton>
             <MenuButton onClick={handleToggleTemperature}><Letter string="T" simple={true}/></MenuButton>

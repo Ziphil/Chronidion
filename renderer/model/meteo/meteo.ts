@@ -19,6 +19,7 @@ export interface Meteo {
   readonly pressure: number;
   readonly humidity: number;
   readonly precipitation?: number;
+  readonly wind: {speed: number, direction: number};
 
 }
 
@@ -45,7 +46,11 @@ export class MeteoFactory {
     };
     const pressure = data["main"]["pressure"];
     const humidity = data["main"]["humidity"];
-    const meteo = {weather, temperatures, pressure, humidity};
+    const wind = {
+      speed: data["wind"]["speed"],
+      direction: data["wind"]["deg"]
+    };
+    const meteo = {weather, temperatures, pressure, humidity, wind};
     return meteo;
   }
 
@@ -65,7 +70,11 @@ export class MeteoFactory {
       const pressure = dailyData["pressure"];
       const humidity = dailyData["humidity"];
       const precipitation = dailyData["pop"] * 100;
-      const meteo = {date, weather, temperatures, pressure, humidity, precipitation};
+      const wind = {
+        speed: dailyData["speed"],
+        direction: dailyData["deg"]
+      };
+      const meteo = {date, weather, temperatures, pressure, humidity, precipitation, wind};
       return meteo;
     });
     return meteos;

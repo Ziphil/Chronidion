@@ -121,6 +121,14 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElemen
       unit: "%"
     };
     return spec;
+  } else if (kind === "wind") {
+    const spec = {
+      iconNode: <><Letter string="Wind" wide={true}/></>,
+      value: meteo.wind.speed,
+      decimalLength: 1,
+      unit: "m"
+    };
+    return spec;
   } else {
     const spec = {
       iconNode: <></>,
@@ -132,7 +140,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {iconNode: ReactElemen
   }
 }
 
-const METEO_KINDS = ["temperature", "maxTemperature", "minTemperature", "pressure", "humidity", "precipitation"] as const;
+const METEO_KINDS = ["temperature", "maxTemperature", "minTemperature", "pressure", "humidity", "precipitation", "wind"] as const;
 export const MeteoKindUtil = LiteralUtilType.create(METEO_KINDS);
 export type MeteoKind = LiteralType<typeof METEO_KINDS>;
 
