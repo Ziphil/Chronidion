@@ -3,6 +3,7 @@
 import * as react from "react";
 import {
   ReactElement,
+  useCallback,
   useState
 } from "react";
 import useSWR from "swr";
@@ -37,6 +38,20 @@ const MeteoPage = create(
     const [kind, setKind] = useState<MeteoKind>("temperature");
     const {data: meteos} = useSWR("/meteo", MeteoFactory.fetch, {refreshInterval: 5 * 60 * 1000});
 
+    const handleToggleTemperature = useCallback(function (): void {
+      setKind((kind) => {
+        if (kind === "temperature") {
+          return "maxTemperature";
+        } else if (kind === "maxTemperature") {
+          return "minTemperature";
+        } else if (kind === "minTemperature") {
+          return "temperature";
+        } else {
+          return "temperature";
+        }
+      });
+    }, []);
+
     const node = (
       <Page show={show}>
         <div className="page">
@@ -49,7 +64,7 @@ const MeteoPage = create(
           <div className="menu-button-group">
             <MenuButton onClick={() => setKind("humidity")}><Icon name="humidity" simple={true}/></MenuButton>
             <MenuButton onClick={() => setKind("precipitation")}><Icon name="precipitation" simple={true}/></MenuButton>
-            <MenuButton onClick={() => setKind("temperature")}><Icon name="temperature" simple={true}/></MenuButton>
+            <MenuButton onClick={handleToggleTemperature}><Icon name="temperature" simple={true}/></MenuButton>
             <MenuButton onClick={() => setIndex((index) => (index + 1) % 8)}><Icon name="toggle" simple={true}/></MenuButton>
           </div>
         </div>
