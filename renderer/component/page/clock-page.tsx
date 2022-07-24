@@ -69,7 +69,7 @@ const ClockPage = create(
     useInterval(() => {
       instant.update();
       rerender();
-    }, 37);
+    }, 93);
 
     const node = (
       <Page show={show}>
