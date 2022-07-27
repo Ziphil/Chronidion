@@ -13,8 +13,7 @@ export interface Room {
 export class RoomFactory {
 
   public static async fetch(): Promise<Room> {
-    const temperature = Math.random() * 50 - 10;
-    const humidity = Math.random() * 100;
+    const {temperature, humidity} = await window.api.invoke("fetch-dht");
     const disconfort = RoomFactory.calcDisconfort(temperature, humidity);
     return {temperature, humidity, disconfort};
   }

@@ -72,6 +72,11 @@ export class Main {
   }
 
   private setupIpc(): void {
+    ipcMain.handle("fetch-dht", async (event) => {
+      const temperature = Math.random() * 50 - 10;
+      const humidity = Math.random() * 100;
+      return {temperature, humidity};
+    });
     ipcMain.on("resize", (event, id, width, height) => {
       const window = this.windows.get(id);
       if (window !== undefined) {
