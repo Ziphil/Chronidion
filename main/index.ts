@@ -73,9 +73,13 @@ export class Main {
 
   private setupIpc(): void {
     ipcMain.handle("fetch-dht", async (event) => {
-      const temperature = Math.random() * 50 - 10;
-      const humidity = Math.random() * 100;
-      return {temperature, humidity};
+      try {
+        const sensor = require("node-dht-sensor");
+        const {temperature, humidity} = await sensor.read(22, 4);
+        return {temperature, humidity};
+      } catch (error) {
+        throw Error("no sensor found");
+      }
     });
     ipcMain.on("resize", (event, id, width, height) => {
       const window = this.windows.get(id);
