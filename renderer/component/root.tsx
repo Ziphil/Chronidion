@@ -88,7 +88,7 @@ const Root = create(
 
 function getColorString(hue: number, lightness: number): string {
   const modifiedHue = Math.floor((hue + 360) % 360);
-  return `hsl(${modifiedHue}, 15%, ${lightness}%)`;
+  return `hsl(${modifiedHue}, 25%, ${lightness}%)`;
 }
 
 const PAGE_MODES = ["gregorian", "hairian", "stopwatch", "meteo", "room"] as const;
