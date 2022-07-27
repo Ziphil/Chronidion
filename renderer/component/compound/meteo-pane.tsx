@@ -66,12 +66,12 @@ const MeteoPane = create(
             {(value !== undefined) ? (
               <Fragment>
                 <Letter string={value ?? 0} decimalLength={decimalLength} split={true}/>
-                <Letter string={unit} unit={true}/>
+                {(unit !== null) && <Letter string={unit} unit={true}/>}
               </Fragment>
             ) : (
               <Fragment>
                 <Letter string="—"/>
-                <Letter string={unit} unit={true}/>
+                {(unit !== null) && <Letter string={unit} unit={true}/>}
               </Fragment>
             )}
           </div>
@@ -84,7 +84,7 @@ const MeteoPane = create(
 );
 
 
-function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElement, value: number | undefined, decimalLength: number | undefined, unit: string} {
+function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElement, value: number | undefined, decimalLength: number | undefined, unit: string | null} {
   if (kind === "temperature") {
     const spec = {
       headNode: <><Letter string="Temp" wide={true}/></>,
@@ -138,7 +138,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
       headNode: <></>,
       value: undefined,
       decimalLength: undefined,
-      unit: ""
+      unit: null
     };
     return spec;
   }

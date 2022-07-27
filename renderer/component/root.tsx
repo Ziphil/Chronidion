@@ -3,6 +3,7 @@
 import * as queryParser from "query-string";
 import * as react from "react";
 import {
+  Fragment,
   ReactElement,
   useCallback,
   useState
@@ -27,6 +28,7 @@ import {
 } from "./create";
 import ClockPage from "./page/clock-page";
 import MeteoPage from "./page/meteo-page";
+import RoomPage from "./page/room-page";
 
 
 const Root = create(
@@ -46,19 +48,11 @@ const Root = create(
     }, []);
 
     const handlePreviousPage = useCallback(function (): void {
-      setMode((mode) => {
-        const nextIndex = PageModeUtil.indexOf(mode) - 1;
-        const nextMode = PageModeUtil.cast((nextIndex + 4) % 4);
-        return nextMode;
-      });
+      setMode((mode) => PageModeUtil.previous(mode));
     }, []);
 
     const handleNextPage = useCallback(function (): void {
-      setMode((mode) => {
-        const nextIndex = PageModeUtil.indexOf(mode) + 1;
-        const nextMode = PageModeUtil.cast((nextIndex + 4) % 4);
-        return nextMode;
-      });
+      setMode((mode) => PageModeUtil.next(mode));
     }, []);
 
     useKeyEvent((key) => {
@@ -78,12 +72,13 @@ const Root = create(
 
     const commonProps = {onPreviousPage: handlePreviousPage, onNextPage: handleNextPage};
     const node = (
-      <>
+      <Fragment>
         <ClockPage initialInstant={new GregorianInstant()} show={mode === "gregorian"} {...commonProps}/>
         <ClockPage initialInstant={new HairianInstant()} show={mode === "hairian"} {...commonProps}/>
         <ClockPage initialInstant={new StopwatchInstant()} show={mode === "stopwatch"} {...commonProps}/>
         <MeteoPage show={mode === "meteo"} {...commonProps}/>
-      </>
+        <RoomPage show={mode === "room"} {...commonProps}/>
+      </Fragment>
     );
     return node;
 
@@ -96,7 +91,7 @@ function getColorString(hue: number, lightness: number): string {
   return `hsl(${modifiedHue}, 15%, ${lightness}%)`;
 }
 
-const PAGE_MODES = ["gregorian", "hairian", "stopwatch", "meteo"] as const;
+const PAGE_MODES = ["gregorian", "hairian", "stopwatch", "meteo", "room"] as const;
 export const PageModeUtil = LiteralUtilType.create(PAGE_MODES);
 export type PageMode = LiteralType<typeof PAGE_MODES>;
 
