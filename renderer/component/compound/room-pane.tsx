@@ -12,6 +12,7 @@ import {
   LiteralType,
   LiteralUtilType
 } from "../../util/literal-type";
+import Icon from "../atom/icon";
 import Letter from "../atom/letter";
 import {
   create
@@ -42,7 +43,7 @@ const RoomPane = create(
         <div className="pane-main">
           <div className="pane-main-left">
             <span className="pane-main-icon">
-              {null}
+              <Icon name={room.disconfortIconName} large={true}/>
             </span>
           </div>
           <div className="pane-main-right">

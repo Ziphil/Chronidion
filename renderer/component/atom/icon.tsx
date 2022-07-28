@@ -16,6 +16,10 @@ import {
   BsCloudSun,
   BsCloudy,
   BsCommand,
+  BsEmojiDizzy,
+  BsEmojiFrown,
+  BsEmojiNeutral,
+  BsEmojiSmile,
   BsLightning,
   BsSnow,
   BsSun,
@@ -42,7 +46,11 @@ const ICON_COMPONENTS = {
   toggle: BsArrowLeftRight,
   max: BsChevronDoubleUp,
   min: BsChevronDoubleDown,
-  arrow: BsArrowUp
+  arrow: BsArrowUp,
+  confort: BsEmojiSmile,
+  neutral: BsEmojiNeutral,
+  disconfort: BsEmojiFrown,
+  dizzy: BsEmojiDizzy
 };
 
 
