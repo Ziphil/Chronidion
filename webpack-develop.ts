@@ -40,11 +40,15 @@ export let commonMain = {
         use: {
           loader: "ts-loader"
         }
-      }
+      },
+      {
+        test: /\.node$/,
+        loader: "node-loader",
+      },
     ]
   },
   resolve: {
-    extensions: [".ts", ".js"]
+    extensions: [".ts", ".js", ".node"]
   }
 };
 
