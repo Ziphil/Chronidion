@@ -47,9 +47,9 @@ const ICON_COMPONENTS = {
   max: BsChevronDoubleUp,
   min: BsChevronDoubleDown,
   arrow: BsArrowUp,
-  confort: BsEmojiSmile,
+  comfort: BsEmojiSmile,
   neutral: BsEmojiNeutral,
-  disconfort: BsEmojiFrown,
+  discomfort: BsEmojiFrown,
   dizzy: BsEmojiDizzy
 };
 

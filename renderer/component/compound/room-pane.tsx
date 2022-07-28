@@ -43,7 +43,7 @@ const RoomPane = create(
         <div className="pane-main">
           <div className="pane-main-left">
             <span className="pane-main-icon">
-              <Icon name={room.disconfortIconName} large={true}/>
+              <Icon name={room.discomfortIconName} large={true}/>
             </span>
           </div>
           <div className="pane-main-right">
@@ -85,10 +85,10 @@ function getRoomKindSpec(meteo: Room, kind: RoomKind): {headNode: ReactElement, 
       unit: "%"
     };
     return spec;
-  } else if (kind === "disconfort") {
+  } else if (kind === "discomfort") {
     const spec = {
-      headNode: <><Letter string="Disconf" wide={true}/></>,
-      value: meteo.disconfort,
+      headNode: <><Letter string="Discomf" wide={true}/></>,
+      value: meteo.discomfort,
       decimalLength: 1,
       unit: null
     };
@@ -104,7 +104,7 @@ function getRoomKindSpec(meteo: Room, kind: RoomKind): {headNode: ReactElement, 
   }
 }
 
-const ROOM_KINDS = ["temperature", "humidity", "disconfort"] as const;
+const ROOM_KINDS = ["temperature", "humidity", "discomfort"] as const;
 export const RoomKindUtil = LiteralUtilType.create(ROOM_KINDS);
 export type RoomKind = LiteralType<typeof ROOM_KINDS>;
 
