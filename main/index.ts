@@ -73,12 +73,18 @@ export class Main {
 
   private setupIpc(): void {
     ipcMain.handle("fetch-dht", async (event) => {
-      try {
-        const sensor = require("node-dht-sensor");
-        const {temperature, humidity} = await sensor.read(22, 4);
+      if (process.env["DEBUG"] === "true") {
+        const temperature = Math.random() * 15 + 25;
+        const humidity = Math.random() * 100;
         return {temperature, humidity};
-      } catch (error) {
-        throw Error("no sensor found");
+      } else {
+        try {
+          const sensor = require("node-dht-sensor").promises;
+          const {temperature, humidity} = await sensor.read(22, 4);
+          return {temperature, humidity};
+        } catch (error) {
+          throw Error("no sensor found");
+        }
       }
     });
     ipcMain.on("resize", (event, id, width, height) => {
