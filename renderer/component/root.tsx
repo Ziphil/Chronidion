@@ -12,7 +12,8 @@ import {
   useInterval, useMount
 } from "react-use";
 import {
-  useKeyEvent
+  useKeyEvent,
+  useTripleClickEvent
 } from "../hook";
 import {
   GregorianInstant,
@@ -65,6 +66,10 @@ const Root = create(
       } else if (key === "F12") {
         window.api.send("open-dev-tools", id);
       }
+    }, true);
+
+    useTripleClickEvent(() => {
+      window.api.send("quit");
     }, true);
 
     useInterval(updateColors, 10000);

@@ -94,6 +94,9 @@ export class Main {
         throw new Error("sensor not found");
       }
     });
+    ipcMain.on("quit", (event) => {
+      this.app.quit();
+    });
     ipcMain.on("resize", (event, id, width, height) => {
       const window = this.windows.get(id);
       if (window !== undefined) {
