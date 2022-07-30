@@ -74,7 +74,7 @@ function getSerialPortClass(): typeof SerialPort | undefined {
   try {
     return require("serialport")["SerialPort"];
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return undefined;
   }
 }
