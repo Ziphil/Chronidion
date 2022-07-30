@@ -8,17 +8,18 @@ import {
   DefinePlugin
 } from "webpack";
 import merge from "webpack-merge";
+import externals from "webpack-node-externals";
 
 
 dotenv.config({path: "./variable.env"});
 
-let electronReloadPlugin = electronReload({
+const electronReloadPlugin = electronReload({
   path: path.join(__dirname, "dist", "index.js"),
   stopOnClose: true,
   logLevel: 0
 });
 
-export let commonMain = {
+export const commonMain = {
   target: "electron-main",
   entry: {
     index: "./main/index.ts",
@@ -52,7 +53,7 @@ export let commonMain = {
   }
 };
 
-export let commonRenderer = {
+export const commonRenderer = {
   target: "electron-renderer",
   entry: ["./renderer/index.tsx"],
   output: {
@@ -115,7 +116,35 @@ export let commonRenderer = {
   ]
 };
 
-let main = merge(commonMain, {
+export const commonServer = {
+  target: "node",
+  entry: ["./server/index.ts"],
+  output: {
+    path: path.join(__dirname, "dist"),
+    filename: "server.js"
+  },
+  externals: [externals()],
+  module: {
+    rules: [
+      {
+        test: /.tsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "ts-loader"
+        }
+      },
+      {
+        test: /\.node$/,
+        loader: "node-loader",
+      }
+    ]
+  },
+  resolve: {
+    extensions: [".ts", ".js", ".node"]
+  }
+};
+
+const main = merge(commonMain, {
   mode: "development",
   devtool: "source-map",
   plugins: [
@@ -123,7 +152,7 @@ let main = merge(commonMain, {
   ]
 });
 
-let renderer = merge(commonRenderer, {
+const renderer = merge(commonRenderer, {
   mode: "development",
   devtool: "source-map",
   plugins: [
@@ -131,4 +160,9 @@ let renderer = merge(commonRenderer, {
   ]
 });
 
-export default [main, renderer];
+const server = merge(commonServer, {
+  mode: "development",
+  devtool: "source-map"
+});
+
+export default [main, renderer, server];

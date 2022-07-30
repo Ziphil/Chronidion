@@ -1,24 +1,23 @@
 // @ts-nocheck
 
-import {
-  CleanWebpackPlugin
-} from "clean-webpack-plugin";
 import merge from "webpack-merge";
 import {
   commonMain,
-  commonRenderer
+  commonRenderer,
+  commonServer
 } from "./webpack-develop";
 
 
-let main = merge(commonMain, {
-  mode: "production",
-  plugins: [
-    new CleanWebpackPlugin()
-  ]
-});
-
-let renderer = merge(commonRenderer, {
+const main = merge(commonMain, {
   mode: "production"
 });
 
-export default [main, renderer];
+const renderer = merge(commonRenderer, {
+  mode: "production"
+});
+
+const server = merge(commonServer, {
+  mode: "production"
+});
+
+export default [main, renderer, server];

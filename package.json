@@ -8,13 +8,12 @@
   "scripts": {
     "develop": "cross-env NODE_ENV=development webpack --watch --mode development --config webpack-develop.ts",
     "build": "webpack --mode production --config webpack-product.ts",
-    "pack:windows": "electron-builder -w",
-    "pack:mac": "electron-builder -m",
-    "pack:linux": "electron-builder -l",
     "install": "electron-rebuild",
-    "start": "electron dist/index.js",
-    "lint": "eslint main/**/*.ts renderer/**/*.ts renderer/**/*.tsx",
-    "lint:fix": "eslint --fix main/**/*.ts renderer/**/*.ts renderer/**/*.tsx"
+    "start": "run-p start:electron start:server",
+    "start:electron": "electron dist/index.js",
+    "start:server": "node dist/server.js",
+    "lint": "eslint main/**/*.ts renderer/**/*.ts renderer/**/*.tsx server/**/*.ts",
+    "lint:fix": "eslint --fix main/**/*.ts renderer/**/*.ts renderer/**/*.tsx server/**/*.ts"
   },
   "eslintConfig": {
     "extends": "ziphil",
@@ -49,9 +48,10 @@
     "@fortawesome/free-solid-svg-icons": "^6.0.0",
     "@fortawesome/react-fontawesome": "^0.1.17",
     "@types/node-dht-sensor": "^0.4.0",
-    "axios": "^0.26.0",
+    "axios": "^0.26.1",
     "dayjs": "^1.10.7",
     "electron-connect": "^0.6.3",
+    "express": "^4.18.1",
     "query-string": "^7.1.1",
     "react": "^16.14.0",
     "react-css-modules": "^4.7.11",
@@ -65,6 +65,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",
+    "@types/express": "^4.17.13",
     "@types/react": "^17.0.3",
     "@types/react-css-modules": "^4.6.2",
     "@types/react-dom": "^17.0.3",
@@ -91,6 +92,7 @@
     "html-webpack-plugin": "^5.3.1",
     "jsonify-type": "^1.0.0",
     "node-loader": "^2.0.0",
+    "npm-run-all": "^4.1.5",
     "sass": "^1.49.8",
     "sass-loader": "^12.6.0",
     "source-map-loader": "^2.0.1",
@@ -100,7 +102,8 @@
     "typescript": "^4.2.4",
     "webpack": "^5.35.0",
     "webpack-cli": "^4.6.0",
-    "webpack-merge": "^5.7.3"
+    "webpack-merge": "^5.7.3",
+    "webpack-node-externals": "^3.0.0"
   },
   "optionalDependencies": {
     "node-dht-sensor": "^0.4.3",

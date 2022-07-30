@@ -12,10 +12,10 @@ export class Mhz19Sensor implements Sensor<Mhz19Return> {
 
   private readonly port?: SerialPort;
 
-  public constructor() {
+  public constructor(path: string) {
     const SerialPort = getSerialPortClass();
     if (SerialPort !== undefined) {
-      this.port = new SerialPort({path: "/dev/serial0", baudRate: 9600});
+      this.port = new SerialPort({path, baudRate: 9600});
       this.setup();
     }
   }
@@ -72,7 +72,7 @@ export type Mhz19Return = {carbon: number};
 
 function getSerialPortClass(): typeof SerialPort | undefined {
   try {
-    return eval("require('serialport')")["SerialPort"];
+    return require("serialport")["SerialPort"];
   } catch (error) {
     console.log("MHZ19: library not loaded");
     console.error(error);

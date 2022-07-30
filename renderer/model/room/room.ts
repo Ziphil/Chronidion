@@ -1,5 +1,6 @@
 //
 
+import axios from "axios";
 import {
   IconName
 } from "../../component/atom/icon";
@@ -25,7 +26,7 @@ export class RoomFactory {
 
   private static async fetchDht22Return(): Promise<Pick<Room, "temperature" | "humidity" | "discomfort" | "discomfortIconName">> {
     try {
-      const {temperature, humidity} = await window.api.invoke("fetch-sensor", "dht22");
+      const {temperature, humidity} = await axios.get("http://localhost:8080/sensor", {params: {type: "dht22"}}).then((response) => response.data);
       const discomfort = RoomFactory.calcDiscomfort(temperature, humidity);
       const discomfortIconName = RoomFactory.calcDiscomfortIconName(discomfort);
       return {temperature, humidity, discomfort, discomfortIconName};
@@ -36,7 +37,7 @@ export class RoomFactory {
 
   private static async fetchMhz19Return(): Promise<Pick<Room, "carbon">> {
     try {
-      const {carbon} = await window.api.invoke("fetch-sensor", "mhz19");
+      const {carbon} = await axios.get("http://localhost:8080/sensor", {params: {type: "mhz19"}}).then((response) => response.data);
       return {carbon};
     } catch (error) {
       return {};
