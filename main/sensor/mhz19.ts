@@ -15,13 +15,8 @@ export class Mhz19Sensor implements Sensor<Mhz19Return> {
   public constructor() {
     const SerialPort = getSerialPortClass();
     if (SerialPort !== undefined) {
-      try {
-        this.port = new SerialPort({path: "/dev/serial0", baudRate: 9600});
-        this.setup();
-      } catch (error) {
-        console.log("MHZ19: initialize error");
-        console.error(error);
-      }
+      this.port = new SerialPort({path: "/dev/serial0", baudRate: 9600});
+      this.setup();
     }
   }
 
