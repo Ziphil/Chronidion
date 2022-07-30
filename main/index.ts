@@ -49,7 +49,7 @@ export class Main {
   public windows: Map<number, BrowserWindow>;
   public mainWindow: BrowserWindow | undefined;
   public props: Map<number, object>;
-  private sensors: {[type: string]: Sensor<unknown> | undefined};
+  private readonly sensors: {[T in string]?: Sensor<unknown>};
 
   public constructor(app: App) {
     this.app = app;
