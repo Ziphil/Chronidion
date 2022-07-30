@@ -11,6 +11,7 @@
     "pack:windows": "electron-builder -w",
     "pack:mac": "electron-builder -m",
     "pack:linux": "electron-builder -l",
+    "install": "electron-rebuild",
     "start": "electron dist/index.js",
     "lint": "eslint main/**/*.ts renderer/**/*.ts renderer/**/*.tsx",
     "lint:fix": "eslint --fix main/**/*.ts renderer/**/*.ts renderer/**/*.tsx"
@@ -78,6 +79,7 @@
     "dotenv": "^16.0.0",
     "electron": "^17.4.10",
     "electron-builder": "^22.14.13",
+    "electron-rebuild": "^3.2.8",
     "electron-reload-webpack-plugin": "^2.0.4",
     "eslint": "^8.17.0",
     "eslint-config-ziphil": "^1.5.2",
