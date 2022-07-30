@@ -15,6 +15,9 @@ import {
 import {
   join as joinPath
 } from "path";
+import {
+  Dht22Sensor
+} from "./sensor";
 
 
 dotenv.config({path: "./variable.env"});
@@ -37,19 +40,27 @@ const PRODUCTION_WINDOW_OPTIONS = {
   webPreferences: {preload: joinPath(__dirname, "preload.js"), devTools: false}
 };
 
+type Sensors = {
+  dht22: Dht22Sensor
+};
+
 
 export class Main {
 
-  public app: App;
+  public readonly app: App;
   public windows: Map<number, BrowserWindow>;
   public mainWindow: BrowserWindow | undefined;
   public props: Map<number, object>;
+  private sensors: Sensors;
 
   public constructor(app: App) {
     this.app = app;
     this.windows = new Map();
     this.mainWindow = undefined;
     this.props = new Map();
+    this.sensors = {
+      dht22: new Dht22Sensor(4)
+    };
   }
 
   public main(): void {
@@ -74,17 +85,9 @@ export class Main {
   private setupIpc(): void {
     ipcMain.handle("fetch-dht", async (event) => {
       if (process.env["DEBUG"] === "true") {
-        const temperature = Math.random() * 15 + 25;
-        const humidity = Math.random() * 100;
-        return {temperature, humidity};
+        return await this.sensors.dht22.readDebug();
       } else {
-        try {
-          const sensor = require("node-dht-sensor").promises;
-          const {temperature, humidity} = await sensor.read(22, 4);
-          return {temperature, humidity};
-        } catch (error) {
-          throw Error("no sensor found");
-        }
+        return await this.sensors.dht22.read();
       }
     });
     ipcMain.on("resize", (event, id, width, height) => {
