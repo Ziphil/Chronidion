@@ -6,7 +6,7 @@ import type originalLibrary from "node-dht-sensor";
 type Dht22Library = typeof originalLibrary;
 const library = require("node-dht-sensor") as Dht22Library;
 
-type Dht22Return = {temperature: number, humidity: number};
+export type Dht22Return = {temperature: number, humidity: number};
 
 
 export class Dht22Sensor {
