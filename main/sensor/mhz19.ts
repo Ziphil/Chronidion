@@ -1,6 +1,6 @@
 //
 
-import {
+import type {
   SerialPort
 } from "serialport";
 import {
