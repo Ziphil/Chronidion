@@ -18,7 +18,7 @@ export interface Room {
 export class RoomFactory {
 
   public static async fetch(): Promise<Room> {
-    const {temperature, humidity} = await window.api.invoke("fetch-dht");
+    const {temperature, humidity} = await window.api.invoke("fetch-dht22");
     const discomfort = RoomFactory.calcDiscomfort(temperature, humidity);
     const discomfortIconName = RoomFactory.calcDiscomfortIconName(discomfort);
     return {temperature, humidity, discomfort, discomfortIconName};

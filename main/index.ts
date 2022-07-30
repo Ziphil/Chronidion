@@ -83,7 +83,7 @@ export class Main {
   }
 
   private setupIpc(): void {
-    ipcMain.handle("fetch-dht", async (event) => {
+    ipcMain.handle("fetch-dht22", async (event) => {
       if (process.env["DEBUG"] === "true") {
         return await this.sensors.dht22.readDebug();
       } else {
