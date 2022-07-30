@@ -44,16 +44,20 @@ export class Main {
 
   private setupRouters(): void {
     this.application.get("/sensor", async (request, response, next) => {
-      const type = request.query.type as string;
-      const sensor = this.sensors[type];
-      if (sensor !== undefined) {
-        if (process.env["DEBUG"] === "true") {
-          response.json(await sensor.readDebug());
+      try {
+        const type = request.query.type as string;
+        const sensor = this.sensors[type];
+        if (sensor !== undefined) {
+          if (process.env["DEBUG"] === "true") {
+            response.json(await sensor.readDebug());
+          } else {
+            response.json(await sensor.read());
+          }
         } else {
-          response.json(await sensor.read());
+          response.status(500).end();
         }
-      } else {
-        response.status(500);
+      } catch (error) {
+        response.status(500).end();
       }
     });
   }

@@ -33,11 +33,15 @@ export class Mhz19Sensor implements Sensor<Mhz19Return> {
   public read(): Promise<Mhz19Return> {
     if (this.port) {
       const promise = new Promise<Mhz19Return>((resolve, reject) => {
-        this.sendPacket([0xFF, 0x1, 0x86, 0x0, 0x0, 0x0, 0x0, 0x0], reject);
-        this.port?.once("data", (packet) => {
-          const carbon = packet[2] * 0x100 + packet[3];
-          resolve({carbon});
-        });
+        try {
+          this.sendPacket([0xFF, 0x1, 0x86, 0x0, 0x0, 0x0, 0x0, 0x0], reject);
+          this.port?.once("data", (packet) => {
+            const carbon = packet[2] * 0x100 + packet[3];
+            resolve({carbon});
+          });
+        } catch (error) {
+          reject(error);
+        }
       });
       return promise;
     } else {
@@ -51,15 +55,17 @@ export class Mhz19Sensor implements Sensor<Mhz19Return> {
   }
 
   private sendPacket(packet: Array<number>, reject: (error: any) => void): void {
-    const checksumedPacket = [...packet, this.calcChecksum(packet)];
-    this.port?.write(checksumedPacket, (error) => {
-      console.log("MHZ19: write error");
-      console.error(error);
-      reject(error);
-    });
+    if (this.port) {
+      const checksumedPacket = [...packet, Mhz19Sensor.calcChecksum(packet)];
+      this.port.write(checksumedPacket, (error) => {
+        console.log("MHZ19: write error");
+        console.error(error);
+        reject(error);
+      });
+    }
   }
 
-  private calcChecksum(packet: Array<number>): number {
+  private static calcChecksum(packet: Array<number>): number {
     const sum = packet.reduce((previous, current) => previous + current, 0) % 0x100;
     const checksum = (0xFF - sum + 1) % 0x100;
     return checksum;
