@@ -41,6 +41,8 @@ function getLibrary(): Dht22Library | undefined {
   try {
     return require("node-dht-sensor");
   } catch (error) {
+    console.log("DHT22: library not loaded");
+    console.error(error);
     return undefined;
   }
 }

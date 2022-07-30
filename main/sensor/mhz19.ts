@@ -74,6 +74,7 @@ function getSerialPortClass(): typeof SerialPort | undefined {
   try {
     return require("serialport")["SerialPort"];
   } catch (error) {
+    console.log("MHZ19: library not loaded");
     console.error(error);
     return undefined;
   }
