@@ -13,7 +13,7 @@ import METEO_DATA from "./meteo-data.json";
 
 export interface Meteo {
 
-  readonly date?: Dayjs;
+  readonly date: Dayjs | null;
   readonly weather: {id: number, iconName: IconName};
   readonly temperatures: {day: number, max?: number, min?: number};
   readonly pressure: number;
@@ -50,7 +50,7 @@ export class MeteoFactory {
       speed: data["wind"]["speed"],
       direction: data["wind"]["deg"]
     };
-    const meteo = {weather, temperatures, pressure, humidity, wind};
+    const meteo = {date: null, weather, temperatures, pressure, humidity, wind};
     return meteo;
   }
 

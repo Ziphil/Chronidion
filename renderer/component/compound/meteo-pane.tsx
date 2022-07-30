@@ -34,7 +34,7 @@ const MeteoPane = create(
       <div className="pane">
         <div className="pane-head">
           <div className="pane-head-left">
-            {(meteo.date === undefined) ? (
+            {(meteo.date === null) ? (
               <Fragment>
                 <Letter string="Current" wide={true}/>
               </Fragment>
