@@ -47,6 +47,7 @@ const RoomPage = create(
             <MenuButton onClick={onNextPage}><Icon name="page" simple={true}/></MenuButton>
           </div>
           <div className="menu-button-group">
+            <MenuButton onClick={() => setKind("carbon")}><Letter string="C" simple={true}/></MenuButton>
             <MenuButton onClick={() => setKind("discomfort")}><Letter string="D" simple={true}/></MenuButton>
             <MenuButton onClick={() => setKind("humidity")}><Letter string="H" simple={true}/></MenuButton>
             <MenuButton onClick={() => setKind("temperature")}><Letter string="T" simple={true}/></MenuButton>

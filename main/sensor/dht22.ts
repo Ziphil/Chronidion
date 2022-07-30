@@ -1,25 +1,28 @@
 //
 
 import type originalLibrary from "node-dht-sensor";
+import {
+  Sensor
+} from "./sensor";
 
 
-type Dht22Library = typeof originalLibrary;
-const library = require("node-dht-sensor") as Dht22Library;
+export class Dht22Sensor implements Sensor<Dht22Return> {
 
-export type Dht22Return = {temperature: number, humidity: number};
-
-
-export class Dht22Sensor {
-
+  private readonly library?: Dht22Library;
   private readonly pin: number;
 
   public constructor(pin: number) {
+    this.library = getLibrary();
     this.pin = pin;
   }
 
   public async read(): Promise<Dht22Return> {
-    const {temperature, humidity} = await library.promises.read(22, this.pin);
-    return {temperature, humidity};
+    if (this.library) {
+      const {temperature, humidity} = await this.library.promises.read(22, this.pin);
+      return {temperature, humidity};
+    } else {
+      throw new Error("DHT22: library not found");
+    }
   }
 
   public async readDebug(): Promise<Dht22Return> {
@@ -28,4 +31,16 @@ export class Dht22Sensor {
     return {temperature, humidity};
   }
 
+}
+
+
+export type Dht22Return = {temperature: number, humidity: number};
+type Dht22Library = typeof originalLibrary;
+
+function getLibrary(): Dht22Library | undefined {
+  try {
+    return require("node-dht-sensor");
+  } catch (error) {
+    return undefined;
+  }
 }

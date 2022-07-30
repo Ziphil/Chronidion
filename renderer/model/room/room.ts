@@ -11,6 +11,7 @@ export interface Room {
   readonly humidity: number;
   readonly discomfort: number;
   readonly discomfortIconName: IconName;
+  readonly carbon: number;
 
 }
 
@@ -18,10 +19,10 @@ export interface Room {
 export class RoomFactory {
 
   public static async fetch(): Promise<Room> {
-    const {temperature, humidity} = await window.api.invoke("fetch-dht22");
+    const [{temperature, humidity}, {carbon}] = await Promise.all([window.api.invoke("fetch-sensor", "dht22"), window.api.invoke("fetch-sensor", "mhz19")]);
     const discomfort = RoomFactory.calcDiscomfort(temperature, humidity);
     const discomfortIconName = RoomFactory.calcDiscomfortIconName(discomfort);
-    return {temperature, humidity, discomfort, discomfortIconName};
+    return {temperature, humidity, discomfort, discomfortIconName, carbon};
   }
 
   private static calcDiscomfort(temperature: number, humidity: number): number {

@@ -16,7 +16,9 @@ import {
   join as joinPath
 } from "path";
 import {
-  Dht22Sensor
+  Dht22Sensor,
+  Mhz19Sensor,
+  Sensor
 } from "./sensor";
 
 
@@ -40,10 +42,6 @@ const PRODUCTION_WINDOW_OPTIONS = {
   webPreferences: {preload: joinPath(__dirname, "preload.js"), devTools: false}
 };
 
-type Sensors = {
-  dht22: Dht22Sensor
-};
-
 
 export class Main {
 
@@ -51,7 +49,7 @@ export class Main {
   public windows: Map<number, BrowserWindow>;
   public mainWindow: BrowserWindow | undefined;
   public props: Map<number, object>;
-  private sensors: Sensors;
+  private sensors: {[type: string]: Sensor<unknown> | undefined};
 
   public constructor(app: App) {
     this.app = app;
@@ -59,7 +57,8 @@ export class Main {
     this.mainWindow = undefined;
     this.props = new Map();
     this.sensors = {
-      dht22: new Dht22Sensor(4)
+      dht22: new Dht22Sensor(4),
+      mhz19: new Mhz19Sensor()
     };
   }
 
@@ -83,11 +82,16 @@ export class Main {
   }
 
   private setupIpc(): void {
-    ipcMain.handle("fetch-dht22", async (event) => {
-      if (process.env["DEBUG"] === "true") {
-        return await this.sensors.dht22.readDebug();
+    ipcMain.handle("fetch-sensor", async (event, type) => {
+      const sensor = this.sensors[type];
+      if (sensor !== undefined) {
+        if (process.env["DEBUG"] === "true") {
+          return await sensor.readDebug();
+        } else {
+          return await sensor.read();
+        }
       } else {
-        return await this.sensors.dht22.read();
+        throw new Error("sensor not found");
       }
     });
     ipcMain.on("resize", (event, id, width, height) => {

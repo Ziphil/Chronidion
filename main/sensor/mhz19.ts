@@ -3,39 +3,46 @@
 import {
   SerialPort
 } from "serialport";
+import {
+  Sensor
+} from "./sensor";
 
 
-export type Mhz19Return = {carbon: number};
+export class Mhz19Sensor implements Sensor<Mhz19Return> {
 
-
-export class Mhz19Sensor {
-
-  private readonly port: SerialPort;
+  private readonly port?: SerialPort;
 
   public constructor() {
-    this.port = new SerialPort({path: "/dev/serial0", baudRate: 9600});
-    this.setup();
+    const SerialPort = getSerialPortClass();
+    if (SerialPort !== undefined) {
+      this.port = new SerialPort({path: "/dev/serial0", baudRate: 9600});
+      this.setup();
+    }
   }
 
   private setup(): void {
-    this.port.on("close", () => {
-      console.log("MHZ19 port closed");
+    this.port?.on("close", () => {
+      console.log("MHZ19: port closed");
     });
-    this.port.on("error", (error) => {
-      console.log("MHZ19 port error");
+    this.port?.on("error", (error) => {
+      console.log("MHZ19: port error");
       console.error(error);
     });
   }
 
-  public async read(): Promise<Mhz19Return> {
-    const promise = new Promise<Mhz19Return>((resolve, reject) => {
-      this.sendPacket([0xFF, 0x1, 0x86, 0x0, 0x0, 0x0, 0x0, 0x0], reject);
-      this.port.once("data", (packet) => {
-        const carbon = packet[2] * 0x100 + packet[3];
-        resolve({carbon});
+  public read(): Promise<Mhz19Return> {
+    if (this.port) {
+      const promise = new Promise<Mhz19Return>((resolve, reject) => {
+        this.sendPacket([0xFF, 0x1, 0x86, 0x0, 0x0, 0x0, 0x0, 0x0], reject);
+        this.port?.once("data", (packet) => {
+          const carbon = packet[2] * 0x100 + packet[3];
+          resolve({carbon});
+        });
       });
-    });
-    return promise;
+      return promise;
+    } else {
+      throw new Error("MHZ19: library not found");
+    }
   }
 
   public async readDebug(): Promise<Mhz19Return> {
@@ -45,8 +52,8 @@ export class Mhz19Sensor {
 
   private sendPacket(packet: Array<number>, reject: (error: any) => void): void {
     const checksumedPacket = [...packet, this.calcChecksum(packet)];
-    this.port.write(checksumedPacket, (error) => {
-      console.log("MHZ19 write error");
+    this.port?.write(checksumedPacket, (error) => {
+      console.log("MHZ19: write error");
       console.error(error);
       reject(error);
     });
@@ -58,4 +65,15 @@ export class Mhz19Sensor {
     return checksum;
   }
 
+}
+
+
+export type Mhz19Return = {carbon: number};
+
+function getSerialPortClass(): typeof SerialPort | undefined {
+  try {
+    return require("serialport")["SerialPort"];
+  } catch (error) {
+    return undefined;
+  }
 }

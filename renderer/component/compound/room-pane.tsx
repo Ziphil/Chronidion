@@ -93,6 +93,14 @@ function getRoomKindSpec(meteo: Room, kind: RoomKind): {headNode: ReactElement, 
       unit: null
     };
     return spec;
+  } else if (kind === "carbon") {
+    const spec = {
+      headNode: <><Letter string="Carbon" wide={true}/></>,
+      value: meteo.carbon,
+      decimalLength: 0,
+      unit: "/M"
+    };
+    return spec;
   } else {
     const spec = {
       headNode: <></>,
@@ -104,7 +112,7 @@ function getRoomKindSpec(meteo: Room, kind: RoomKind): {headNode: ReactElement, 
   }
 }
 
-const ROOM_KINDS = ["temperature", "humidity", "discomfort"] as const;
+const ROOM_KINDS = ["temperature", "humidity", "discomfort", "carbon"] as const;
 export const RoomKindUtil = LiteralUtilType.create(ROOM_KINDS);
 export type RoomKind = LiteralType<typeof ROOM_KINDS>;
 
