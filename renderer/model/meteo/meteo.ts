@@ -14,12 +14,16 @@ import METEO_DATA from "./meteo-data.json";
 export interface Meteo {
 
   readonly date: Dayjs | null;
-  readonly weather?: Readonly<{id: number, iconName: IconName}>;
-  readonly temperatures?: Readonly<{day: number, max: number | null, min: number | null}>;
+  readonly weather?: number;
+  readonly weatherIconName?: IconName;
+  readonly temperature?: number;
+  readonly maxTemperature?: number | null;
+  readonly minTemperature?: number | null;
   readonly pressure?: number;
   readonly humidity?: number;
   readonly precipitation?: number | null;
-  readonly wind?: Readonly<{speed: number, direction: number}>;
+  readonly wind?: number;
+  readonly windDirection?: number;
 
 }
 
@@ -59,23 +63,18 @@ export class MeteoFactory {
 
   private static fromCurrentData(data: any): Meteo {
     const meteoData = METEO_DATA as any;
-    const weather = {
-      id: data["weather"][0]["id"],
-      iconName: meteoData[data["weather"][0]["id"]]["iconName"]
-    };
-    const temperatures = {
-      day: data["main"]["temp"],
-      max: null,
-      min: null
-    };
+    const date = null;
+    const weather = +data["weather"][0]["id"];
+    const weatherIconName = meteoData[data["weather"][0]["id"]]["iconName"];
+    const temperature = data["main"]["temp"];
+    const maxTemperature = null;
+    const minTemperature = null;
     const pressure = data["main"]["pressure"];
     const humidity = data["main"]["humidity"];
     const precipitation = null;
-    const wind = {
-      speed: data["wind"]["speed"],
-      direction: data["wind"]["deg"]
-    };
-    const meteo = {date: null, weather, temperatures, pressure, humidity, precipitation, wind};
+    const wind = data["wind"]["speed"];
+    const windDirection = data["wind"]["deg"];
+    const meteo = {date, weather, weatherIconName, temperature, maxTemperature, minTemperature, pressure, humidity, precipitation, wind, windDirection};
     return meteo;
   }
 
@@ -83,23 +82,17 @@ export class MeteoFactory {
     const meteoData = METEO_DATA as any;
     const meteos = data["list"].map((dailyData) => {
       const date = dayjs(dailyData["dt"] * 1000);
-      const weather = {
-        id: dailyData["weather"][0]["id"],
-        iconName: meteoData[dailyData["weather"][0]["id"]]["iconName"]
-      };
-      const temperatures = {
-        day: dailyData["temp"]["day"],
-        max: dailyData["temp"]["max"],
-        min: dailyData["temp"]["min"]
-      };
+      const weather = dailyData["weather"][0]["id"];
+      const weatherIconName = meteoData[dailyData["weather"][0]["id"]]["iconName"];
+      const temperature = dailyData["temp"]["day"];
+      const maxTemperature = dailyData["temp"]["max"];
+      const minTemperature = dailyData["temp"]["min"];
       const pressure = dailyData["pressure"];
       const humidity = dailyData["humidity"];
       const precipitation = dailyData["pop"] * 100;
-      const wind = {
-        speed: dailyData["speed"],
-        direction: dailyData["deg"]
-      };
-      const meteo = {date, weather, temperatures, pressure, humidity, precipitation, wind};
+      const wind = dailyData["speed"];
+      const windDirection = dailyData["deg"];
+      const meteo = {date, weather, weatherIconName, temperature, maxTemperature, minTemperature, pressure, humidity, precipitation, wind, windDirection};
       return meteo;
     });
     return meteos;

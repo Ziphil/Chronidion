@@ -56,9 +56,9 @@ const MeteoPane = create(
           <div className="pane-main-left">
             <span className="pane-main-icon">
               {(kind === "wind") ? (
-                (meteo.wind) && <Icon name="arrow" large={true} style={{transform: `rotate(${meteo.wind.direction + 180}deg)`}}/>
+                (meteo.windDirection) && <Icon name="arrow" large={true} style={{transform: `rotate(${meteo.windDirection + 180}deg)`}}/>
               ) : (
-                (meteo.weather) && <Icon name={meteo.weather.iconName} large={true}/>
+                (meteo.weatherIconName) && <Icon name={meteo.weatherIconName} large={true}/>
               )}
             </span>
           </div>
@@ -85,7 +85,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
   if (kind === "temperature") {
     const spec = {
       headNode: <><Letter string="Temp" wide={true}/></>,
-      value: meteo.temperatures?.day,
+      value: meteo.temperature,
       decimalLength: 1,
       unit: "°C"
     };
@@ -93,7 +93,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
   } else if (kind === "maxTemperature") {
     const spec = {
       headNode: <><span className="pane-head-icon"><Icon name="max"/></span><Letter string="Temp" wide={true}/></>,
-      value: meteo.temperatures?.max,
+      value: meteo.maxTemperature,
       decimalLength: 1,
       unit: "°C"
     };
@@ -101,7 +101,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
   } else if (kind === "minTemperature") {
     const spec = {
       headNode: <><span className="pane-head-icon"><Icon name="min"/></span><Letter string="Temp" wide={true}/></>,
-      value: meteo.temperatures?.min,
+      value: meteo.minTemperature,
       decimalLength: 1,
       unit: "°C"
     };
@@ -125,7 +125,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
   } else if (kind === "wind") {
     const spec = {
       headNode: <><Letter string="Wind" wide={true}/></>,
-      value: meteo.wind?.speed,
+      value: meteo.wind,
       decimalLength: 1,
       unit: "m/s"
     };
