@@ -2,7 +2,6 @@
 
 import * as react from "react";
 import {
-  Fragment,
   ReactElement
 } from "react";
 import {
@@ -43,21 +42,18 @@ const RoomPane = create(
         <div className="pane-main">
           <div className="pane-main-left">
             <span className="pane-main-icon">
-              <Icon name={room.discomfortIconName} large={true}/>
+              {(room.discomfortIconName) && <Icon name={room.discomfortIconName} large={true}/>}
             </span>
           </div>
           <div className="pane-main-right">
-            {(value !== undefined) ? (
-              <Fragment>
-                <Letter string={value ?? 0} decimalLength={decimalLength} split={true}/>
-                {(unit !== null) && <Letter string={unit} unit={true}/>}
-              </Fragment>
+            {(value === null) ? (
+              <Letter string="—"/>
+            ) : (value === undefined) ? (
+              null
             ) : (
-              <Fragment>
-                <Letter string="—"/>
-                {(unit !== null) && <Letter string={unit} unit={true}/>}
-              </Fragment>
+              <Letter string={value} decimalLength={decimalLength} split={true}/>
             )}
+            {(unit !== null) && <Letter string={unit} unit={true}/>}
           </div>
         </div>
       </div>
@@ -68,7 +64,7 @@ const RoomPane = create(
 );
 
 
-function getRoomKindSpec(meteo: Room, kind: RoomKind): {headNode: ReactElement, value: number | undefined, decimalLength: number | undefined, unit: string | null} {
+function getRoomKindSpec(meteo: Room, kind: RoomKind): {headNode: ReactElement, value?: number | null, decimalLength: number, unit: string | null} {
   if (kind === "temperature") {
     const spec = {
       headNode: <><Letter string="Temp" wide={true}/></>,
@@ -105,7 +101,7 @@ function getRoomKindSpec(meteo: Room, kind: RoomKind): {headNode: ReactElement, 
     const spec = {
       headNode: <></>,
       value: undefined,
-      decimalLength: undefined,
+      decimalLength: 0,
       unit: null
     };
     return spec;

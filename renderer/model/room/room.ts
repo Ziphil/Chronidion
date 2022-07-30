@@ -7,11 +7,11 @@ import {
 
 export interface Room {
 
-  readonly temperature: number;
-  readonly humidity: number;
-  readonly discomfort: number;
-  readonly discomfortIconName: IconName;
-  readonly carbon: number;
+  readonly temperature?: number;
+  readonly humidity?: number;
+  readonly discomfort?: number;
+  readonly discomfortIconName?: IconName;
+  readonly carbon?: number;
 
 }
 
@@ -19,10 +19,28 @@ export interface Room {
 export class RoomFactory {
 
   public static async fetch(): Promise<Room> {
-    const [{temperature, humidity}, {carbon}] = await Promise.all([window.api.invoke("fetch-sensor", "dht22"), window.api.invoke("fetch-sensor", "mhz19")]);
-    const discomfort = RoomFactory.calcDiscomfort(temperature, humidity);
-    const discomfortIconName = RoomFactory.calcDiscomfortIconName(discomfort);
-    return {temperature, humidity, discomfort, discomfortIconName, carbon};
+    const [dht22Return, mhz19Return] = await Promise.all([RoomFactory.fetchDht22Return(), RoomFactory.fetchMhz19Return()]);
+    return {...dht22Return, ...mhz19Return};
+  }
+
+  private static async fetchDht22Return(): Promise<Pick<Room, "temperature" | "humidity" | "discomfort" | "discomfortIconName">> {
+    try {
+      const {temperature, humidity} = await window.api.invoke("fetch-sensor", "dht22");
+      const discomfort = RoomFactory.calcDiscomfort(temperature, humidity);
+      const discomfortIconName = RoomFactory.calcDiscomfortIconName(discomfort);
+      return {temperature, humidity, discomfort, discomfortIconName};
+    } catch (error) {
+      return {};
+    }
+  }
+
+  private static async fetchMhz19Return(): Promise<Pick<Room, "carbon">> {
+    try {
+      const {carbon} = await window.api.invoke("fetch-sensor", "mhz19");
+      return {carbon};
+    } catch (error) {
+      return {};
+    }
   }
 
   private static calcDiscomfort(temperature: number, humidity: number): number {

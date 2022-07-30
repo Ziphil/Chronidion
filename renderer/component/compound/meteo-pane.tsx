@@ -56,24 +56,21 @@ const MeteoPane = create(
           <div className="pane-main-left">
             <span className="pane-main-icon">
               {(kind === "wind") ? (
-                <Icon name="arrow" large={true} style={{transform: `rotate(${meteo.wind.direction + 180}deg)`}}/>
+                (meteo.wind) && <Icon name="arrow" large={true} style={{transform: `rotate(${meteo.wind.direction + 180}deg)`}}/>
               ) : (
-                <Icon name={meteo.weather.iconName} large={true}/>
+                (meteo.weather) && <Icon name={meteo.weather.iconName} large={true}/>
               )}
             </span>
           </div>
           <div className="pane-main-right">
-            {(value !== undefined) ? (
-              <Fragment>
-                <Letter string={value ?? 0} decimalLength={decimalLength} split={true}/>
-                {(unit !== null) && <Letter string={unit} unit={true}/>}
-              </Fragment>
+            {(value === null) ? (
+              <Letter string="—"/>
+            ) : (value === undefined) ? (
+              null
             ) : (
-              <Fragment>
-                <Letter string="—"/>
-                {(unit !== null) && <Letter string={unit} unit={true}/>}
-              </Fragment>
+              <Letter string={value} decimalLength={decimalLength} split={true}/>
             )}
+            {(unit !== null) && <Letter string={unit} unit={true}/>}
           </div>
         </div>
       </div>
@@ -84,11 +81,11 @@ const MeteoPane = create(
 );
 
 
-function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElement, value: number | undefined, decimalLength: number | undefined, unit: string | null} {
+function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElement, value?: number | null, decimalLength: number, unit: string | null} {
   if (kind === "temperature") {
     const spec = {
       headNode: <><Letter string="Temp" wide={true}/></>,
-      value: meteo.temperatures.day,
+      value: meteo.temperatures?.day,
       decimalLength: 1,
       unit: "°C"
     };
@@ -96,7 +93,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
   } else if (kind === "maxTemperature") {
     const spec = {
       headNode: <><span className="pane-head-icon"><Icon name="max"/></span><Letter string="Temp" wide={true}/></>,
-      value: meteo.temperatures.max,
+      value: meteo.temperatures?.max,
       decimalLength: 1,
       unit: "°C"
     };
@@ -104,7 +101,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
   } else if (kind === "minTemperature") {
     const spec = {
       headNode: <><span className="pane-head-icon"><Icon name="min"/></span><Letter string="Temp" wide={true}/></>,
-      value: meteo.temperatures.min,
+      value: meteo.temperatures?.min,
       decimalLength: 1,
       unit: "°C"
     };
@@ -128,7 +125,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
   } else if (kind === "wind") {
     const spec = {
       headNode: <><Letter string="Wind" wide={true}/></>,
-      value: meteo.wind.speed,
+      value: meteo.wind?.speed,
       decimalLength: 1,
       unit: "m/s"
     };
@@ -137,7 +134,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
     const spec = {
       headNode: <></>,
       value: undefined,
-      decimalLength: undefined,
+      decimalLength: 0,
       unit: null
     };
     return spec;
