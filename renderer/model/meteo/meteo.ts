@@ -8,6 +8,9 @@ import {
 import {
   IconName
 } from "../../component/atom/icon";
+import {
+  makeRace
+} from "../../util/timeout-promise";
 import METEO_DATA from "./meteo-data.json";
 
 
@@ -30,16 +33,16 @@ export interface Meteo {
 
 export class MeteoFactory {
 
-  public static async fetch(): Promise<Array<Meteo>> {
-    const [currentMeteo, forecastMeteos] = await Promise.all([MeteoFactory.fetchCurrentMeteo(), MeteoFactory.fetchForecastMeteos()]);
+  public static async fetch(timeout: number): Promise<Array<Meteo>> {
+    const [currentMeteo, forecastMeteos] = await Promise.all([MeteoFactory.fetchCurrentMeteo(timeout), MeteoFactory.fetchForecastMeteos(timeout)]);
     return [currentMeteo, ...forecastMeteos];
   }
 
-  private static async fetchCurrentMeteo(): Promise<Meteo> {
+  private static async fetchCurrentMeteo(timeout: number): Promise<Meteo> {
     const url = "https://api.openweathermap.org/data/2.5";
     const key = process.env["WEATHER_KEY"];
     try {
-      const {data} = await axios.get(`${url}/weather?lat=35.6895&lon=139.6917&units=metric&appid=${key}`);
+      const {data} = await makeRace(axios.get(`${url}/weather?lat=35.6895&lon=139.6917&units=metric&appid=${key}`), timeout);
       const meteo = MeteoFactory.fromCurrentData(data);
       return meteo;
     } catch (error) {
@@ -47,11 +50,11 @@ export class MeteoFactory {
     }
   }
 
-  private static async fetchForecastMeteos(): Promise<Array<Meteo>> {
+  private static async fetchForecastMeteos(timeout: number): Promise<Array<Meteo>> {
     const url = "https://api.openweathermap.org/data/2.5";
     const key = process.env["WEATHER_KEY"];
     try {
-      const {data} = await axios.get(`${url}/forecast/daily?lat=35.6895&lon=139.6917&cnt=7&units=metric&appid=${key}`);
+      const {data} = await makeRace(axios.get(`${url}/forecast/daily?lat=35.6895&lon=139.6917&cnt=7&units=metric&appid=${key}`), timeout);
       const meteo = MeteoFactory.fromForecastData(data);
       return meteo;
     } catch (error) {

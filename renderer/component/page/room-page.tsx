@@ -35,7 +35,7 @@ const RoomPage = create(
   }): ReactElement | null {
 
     const [kind, setKind] = useState<RoomKind>("temperature");
-    const {data: room} = useSWR("/room", RoomFactory.fetch, {refreshInterval: 5 * 1000});
+    const {data: room} = useSWR("/room", () => RoomFactory.fetch(1 * 1000), {refreshInterval: 5 * 1000});
 
     const node = (
       <Page show={show}>

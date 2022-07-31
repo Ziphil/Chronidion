@@ -4,6 +4,9 @@ import axios from "axios";
 import {
   IconName
 } from "../../component/atom/icon";
+import {
+  makeRace
+} from "../../util/timeout-promise";
 
 
 export interface Room {
@@ -19,14 +22,14 @@ export interface Room {
 
 export class RoomFactory {
 
-  public static async fetch(): Promise<Room> {
-    const [dht22Return, mhz19Return] = await Promise.all([RoomFactory.fetchDht22Return(), RoomFactory.fetchMhz19Return()]);
-    return {...dht22Return, ...mhz19Return};
+  public static async fetch(timeout: number): Promise<Room> {
+    const [dht22Reading, mhz19Reading] = await Promise.all([RoomFactory.fetchDht22Reading(timeout), RoomFactory.fetchMhz19Reading(timeout)]);
+    return {...dht22Reading, ...mhz19Reading};
   }
 
-  private static async fetchDht22Return(): Promise<Pick<Room, "temperature" | "humidity" | "discomfort" | "discomfortIconName">> {
+  private static async fetchDht22Reading(timeout: number): Promise<Pick<Room, "temperature" | "humidity" | "discomfort" | "discomfortIconName">> {
     try {
-      const {temperature, humidity} = await axios.get("http://localhost:8080/sensor", {params: {type: "dht22"}}).then((response) => response.data);
+      const {temperature, humidity} = await makeRace(RoomFactory.fetchReading("dht22"), timeout);
       const discomfort = RoomFactory.calcDiscomfort(temperature, humidity);
       const discomfortIconName = RoomFactory.calcDiscomfortIconName(discomfort);
       return {temperature, humidity, discomfort, discomfortIconName};
@@ -35,13 +38,18 @@ export class RoomFactory {
     }
   }
 
-  private static async fetchMhz19Return(): Promise<Pick<Room, "carbon">> {
+  private static async fetchMhz19Reading(timeout: number): Promise<Pick<Room, "carbon">> {
     try {
-      const {carbon} = await axios.get("http://localhost:8080/sensor", {params: {type: "mhz19"}}).then((response) => response.data);
+      const {carbon} = await makeRace(RoomFactory.fetchReading("mhz19"), timeout);
       return {carbon};
     } catch (error) {
       return {};
     }
+  }
+
+  private static async fetchReading(type: string): Promise<any> {
+    const reading = await axios.get("http://localhost:8080/sensor", {params: {type}}).then((response) => response.data);
+    return reading;
   }
 
   private static calcDiscomfort(temperature: number, humidity: number): number {

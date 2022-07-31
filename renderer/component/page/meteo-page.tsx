@@ -37,7 +37,7 @@ const MeteoPage = create(
 
     const [index, setIndex] = useState(0);
     const [kind, setKind] = useState<MeteoKind>("temperature");
-    const {data: meteos} = useSWR("/meteo", MeteoFactory.fetch, {refreshInterval: 5 * 60 * 1000});
+    const {data: meteos} = useSWR("/meteo", () => MeteoFactory.fetch(5 * 1000), {refreshInterval: 5 * 60 * 1000});
 
     const handleToggleTemperature = useCallback(function (): void {
       setKind((kind) => {
