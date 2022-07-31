@@ -1,5 +1,5 @@
 //
 
-export * from "./dht22";
-export * from "./mhz19";
+export * from "./dht22-sensor";
+export * from "./mhz19-sensor";
 export * from "./sensor";
