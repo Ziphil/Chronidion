@@ -94,7 +94,7 @@ function getRoomKindSpec(meteo: Room, kind: RoomKind): {headNode: ReactElement, 
       headNode: <><Letter string="Carbon" wide={true}/></>,
       value: meteo.carbon,
       decimalLength: 0,
-      unit: "/M"
+      unit: "μU"
     };
     return spec;
   } else {
