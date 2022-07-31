@@ -6,7 +6,7 @@ import {
 } from "./sensor";
 
 
-export class Dht22Sensor implements Sensor<Dht22Return> {
+export class Dht22Sensor implements Sensor<Dht22Reading> {
 
   private readonly library?: Dht22Library;
   private readonly pin: number;
@@ -16,7 +16,7 @@ export class Dht22Sensor implements Sensor<Dht22Return> {
     this.pin = pin;
   }
 
-  public async read(): Promise<Dht22Return> {
+  public async read(): Promise<Dht22Reading> {
     if (this.library) {
       const {temperature, humidity} = await this.library.promises.read(22, this.pin);
       return {temperature, humidity};
@@ -25,7 +25,7 @@ export class Dht22Sensor implements Sensor<Dht22Return> {
     }
   }
 
-  public async readDebug(): Promise<Dht22Return> {
+  public async readDebug(): Promise<Dht22Reading> {
     const temperature = Math.random() * 15 + 25;
     const humidity = Math.random() * 100;
     return {temperature, humidity};
@@ -34,7 +34,7 @@ export class Dht22Sensor implements Sensor<Dht22Return> {
 }
 
 
-export type Dht22Return = {temperature: number, humidity: number};
+export type Dht22Reading = {temperature: number, humidity: number};
 type Dht22Library = typeof originalLibrary;
 
 function getLibrary(): Dht22Library | undefined {

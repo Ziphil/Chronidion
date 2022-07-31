@@ -1,5 +1,6 @@
 //
 
+import type originalLibrary from "serialport";
 import type {
   SerialPort
 } from "serialport";
@@ -8,13 +9,14 @@ import {
 } from "./sensor";
 
 
-export class Mhz19Sensor implements Sensor<Mhz19Return> {
+export class Mhz19Sensor implements Sensor<Mhz19Reading> {
 
   private readonly port?: SerialPort;
 
   public constructor(path: string) {
-    const SerialPort = getSerialPortClass();
-    if (SerialPort !== undefined) {
+    const library = getLibrary();
+    if (library !== undefined) {
+      const SerialPort = library["SerialPort"];
       this.port = new SerialPort({path, baudRate: 9600});
       this.setup();
     }
@@ -30,9 +32,9 @@ export class Mhz19Sensor implements Sensor<Mhz19Return> {
     });
   }
 
-  public read(): Promise<Mhz19Return> {
+  public read(): Promise<Mhz19Reading> {
     if (this.port) {
-      const promise = new Promise<Mhz19Return>((resolve, reject) => {
+      const promise = new Promise<Mhz19Reading>((resolve, reject) => {
         try {
           this.sendPacket([0xFF, 0x1, 0x86, 0x0, 0x0, 0x0, 0x0, 0x0], reject);
           this.port?.once("data", (packet) => {
@@ -49,7 +51,7 @@ export class Mhz19Sensor implements Sensor<Mhz19Return> {
     }
   }
 
-  public async readDebug(): Promise<Mhz19Return> {
+  public async readDebug(): Promise<Mhz19Reading> {
     const carbon = Math.random() * 800 + 400;
     return {carbon};
   }
@@ -74,11 +76,12 @@ export class Mhz19Sensor implements Sensor<Mhz19Return> {
 }
 
 
-export type Mhz19Return = {carbon: number};
+export type Mhz19Reading = {carbon: number};
+type Mhz19Library = typeof originalLibrary;
 
-function getSerialPortClass(): typeof SerialPort | undefined {
+function getLibrary(): Mhz19Library | undefined {
   try {
-    return require("serialport")["SerialPort"];
+    return require("serialport");
   } catch (error) {
     console.log("MHZ19: library not loaded");
     console.error(error);
