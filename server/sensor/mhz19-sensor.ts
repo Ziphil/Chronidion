@@ -1,7 +1,8 @@
 //
 
 import type originalLibrary from "serialport";
-import type {
+import {
+  ByteLengthParser,
   SerialPort
 } from "serialport";
 import {
@@ -12,6 +13,7 @@ import {
 export class Mhz19Sensor implements Sensor<Mhz19Reading> {
 
   private readonly port?: SerialPort;
+  private readonly parser?: ByteLengthParser;
   private resolve: ((reading: Mhz19Reading) => void) | null = null;
   private reject: ((error: unknown) => void) | null = null;
 
@@ -20,12 +22,13 @@ export class Mhz19Sensor implements Sensor<Mhz19Reading> {
     if (library !== undefined) {
       const SerialPort = library["SerialPort"];
       this.port = new SerialPort({path, baudRate: 9600});
+      this.parser = this.port.pipe(new ByteLengthParser({length: 9}));
       this.setup();
     }
   }
 
   private setup(): void {
-    if (this.port) {
+    if (this.port && this.parser) {
       this.port.on("close", () => {
         console.log("MHZ19: port closed");
       });
@@ -35,13 +38,11 @@ export class Mhz19Sensor implements Sensor<Mhz19Reading> {
         console.log("MHZ19: port error");
         console.error(error);
       });
-      this.port.on("data", (packet) => {
+      this.parser.on("data", (packet) => {
         const copiedPacket = [...packet];
-        if (copiedPacket.length >= 9) {
-          const carbon = copiedPacket[2] * 0x100 + copiedPacket[3];
-          this.resolve?.({carbon});
-          this.resolve = null;
-        }
+        const carbon = copiedPacket[2] * 0x100 + copiedPacket[3];
+        this.resolve?.({carbon});
+        this.resolve = null;
       });
     }
   }
