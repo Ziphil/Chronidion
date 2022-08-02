@@ -12,6 +12,8 @@ import {
 export class Mhz19Sensor implements Sensor<Mhz19Reading> {
 
   private readonly port?: SerialPort;
+  private resolve: ((reading: Mhz19Reading) => void) | null = null;
+  private reject: ((error: unknown) => void) | null = null;
 
   public constructor(path: string) {
     const library = getLibrary();
@@ -23,25 +25,34 @@ export class Mhz19Sensor implements Sensor<Mhz19Reading> {
   }
 
   private setup(): void {
-    this.port?.on("close", () => {
-      console.log("MHZ19: port closed");
-    });
-    this.port?.on("error", (error) => {
-      console.log("MHZ19: port error");
-      console.error(error);
-    });
+    if (this.port) {
+      this.port.on("close", () => {
+        console.log("MHZ19: port closed");
+      });
+      this.port.on("error", (error) => {
+        this.reject?.(error);
+        this.reject = null;
+        console.log("MHZ19: port error");
+        console.error(error);
+      });
+      this.port.on("data", (packet) => {
+        const copiedPacket = [...packet];
+        if (copiedPacket.length >= 9) {
+          const carbon = copiedPacket[2] * 0x100 + copiedPacket[3];
+          this.resolve?.({carbon});
+          this.resolve = null;
+        }
+      });
+    }
   }
 
   public read(): Promise<Mhz19Reading> {
     if (this.port) {
       const promise = new Promise<Mhz19Reading>((resolve, reject) => {
         try {
-          this.sendPacket([0xFF, 0x1, 0x86, 0x0, 0x0, 0x0, 0x0, 0x0], reject);
-          this.port?.once("data", (packet) => {
-            const copiedPacket = [...packet];
-            const carbon = copiedPacket[2] * 0x100 + copiedPacket[3];
-            resolve({carbon});
-          });
+          this.sendPacket([0xFF, 0x1, 0x86, 0x0, 0x0, 0x0, 0x0, 0x0]);
+          this.resolve = resolve;
+          this.reject = reject;
         } catch (error) {
           reject(error);
         }
@@ -57,19 +68,22 @@ export class Mhz19Sensor implements Sensor<Mhz19Reading> {
     return {carbon};
   }
 
-  private sendPacket(packet: Array<number>, reject: (error: any) => void): void {
+  private sendPacket(packet: Array<number>): void {
     if (this.port) {
       const checksumedPacket = [...packet, Mhz19Sensor.calcChecksum(packet)];
       this.port.write(checksumedPacket, (error) => {
-        console.log("MHZ19: write error");
-        console.error(error);
-        reject(error);
+        if (error) {
+          this.reject?.(error);
+          this.reject = null;
+          console.log("MHZ19: write error");
+          console.error(error);
+        }
       });
     }
   }
 
   private static calcChecksum(packet: Array<number>): number {
-    const sum = packet.reduce((previous, current) => previous + current, 0) % 0x100;
+    const sum = packet.slice(1).reduce((previous, current) => previous + current, 0) % 0x100;
     const checksum = (0xFF - sum + 1) % 0x100;
     return checksum;
   }
