@@ -38,7 +38,8 @@ export class Mhz19Sensor implements Sensor<Mhz19Reading> {
         try {
           this.sendPacket([0xFF, 0x1, 0x86, 0x0, 0x0, 0x0, 0x0, 0x0], reject);
           this.port?.once("data", (packet) => {
-            const carbon = packet[2] * 0x100 + packet[3];
+            const copiedPacket = [...packet];
+            const carbon = copiedPacket[2] * 0x100 + copiedPacket[3];
             resolve({carbon});
           });
         } catch (error) {
