@@ -26,8 +26,8 @@ export class Main {
   public main(): void {
     this.application = express();
     this.sensors = {
-      dht22: new Dht22Sensor(4),
-      mhz19: new Mhz19Sensor("/dev/serial0")
+      dht22: Dht22Sensor.create(4),
+      mhz19: Mhz19Sensor.create("/dev/serial0")
     };
     this.setupBodyParsers();
     this.setupRouters();
