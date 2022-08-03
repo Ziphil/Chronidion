@@ -66,7 +66,7 @@ const MeteoPane = create(
             {(value === null) ? (
               <Letter string="—"/>
             ) : (value === undefined) ? (
-              null
+              <Letter string=""/>
             ) : (
               <Letter string={value} decimalLength={decimalLength} split={true}/>
             )}

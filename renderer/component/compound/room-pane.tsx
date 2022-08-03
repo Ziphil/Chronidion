@@ -42,14 +42,18 @@ const RoomPane = create(
         <div className="pane-main">
           <div className="pane-main-left">
             <span className="pane-main-icon">
-              {(room.discomfortIconName) && <Icon name={room.discomfortIconName} large={true}/>}
+              {(kind === "carbon") ? (
+                (room.carbonIconName) && <Icon name={room.carbonIconName} large={true}/>
+              ) : (
+                (room.discomfortIconName) && <Icon name={room.discomfortIconName} large={true}/>
+              )}
             </span>
           </div>
           <div className="pane-main-right">
             {(value === null) ? (
               <Letter string="—"/>
             ) : (value === undefined) ? (
-              null
+              <Letter string=""/>
             ) : (
               <Letter string={value} decimalLength={decimalLength} split={true}/>
             )}

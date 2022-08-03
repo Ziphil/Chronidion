@@ -16,6 +16,7 @@ export interface Room {
   readonly discomfort?: number;
   readonly discomfortIconName?: IconName;
   readonly carbon?: number;
+  readonly carbonIconName?: IconName;
 
 }
 
@@ -38,10 +39,11 @@ export class RoomFactory {
     }
   }
 
-  private static async fetchMhz19Reading(timeout: number): Promise<Pick<Room, "carbon">> {
+  private static async fetchMhz19Reading(timeout: number): Promise<Pick<Room, "carbon" | "carbonIconName">> {
     try {
       const {carbon} = await makeRace(RoomFactory.fetchReading("mhz19"), timeout);
-      return {carbon};
+      const carbonIconName = RoomFactory.calcCarbonIconName(carbon);
+      return {carbon, carbonIconName};
     } catch (error) {
       return {};
     }
@@ -68,6 +70,18 @@ export class RoomFactory {
     } else if (discomfort < 75) {
       return "neutral";
     } else if (discomfort < 80) {
+      return "discomfort";
+    } else {
+      return "dizzy";
+    }
+  }
+
+  private static calcCarbonIconName(carbon: number): IconName {
+    if (carbon < 750) {
+      return "comfort";
+    } else if (carbon < 1000) {
+      return "neutral";
+    } else if (carbon < 1250) {
       return "discomfort";
     } else {
       return "dizzy";
