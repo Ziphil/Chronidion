@@ -14,8 +14,6 @@ export class Mhz19Sensor implements Sensor<Mhz19Reading> {
 
   private readonly port: SerialPort;
   private readonly parser: ByteLengthParser;
-  private resolve: ((reading: Mhz19Reading) => void) | null = null;
-  private reject: ((error: unknown) => void) | null = null;
 
   private constructor(library: Mhz19Library, path: string) {
     const SerialPort = library["SerialPort"];
@@ -35,25 +33,20 @@ export class Mhz19Sensor implements Sensor<Mhz19Reading> {
       console.log("MHZ19: port closed");
     });
     this.port.on("error", (error) => {
-      this.reject?.(error);
-      this.reject = null;
       console.log("MHZ19: port error");
       console.error(error);
-    });
-    this.parser.on("data", (packet) => {
-      const copiedPacket = [...packet];
-      const carbon = copiedPacket[2] * 0x100 + copiedPacket[3];
-      this.resolve?.({carbon});
-      this.resolve = null;
     });
   }
 
   public read(): Promise<Mhz19Reading> {
     const promise = new Promise<Mhz19Reading>((resolve, reject) => {
       try {
-        this.sendPacket([0xFF, 0x1, 0x86, 0x0, 0x0, 0x0, 0x0, 0x0]);
-        this.resolve = resolve;
-        this.reject = reject;
+        this.sendPacket([0xFF, 0x1, 0x86, 0x0, 0x0, 0x0, 0x0, 0x0], reject);
+        this.parser.once("data", (packet) => {
+          const copiedPacket = [...packet];
+          const carbon = copiedPacket[2] * 0x100 + copiedPacket[3];
+          resolve({carbon});
+        });
       } catch (error) {
         reject(error);
       }
@@ -66,12 +59,11 @@ export class Mhz19Sensor implements Sensor<Mhz19Reading> {
     return {carbon};
   }
 
-  private sendPacket(packet: Array<number>): void {
+  private sendPacket(packet: Array<number>, reject: (error: unknown) => void): void {
     const checksumedPacket = [...packet, Mhz19Sensor.calcChecksum(packet)];
     this.port.write(checksumedPacket, (error) => {
       if (error) {
-        this.reject?.(error);
-        this.reject = null;
+        reject(error);
         console.log("MHZ19: write error");
         console.error(error);
       }
