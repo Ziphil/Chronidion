@@ -8,21 +8,23 @@ import {
 
 export class Dht22Sensor implements Sensor<Dht22Reading> {
 
-  private readonly library?: Dht22Library;
+  private readonly library: Dht22Library;
   private readonly pin: number;
 
-  public constructor(pin: number) {
-    this.library = getLibrary();
+  public constructor(library: Dht22Library, pin: number) {
+    this.library = library;
     this.pin = pin;
   }
 
+  public static create(pin: number): Dht22Sensor | undefined {
+    const library = getLibrary();
+    const sensor = (library !== undefined) ? new Dht22Sensor(library, pin) : undefined;
+    return sensor;
+  }
+
   public async read(): Promise<Dht22Reading> {
-    if (this.library) {
-      const {temperature, humidity} = await this.library.promises.read(22, this.pin);
-      return {temperature, humidity};
-    } else {
-      throw new Error("DHT22: library not found");
-    }
+    const {temperature, humidity} = await this.library.promises.read(22, this.pin);
+    return {temperature, humidity};
   }
 
   public async readDebug(): Promise<Dht22Reading> {
