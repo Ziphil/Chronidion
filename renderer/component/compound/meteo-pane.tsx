@@ -53,20 +53,12 @@ const MeteoPane = create(
           </div>
         </div>
         <div className="pane-main">
-          <div className="pane-main-left">
-            <span className="pane-main-icon">
-              {(kind === "wind") ? (
-                (meteo.windDirection) && <Icon name="arrow" large={true} style={{transform: `rotate(${meteo.windDirection + 180}deg)`}}/>
-              ) : (
-                (meteo.weatherIconName) && <Icon name={meteo.weatherIconName} large={true}/>
-              )}
-            </span>
-          </div>
+          <div className="pane-main-left"/>
           <div className="pane-main-right">
             {(value === null) ? (
               <Letter string="—"/>
             ) : (value === undefined) ? (
-              <Letter string=""/>
+              <Letter string=" "/>
             ) : (
               <Letter string={value} decimalLength={decimalLength} split={true}/>
             )}
