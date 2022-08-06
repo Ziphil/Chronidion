@@ -79,6 +79,7 @@ const ClockPage = create(
         <div className="menu">
           <div className="menu-button-group">
             <MenuButton onClick={onNextPage}><Icon name="page" simple={true}/></MenuButton>
+            <Letter string={(instant instanceof StopwatchInstant) ? "Stopwatch" : "Clock"} wide={true} simple={true}/>
           </div>
           <div className="menu-button-group">
             {(instant instanceof StopwatchInstant) && <MenuButton onClick={handleReset}><Letter string="R" simple={true}/></MenuButton>}

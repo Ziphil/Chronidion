@@ -106,6 +106,14 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
       unit: "°C"
     };
     return spec;
+  } else if (kind === "pressure") {
+    const spec = {
+      headNode: <><Letter string="Pressure" wide={true}/></>,
+      value: meteo.pressure,
+      decimalLength: 0,
+      unit: "hPa"
+    };
+    return spec;
   } else if (kind === "humidity") {
     const spec = {
       headNode: <><Letter string="Humid" wide={true}/></>,

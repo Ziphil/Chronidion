@@ -7,6 +7,7 @@ import {
   createElement
 } from "react";
 import {
+  BsArrowDown,
   BsArrowLeftRight,
   BsArrowUp,
   BsChevronDoubleDown,
@@ -44,6 +45,7 @@ const ICON_COMPONENTS = {
   thunder: BsLightning,
   page: BsCommand,
   toggle: BsArrowLeftRight,
+  next: BsArrowDown,
   max: BsChevronDoubleUp,
   min: BsChevronDoubleDown,
   arrow: BsArrowUp,

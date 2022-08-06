@@ -33,7 +33,7 @@ const RoomPane = create(
       <div className="pane">
         <div className="pane-head">
           <div className="pane-head-left">
-            <Letter string="Room" wide={true}/>
+            <Letter string="Current" wide={true}/>
           </div>
           <div className="pane-head-right">
             {headNode}
