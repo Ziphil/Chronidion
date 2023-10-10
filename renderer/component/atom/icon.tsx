@@ -79,7 +79,7 @@ const Icon = create(
     });
     const node = (
       <span className={"icon" + ((className) ? ` ${className}` : "")} style={style} {...data}>
-        {(iconComponent) && createElement(iconComponent)}
+        {(iconComponent !== undefined) && createElement(iconComponent)}
       </span>
     );
     return node;
