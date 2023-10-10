@@ -44,7 +44,7 @@ const Letter = create(
     const node = (
       <span className={"letter" + ((className) ? ` ${className}` : "")} {...data}>
         {chars.map((char, index) => (
-          <LetterChar key={index} {...{char, unit, wide}}/>
+          <LetterChar key={index} {...{char, unit, wide, simple}}/>
         ))}
       </span>
     );
@@ -59,18 +59,21 @@ const LetterChar = create(
   function ({
     char,
     unit,
-    wide
+    wide,
+    simple
   }: {
     char: string,
     unit: boolean,
-    wide: boolean
+    wide: boolean,
+    simple: boolean
   }): ReactElement {
 
     const data = DataUtil.create({
       content: char,
       numeral: {if: char.match(/^\d$/) !== null, true: "true"},
       unit: {if: unit, true: "true"},
-      wide: {if: wide, true: "true"}
+      wide: {if: wide, true: "true"},
+      simple: {if: simple, true: "true"}
     });
     const node = (
       <span className="letter-char" {...data}>{char}</span>

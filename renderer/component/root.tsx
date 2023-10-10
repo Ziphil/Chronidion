@@ -26,6 +26,7 @@ import {
 import {
   create
 } from "./create";
+import Background from "./page/background";
 import ClockPage from "./page/clock-page";
 import MeteoPage from "./page/meteo-page";
 import RoomPage from "./page/room-page";
@@ -43,8 +44,8 @@ const Root = create(
       const now = new Date();
       const ratio = (now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds()) / 86400;
       const hue = ratio * 360 + 270;
-      document.documentElement.style.setProperty("--first-color", getColorString(hue, 8));
-      document.documentElement.style.setProperty("--second-color", getColorString(hue, 6));
+      document.documentElement.style.setProperty("--first-color", getColorString(hue, 30, 80));
+      document.documentElement.style.setProperty("--second-color", getColorString(hue, 30, 50));
     }, []);
 
     const handlePreviousPage = useCallback(function (): void {
@@ -78,6 +79,7 @@ const Root = create(
         <ClockPage initialInstant={new StopwatchInstant()} show={mode === "stopwatch"} {...commonProps}/>
         <MeteoPage show={mode === "meteo"} {...commonProps}/>
         <RoomPage show={mode === "room"} {...commonProps}/>
+        <Background/>
       </Fragment>
     );
     return node;
@@ -86,9 +88,9 @@ const Root = create(
 );
 
 
-function getColorString(hue: number, lightness: number): string {
+function getColorString(hue: number, saturation: number, lightness: number): string {
   const modifiedHue = Math.floor((hue + 360) % 360);
-  return `hsl(${modifiedHue}, 25%, ${lightness}%)`;
+  return `hsl(${modifiedHue}deg, ${saturation}%, ${lightness}%)`;
 }
 
 const PAGE_MODES = ["gregorian", "hairian", "stopwatch", "meteo", "room"] as const;

@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+@import "./page/background.scss";
 @import "./page/page.scss";
 @import "./page/clock-page.scss";
 @import "./page/meteo-page.scss";
@@ -24,4 +25,9 @@ body {
   overflow: hidden;
   user-select: none;
   cursor: none;
+}
+
+#root {
+  position: relative;
+  z-index: 0;
 }
