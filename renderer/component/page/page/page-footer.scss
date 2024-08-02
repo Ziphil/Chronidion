@@ -1,10 +1,6 @@
 @charset "utf-8";
 
 
-$page-width: 241rem;
-$page-height: 98rem;
-$menu-height: 18rem;
-
 .root {
   width: 100%;
   color: hsl(240, 2%, 25%);
@@ -18,8 +14,8 @@ $menu-height: 18rem;
 }
 
 .container {
-  width: $page-width;
-  height: $menu-height;
+  width: calc(var(--page-width) * 1rem);
+  height: calc(var(--menu-height) * 1rem);
   margin-block-start: -0.6rem;
   padding-inline: 15rem;
   font-size: 13rem;

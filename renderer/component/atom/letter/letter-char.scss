@@ -8,7 +8,7 @@
   display: inline-block;
   transform: skew(-2deg, 0deg);
   &[data-numeral] {
-    inline-size: 0.55em;
+    width: 0.55em;
   }
   &[data-unit] {
     margin-inline-start: div(0.09em, 0.55);
@@ -30,21 +30,21 @@
   }
   &[data-content="/"] {
     margin-block: -100%;
-    inline-size: 0.6em;
+    width: 0.6em;
     margin-inline-start: 0.02em;
     margin-inline-end: -0.02em;
     vertical-align: 0.0em;
   }
   &[data-content=":"] {
     margin-block: -100%;
-    inline-size: 0.3em;
+    width: 0.3em;
     margin-inline-start: 0em;
     margin-inline-end: 0em;
     vertical-align: 0.08em;
   }
   &[data-content="."] {
     margin-block: -100%;
-    inline-size: 0.3em;
+    width: 0.3em;
     margin-inline-start: 0em;
     margin-inline-end: 0em;
     vertical-align: 0em;

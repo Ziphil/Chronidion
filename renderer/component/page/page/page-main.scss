@@ -1,10 +1,6 @@
 @charset "utf-8";
 
 
-$page-width: 241rem;
-$page-height: 98rem;
-$menu-height: 18rem;
-
 .root {
   width: 100%;
   display: flex;
@@ -14,8 +10,8 @@ $menu-height: 18rem;
 }
 
 .container {
-  width: $page-width;
-  height: $page-height;
+  width: calc(var(--page-width) * 1rem);
+  height: calc(var(--page-height) * 1rem);
   padding-inline: 15rem;
   box-sizing: border-box;
 }

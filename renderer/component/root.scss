@@ -1,12 +1,14 @@
 @charset "utf-8";
 
 
-$page-width: 241rem;
-$page-height: 98rem;
-$menu-height: 18rem;
+:root {
+  --page-width: 241;
+  --page-height: 98;
+  --menu-height: 18;
+}
 
 html {
-  font-size: min(100vw / ($page-width / 1rem), 100vh / (($page-height + $menu-height) / 1rem));
+  font-size: min(100vw / var(--page-width), 100vh / (var(--page-height) + var(--menu-height)));
 }
 
 body {
