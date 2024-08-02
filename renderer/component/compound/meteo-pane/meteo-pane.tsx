@@ -28,15 +28,15 @@ const MeteoPane = create(
           <div>
             {(meteo.date === null) ? (
               <Fragment>
-                <Letter string="Current" wide={true}/>
+                <Letter wide={true}>Current</Letter>
               </Fragment>
             ) : (
               <Fragment>
-                <Letter string={meteo.date.year() % 100} length={2} split={true}/>
-                <Letter string="/"/>
-                <Letter string={meteo.date.month() + 1} length={2} split={true}/>
-                <Letter string="/"/>
-                <Letter string={meteo.date.date()} length={2} split={true}/>
+                <Letter length={2} split={true}>{meteo.date.year() % 100}</Letter>
+                <Letter>/</Letter>
+                <Letter length={2} split={true}>{meteo.date.month() + 1}</Letter>
+                <Letter>/</Letter>
+                <Letter length={2} split={true}>{meteo.date.date()}</Letter>
               </Fragment>
             )}
           </div>
@@ -48,13 +48,13 @@ const MeteoPane = create(
           <div/>
           <div>
             {(value === null) ? (
-              <Letter string="—"/>
+              <Letter>—</Letter>
             ) : (value === undefined) ? (
-              <Letter string=" "/>
+              <Letter> </Letter>
             ) : (
-              <Letter string={value} decimalLength={decimalLength} split={true}/>
+              <Letter decimalLength={decimalLength} split={true}>{value}</Letter>
             )}
-            {(unit !== null) && <Letter string={unit} unit={true}/>}
+            {(unit !== null) && <Letter unit={true}>{unit}</Letter>}
           </div>
         </PaneMain>
       </Pane>
@@ -67,7 +67,7 @@ const MeteoPane = create(
 function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElement, value?: number | null, decimalLength: number, unit: string | null} {
   if (kind === "temperature") {
     const spec = {
-      headNode: <><Letter string="Temp" wide={true}/></>,
+      headNode: <><Letter wide={true}>Temp</Letter></>,
       value: meteo.temperature,
       decimalLength: 1,
       unit: "°C"
@@ -75,7 +75,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
     return spec;
   } else if (kind === "maxTemperature") {
     const spec = {
-      headNode: <><span styleName="pane-head-icon"><Icon name="max"/></span><Letter string="Temp" wide={true}/></>,
+      headNode: <><span styleName="pane-head-icon"><Icon name="max"/></span><Letter wide={true}>Temp</Letter></>,
       value: meteo.maxTemperature,
       decimalLength: 1,
       unit: "°C"
@@ -83,7 +83,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
     return spec;
   } else if (kind === "minTemperature") {
     const spec = {
-      headNode: <><span styleName="pane-head-icon"><Icon name="min"/></span><Letter string="Temp" wide={true}/></>,
+      headNode: <><span styleName="pane-head-icon"><Icon name="min"/></span><Letter wide={true}>Temp</Letter></>,
       value: meteo.minTemperature,
       decimalLength: 1,
       unit: "°C"
@@ -91,7 +91,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
     return spec;
   } else if (kind === "pressure") {
     const spec = {
-      headNode: <><Letter string="Pressure" wide={true}/></>,
+      headNode: <><Letter wide={true}>Pressure</Letter></>,
       value: meteo.pressure,
       decimalLength: 0,
       unit: "hPa"
@@ -99,7 +99,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
     return spec;
   } else if (kind === "humidity") {
     const spec = {
-      headNode: <><Letter string="Humid" wide={true}/></>,
+      headNode: <><Letter wide={true}>Humid</Letter></>,
       value: meteo.humidity,
       decimalLength: 0,
       unit: "%"
@@ -107,7 +107,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
     return spec;
   } else if (kind === "precipitation") {
     const spec = {
-      headNode: <><Letter string="Precip" wide={true}/></>,
+      headNode: <><Letter wide={true}>Precip</Letter></>,
       value: meteo.precipitation,
       decimalLength: 0,
       unit: "%"
@@ -115,7 +115,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
     return spec;
   } else if (kind === "wind") {
     const spec = {
-      headNode: <><Letter string="Wind" wide={true}/></>,
+      headNode: <><Letter wide={true}>Wind</Letter></>,
       value: meteo.wind,
       decimalLength: 1,
       unit: "m/s"

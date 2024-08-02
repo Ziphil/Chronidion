@@ -51,13 +51,13 @@ export const MeteoPage = create(
         <PageFooter>
           <MenuButtonGroup>
             <MenuButton onClick={onNextPage}><Icon name="page" simple={true}/></MenuButton>
-            <Letter string="Weather" wide={true} simple={true}/>
+            <Letter wide={true} simple={true}>Weather</Letter>
           </MenuButtonGroup>
           <MenuButtonGroup>
-            <MenuButton onClick={() => setKind("pressure")}><Letter string="A" simple={true}/></MenuButton>
-            <MenuButton onClick={() => setKind("precipitation")}><Letter string="P" simple={true}/></MenuButton>
-            <MenuButton onClick={() => setKind("humidity")}><Letter string="H" simple={true}/></MenuButton>
-            <MenuButton onClick={handleToggleTemperature}><Letter string="T" simple={true}/></MenuButton>
+            <MenuButton onClick={() => setKind("pressure")}><Letter simple={true}>A</Letter></MenuButton>
+            <MenuButton onClick={() => setKind("precipitation")}><Letter simple={true}>P</Letter></MenuButton>
+            <MenuButton onClick={() => setKind("humidity")}><Letter simple={true}>H</Letter></MenuButton>
+            <MenuButton onClick={handleToggleTemperature}><Letter simple={true}>T</Letter></MenuButton>
             <MenuButton onClick={() => setIndex((index) => (index + 1) % 8)}><Icon name="next" simple={true}/></MenuButton>
           </MenuButtonGroup>
         </PageFooter>

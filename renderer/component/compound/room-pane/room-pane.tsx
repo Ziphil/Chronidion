@@ -25,7 +25,7 @@ export const RoomPane = create(
       <Pane>
         <PaneHeader>
           <div>
-            <Letter string="Current" wide={true}/>
+            <Letter wide={true}>Current</Letter>
           </div>
           <div>
             {headNode}
@@ -35,13 +35,13 @@ export const RoomPane = create(
           <div/>
           <div>
             {(value === null) ? (
-              <Letter string="—"/>
+              <Letter>—</Letter>
             ) : (value === undefined) ? (
-              <Letter string=" "/>
+              <Letter> </Letter>
             ) : (
-              <Letter string={value} decimalLength={decimalLength} split={true}/>
+              <Letter decimalLength={decimalLength} split={true}>{value}</Letter>
             )}
-            {(unit !== null) && <Letter string={unit} unit={true}/>}
+            {(unit !== null) && <Letter unit={true}>{unit}</Letter>}
           </div>
         </PaneMain>
       </Pane>
@@ -54,7 +54,7 @@ export const RoomPane = create(
 function getRoomKindSpec(meteo: Room, kind: RoomKind): {headNode: ReactElement, value?: number | null, decimalLength: number, unit: string | null} {
   if (kind === "temperature") {
     const spec = {
-      headNode: <><Letter string="Temp" wide={true}/></>,
+      headNode: <><Letter wide={true}>Temp</Letter></>,
       value: meteo.temperature,
       decimalLength: 1,
       unit: "°C"
@@ -62,7 +62,7 @@ function getRoomKindSpec(meteo: Room, kind: RoomKind): {headNode: ReactElement, 
     return spec;
   } else if (kind === "humidity") {
     const spec = {
-      headNode: <><Letter string="Humid" wide={true}/></>,
+      headNode: <><Letter wide={true}>Humid</Letter></>,
       value: meteo.humidity,
       decimalLength: 0,
       unit: "%"
@@ -70,7 +70,7 @@ function getRoomKindSpec(meteo: Room, kind: RoomKind): {headNode: ReactElement, 
     return spec;
   } else if (kind === "discomfort") {
     const spec = {
-      headNode: <><Letter string="Discomf" wide={true}/></>,
+      headNode: <><Letter wide={true}>Disconf</Letter></>,
       value: meteo.discomfort,
       decimalLength: 1,
       unit: null
@@ -78,7 +78,7 @@ function getRoomKindSpec(meteo: Room, kind: RoomKind): {headNode: ReactElement, 
     return spec;
   } else if (kind === "carbon") {
     const spec = {
-      headNode: <><Letter string="Carbon" wide={true}/></>,
+      headNode: <><Letter wide={true}>Carbon</Letter></>,
       value: meteo.carbon,
       decimalLength: 0,
       unit: "μU"

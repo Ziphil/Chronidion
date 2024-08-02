@@ -35,13 +35,13 @@ export const RoomPage = create(
         <PageFooter>
           <MenuButtonGroup>
             <MenuButton onClick={onNextPage}><Icon name="page" simple={true}/></MenuButton>
-            <Letter string="Room" wide={true} simple={true}/>
+            <Letter wide={true} simple={true}>Room</Letter>
           </MenuButtonGroup>
           <MenuButtonGroup>
-            <MenuButton onClick={() => setKind("carbon")}><Letter string="C" simple={true}/></MenuButton>
-            <MenuButton onClick={() => setKind("discomfort")}><Letter string="D" simple={true}/></MenuButton>
-            <MenuButton onClick={() => setKind("humidity")}><Letter string="H" simple={true}/></MenuButton>
-            <MenuButton onClick={() => setKind("temperature")}><Letter string="T" simple={true}/></MenuButton>
+            <MenuButton onClick={() => setKind("carbon")}><Letter simple={true}>C</Letter></MenuButton>
+            <MenuButton onClick={() => setKind("discomfort")}><Letter simple={true}>D</Letter></MenuButton>
+            <MenuButton onClick={() => setKind("humidity")}><Letter simple={true}>H</Letter></MenuButton>
+            <MenuButton onClick={() => setKind("temperature")}><Letter simple={true}>T</Letter></MenuButton>
             <MenuButton><Icon name="toggle" simple={true}/></MenuButton>
           </MenuButtonGroup>
         </PageFooter>

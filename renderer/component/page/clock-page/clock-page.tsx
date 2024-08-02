@@ -63,11 +63,11 @@ export const ClockPage = create(
         <PageFooter>
           <MenuButtonGroup>
             <MenuButton onClick={onNextPage}><Icon name="page" simple={true}/></MenuButton>
-            <Letter string={(instant instanceof StopwatchInstant) ? "Stopwatch" : "Clock"} wide={true} simple={true}/>
+            <Letter wide={true} simple={true}>{(instant instanceof StopwatchInstant) ? "Stopwatch" : "Clock"}</Letter>
           </MenuButtonGroup>
           <MenuButtonGroup>
-            {(instant instanceof StopwatchInstant) && <MenuButton onClick={handleReset}><Letter string="R" simple={true}/></MenuButton>}
-            {(instant instanceof StopwatchInstant) && <MenuButton onClick={handleStartOrStop}><Letter string="S" simple={true}/></MenuButton>}
+            {(instant instanceof StopwatchInstant) && <MenuButton onClick={handleReset}><Letter simple={true}>R</Letter></MenuButton>}
+            {(instant instanceof StopwatchInstant) && <MenuButton onClick={handleStartOrStop}><Letter simple={true}>S</Letter></MenuButton>}
             <MenuButton onClick={handleToggleShift}><Icon name="toggle" simple={true}/></MenuButton>
           </MenuButtonGroup>
         </PageFooter>

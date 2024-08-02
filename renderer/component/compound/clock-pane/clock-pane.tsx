@@ -20,27 +20,27 @@ export const ClockPane = create(
       <Pane>
         <PaneHeader>
           <div>
-            {(instant.prefix !== null) ? <Letter string={instant.prefix} wide={true}/> : <Letter string={instant.year ?? ""} length={2} split={true}/>}
-            <Letter string={(instant.year !== null) ? instant.yearSeparator : ""}/>
-            <Letter string={instant.month ?? ""} length={2} split={true}/>
-            <Letter string={(instant.month !== null) ? instant.monthSeparator : ""}/>
-            <Letter string={instant.day ?? ""} length={2} split={true}/>
-            <Letter styleName="weekday-separator" string={(instant.weekday !== null) ? instant.weekdaySeparator : ""}/>
-            <Letter string={instant.weekday ?? ""} length={1} split={true}/>
+            {(instant.prefix !== null) ? <Letter wide={true}>{instant.prefix}</Letter> : <Letter length={2} split={true}>{instant.year ?? ""}</Letter>}
+            <Letter>{(instant.year !== null) ? instant.yearSeparator : ""}</Letter>
+            <Letter length={2} split={true}>{instant.month ?? ""}</Letter>
+            <Letter>{(instant.month !== null) ? instant.monthSeparator : ""}</Letter>
+            <Letter length={2} split={true}>{instant.day ?? ""}</Letter>
+            <Letter styleName="weekday-separator">{(instant.weekday !== null) ? instant.weekdaySeparator : ""}</Letter>
+            <Letter length={1} split={true}>{instant.weekday ?? ""}</Letter>
           </div>
           <div>
-            <Letter styleName="hairia-prefix" string={(instant.hairia !== null) ? "H" : ""}/>
-            <Letter string={instant.hairia ?? ""} length={4} split={true}/>
+            <Letter styleName="hairia-prefix">{(instant.hairia !== null) ? "H" : ""}</Letter>
+            <Letter length={4} split={true}>{instant.hairia ?? ""}</Letter>
           </div>
         </PaneHeader>
         <PaneMain>
           <div/>
           <div>
-            <Letter string={instant.hours ?? ""} length={2} split={true}/>
-            <Letter string={instant.hoursSeparator}/>
-            <Letter string={instant.minutes ?? ""} length={2} split={true}/>
-            <Letter string={instant.minutesSeparator}/>
-            <Letter string={instant.seconds ?? ""} length={2} split={true}/>
+            <Letter length={2} split={true}>{instant.hours ?? ""}</Letter>
+            <Letter>{instant.hoursSeparator}</Letter>
+            <Letter length={2} split={true}>{instant.minutes ?? ""}</Letter>
+            <Letter>{instant.minutesSeparator}</Letter>
+            <Letter length={2} split={true}>{instant.seconds ?? ""}</Letter>
           </div>
         </PaneMain>
       </Pane>

@@ -10,26 +10,26 @@ import {LetterChar} from "./letter-char";
 export const Letter = create(
   require("./letter.scss"), "Letter",
   function ({
-    string,
     length,
     decimalLength,
     split = false,
     unit = false,
     wide = false,
     simple = false,
+    children,
     ...rest
   }: {
-    string: string | number,
     length?: number,
     decimalLength?: number,
     split?: boolean,
     unit?: boolean,
     wide?: boolean,
     simple?: boolean,
+    children: string | number,
     className?: string
   }): ReactElement {
 
-    const actualString = useMemo(() => getActualString(string, length, decimalLength), [string, length, decimalLength]);
+    const actualString = useMemo(() => getActualString(children, length, decimalLength), [children, length, decimalLength]);
     const chars = (split) ? actualString.split("") : [actualString];
 
     return (
