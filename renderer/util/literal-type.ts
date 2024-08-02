@@ -1,8 +1,6 @@
 //
 
-import {
-  FloorMath
-} from "./floor-math";
+import {FloorMath} from "./floor-math";
 
 
 export class LiteralUtilType<T extends string> {

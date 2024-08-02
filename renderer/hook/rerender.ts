@@ -1,9 +1,6 @@
 //
 
-import {
-  useCallback,
-  useState
-} from "react";
+import {useCallback, useState} from "react";
 
 
 export function useRerender(): () => void {

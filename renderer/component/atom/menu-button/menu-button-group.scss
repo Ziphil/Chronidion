@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+@use "sass:math" as *;
+
+
+.root {
+  height: 100%;
+  column-gap: 4rem;
+  display: flex;
+  align-items: center;
+}

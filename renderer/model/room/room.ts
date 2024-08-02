@@ -1,12 +1,8 @@
 //
 
 import axios from "axios";
-import {
-  IconName
-} from "../../component/atom/icon";
-import {
-  makeRace
-} from "../../util/timeout-promise";
+import {makeRace} from "/renderer/util/timeout-promise";
+import type {IconName} from "/renderer/component/atom/icon/icon-components";
 
 
 export interface Room {

@@ -1,11 +1,7 @@
 //
 
-import {
-  FloorMath
-} from "../../util/floor-math";
-import {
-  Instant
-} from "./instant";
+import {FloorMath} from "/renderer/util/floor-math";
+import {Instant} from "/renderer/model/instant/instant";
 
 
 export class StopwatchInstant extends Instant {

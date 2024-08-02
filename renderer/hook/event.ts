@@ -1,8 +1,6 @@
 //
 
-import {
-  useEvent
-} from "react-use";
+import {useEvent} from "react-use";
 
 
 export function useKeyEvent(callback: (key: string, event: KeyboardEvent) => void, enabled: boolean): void {

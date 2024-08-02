@@ -3,10 +3,9 @@
 import dotenv from "dotenv";
 import electronReload from "electron-reload-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import * as path from "path";
-import {
-  DefinePlugin
-} from "webpack";
+import {DefinePlugin} from "webpack";
 import merge from "webpack-merge";
 import externals from "webpack-node-externals";
 
@@ -88,11 +87,15 @@ export const commonRenderer = {
         exclude: /node_modules/,
         use: [
           {
-            loader: "style-loader"
+            loader: MiniCssExtractPlugin.loader,
           },
           {
             loader: "css-loader",
-            options: {url: false}
+            options: {
+              modules: {localIdentName: "[name]_[local]_[hash:base64:5]"},
+              sourceMap: process.env.NODE_ENV !== "production",
+              url: false
+            }
           },
           {
             loader: "sass-loader"
@@ -112,7 +115,8 @@ export const commonRenderer = {
     }),
     new HtmlWebpackPlugin({
       template: "./renderer/public/index.html"
-    })
+    }),
+    new MiniCssExtractPlugin({filename: "style.css"}),
   ]
 };
 

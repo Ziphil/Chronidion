@@ -1,13 +1,8 @@
 //
 
 import type originalLibrary from "serialport";
-import {
-  ByteLengthParser,
-  SerialPort
-} from "serialport";
-import {
-  Sensor
-} from "./sensor";
+import {ByteLengthParser, SerialPort} from "serialport";
+import {Sensor} from "./sensor";
 
 
 export class Mhz19Sensor implements Sensor<Mhz19Reading> {

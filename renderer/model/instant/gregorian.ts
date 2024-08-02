@@ -1,14 +1,8 @@
 //
 
-import {
-  GregorianDate
-} from "talqis";
-import {
-  FloorMath
-} from "../../util/floor-math";
-import {
-  Instant
-} from "./instant";
+import {GregorianDate} from "talqis";
+import {FloorMath} from "/renderer/util/floor-math";
+import {Instant} from "/renderer/model/instant/instant";
 
 
 export class GregorianInstant extends Instant {

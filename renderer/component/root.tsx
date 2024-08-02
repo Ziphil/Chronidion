@@ -2,39 +2,19 @@
 
 import * as queryParser from "query-string";
 import * as react from "react";
-import {
-  Fragment,
-  ReactElement,
-  useCallback,
-  useState
-} from "react";
-import {
-  useInterval,
-  useMount
-} from "react-use";
-import {
-  useKeyEvent
-} from "../hook";
-import {
-  GregorianInstant,
-  HairianInstant,
-  StopwatchInstant
-} from "../model/instant";
-import {
-  LiteralType,
-  LiteralUtilType
-} from "../util/literal-type";
-import {
-  create
-} from "./create";
-import Background from "./page/background";
-import ClockPage from "./page/clock-page";
-import MeteoPage from "./page/meteo-page";
-import RoomPage from "./page/room-page";
+import {Fragment, ReactElement, useCallback, useState} from "react";
+import {useInterval, useMount} from "react-use";
+import {useKeyEvent} from "/renderer/hook";
+import {GregorianInstant, HairianInstant, StopwatchInstant} from "/renderer/model/instant";
+import {LiteralType, LiteralUtilType} from "/renderer/util/literal-type";
+import {ClockPage} from "/renderer/component/page/clock-page";
+import {MeteoPage} from "/renderer/component/page/meteo-page";
+import {RoomPage} from "/renderer/component/page/room-page";
+import {create} from "/renderer/component/create";
 
 
 const Root = create(
-  "Root",
+  require("./root.scss"), "Root",
   function ({
   }: {
   }): ReactElement | null {
@@ -80,7 +60,6 @@ const Root = create(
         <ClockPage initialInstant={new StopwatchInstant()} show={mode === "stopwatch"} {...commonProps}/>
         <MeteoPage show={mode === "meteo"} {...commonProps}/>
         <RoomPage show={mode === "room"} {...commonProps}/>
-        <Background/>
       </Fragment>
     );
     return node;

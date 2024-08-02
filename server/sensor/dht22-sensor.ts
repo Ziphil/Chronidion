@@ -1,9 +1,7 @@
 //
 
 import type originalLibrary from "node-dht-sensor";
-import {
-  Sensor
-} from "./sensor";
+import {Sensor} from "./sensor";
 
 
 export class Dht22Sensor implements Sensor<Dht22Reading> {

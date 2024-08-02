@@ -2,17 +2,8 @@
 
 import dotenv from "dotenv";
 import express from "express";
-import {
-  Express,
-  NextFunction,
-  Request,
-  Response
-} from "express";
-import {
-  Dht22Sensor,
-  Mhz19Sensor,
-  Sensor
-} from "./sensor";
+import {Express, NextFunction, Request, Response} from "express";
+import {Dht22Sensor, Mhz19Sensor, Sensor} from "./sensor";
 
 
 dotenv.config({path: "./variable.env"});

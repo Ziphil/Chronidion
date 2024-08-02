@@ -9,18 +9,14 @@ import {
   ipcMain,
   screen
 } from "electron";
-import {
-  client
-} from "electron-connect";
-import {
-  join as joinPath
-} from "path";
+import {client} from "electron-connect";
+import {join as joinPath} from "path";
 
 
 dotenv.config({path: "./variable.env"});
 
 const COMMON_WINDOW_OPTIONS = {
-  transparent: true,
+  transparent: false,
   frame: false,
   toolbar: false,
   alwaysOnTop: true,

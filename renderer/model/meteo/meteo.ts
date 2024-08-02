@@ -2,15 +2,9 @@
 
 import axios from "axios";
 import dayjs from "dayjs";
-import {
-  Dayjs
-} from "dayjs";
-import {
-  IconName
-} from "../../component/atom/icon";
-import {
-  makeRace
-} from "../../util/timeout-promise";
+import {Dayjs} from "dayjs";
+import type {IconName} from "/renderer/component/atom/icon/icon-components";
+import {makeRace} from "/renderer/util/timeout-promise";
 import METEO_DATA from "./meteo-data.json";
 
 

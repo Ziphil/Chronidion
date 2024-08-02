@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+
+$page-width: 241rem;
+$page-height: 98rem;
+$menu-height: 18rem;
+
+.root {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+}
+
+.container {
+  width: $page-width;
+  height: $page-height;
+  padding-inline: 15rem;
+  box-sizing: border-box;
+}

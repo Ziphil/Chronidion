@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+@use "sass:math" as *;
+
+
+.root {
+  inline-size: 1em;
+  block-size: 100%;
+  margin: 0rem;
+  padding: 0rem;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  cursor: pointer;
+}

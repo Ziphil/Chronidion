@@ -1,9 +1,6 @@
 //
 
-import {
-  contextBridge,
-  ipcRenderer
-} from "electron";
+import {contextBridge, ipcRenderer} from "electron";
 
 
 const send = ipcRenderer.send.bind(ipcRenderer);
