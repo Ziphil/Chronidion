@@ -4,8 +4,8 @@
 
 
 .root {
-  color: var(--first-color);
-  text-shadow: 0em 0em 0.2em var(--second-color);
+  color: hsl(240, 10%, 75%);
+  text-shadow: 0em 0.05em 0.3em hsl(240, 10%, 50%);
   &[data-simple] {
     color: inherit;
     text-shadow: none;
