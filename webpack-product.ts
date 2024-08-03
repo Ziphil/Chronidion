@@ -1,11 +1,7 @@
 // @ts-nocheck
 
 import merge from "webpack-merge";
-import {
-  commonMain,
-  commonRenderer,
-  commonServer
-} from "./webpack-develop";
+import {commonMain, commonRenderer, commonServer} from "./webpack-develop";
 
 
 const main = merge(commonMain, {
@@ -20,4 +16,4 @@ const server = merge(commonServer, {
   mode: "production"
 });
 
-export default [main, renderer, server];
+export default [main, renderer];

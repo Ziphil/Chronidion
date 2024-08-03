@@ -169,4 +169,4 @@ const server = merge(commonServer, {
   devtool: "source-map"
 });
 
-export default [main, renderer, server];
+export default [main, renderer];
