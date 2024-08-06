@@ -11,6 +11,7 @@ import {
 } from "electron";
 import {client} from "electron-connect";
 import {join as joinPath} from "path";
+import {commands} from "/main/command";
 
 
 dotenv.config({path: "./variable.env"});
@@ -50,7 +51,8 @@ export class Main {
 
   public main(): void {
     this.setupEventHandlers();
-    this.setupIpc();
+    this.setupCommonIpc();
+    this.setupCommandIpc();
   }
 
   private setupEventHandlers(): void {
@@ -67,7 +69,7 @@ export class Main {
     });
   }
 
-  private setupIpc(): void {
+  private setupCommonIpc(): void {
     ipcMain.on("quit", (event) => {
       this.app.quit();
     });
@@ -95,6 +97,14 @@ export class Main {
         this.moveDefaultPosition(window);
       }
     });
+  }
+
+  private setupCommandIpc(): void {
+    for (const [name, command] of Object.entries(commands)) {
+      ipcMain.handle(name, async (event, ...args) => {
+        await (command as any)(...args);
+      });
+    }
   }
 
   public createWindow(mode: string, parentId: number | null, props: object, options: BrowserWindowConstructorOptions & {query?: Record<string, string>}): BrowserWindow {

@@ -12,6 +12,6 @@
 .container {
   width: calc(var(--page-width) * 1rem);
   height: calc(var(--page-height) * 1rem);
-  padding-inline: 15rem;
+  padding-inline: calc(var(--page-padding-inline) * 1rem);
   box-sizing: border-box;
 }

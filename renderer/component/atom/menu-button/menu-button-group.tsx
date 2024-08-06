@@ -10,7 +10,7 @@ export const MenuButtonGroup = create(
   function ({
     children
   }: {
-    children: ReactNode
+    children?: ReactNode
   }): ReactElement {
 
     return (
@@ -18,5 +18,6 @@ export const MenuButtonGroup = create(
         {children}
       </div>
     );
+
   }
 );

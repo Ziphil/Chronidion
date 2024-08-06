@@ -9,6 +9,7 @@ import {LiteralType, LiteralUtilType} from "/renderer/util/literal-type";
 import {ClockPage} from "/renderer/component/page/clock-page";
 import {MeteoPage} from "/renderer/component/page/meteo-page";
 import {create} from "/renderer/component/create";
+import {DeckPage} from "/renderer/component/page/deck-page";
 
 
 const Root = create(
@@ -30,9 +31,7 @@ const Root = create(
     useKeyEvent((key) => {
       const query = queryParser.parse(window.location.search);
       const id = (typeof query.idString === "string") ? parseInt(query.idString) : -1;
-      if (key === "F5") {
-        window.api.send("move-default-position", id);
-      } else if (key === "F11") {
+      if (key === "F11") {
         window.api.send("maximize", id);
       } else if (key === "F12") {
         window.api.send("open-dev-tools", id);
@@ -47,6 +46,7 @@ const Root = create(
         <ClockPage initialInstant={new HairianInstant()} show={mode === "hairian"} {...commonProps}/>
         <ClockPage initialInstant={new StopwatchInstant()} show={mode === "stopwatch"} {...commonProps}/>
         <MeteoPage show={mode === "meteo"} {...commonProps}/>
+        <DeckPage show={mode === "deck"} {...commonProps}/>
       </Fragment>
     );
 
@@ -54,7 +54,7 @@ const Root = create(
 );
 
 
-const PAGE_MODES = ["gregorian", "hairian", "stopwatch", "meteo"] as const;
+const PAGE_MODES = ["gregorian", "hairian", "stopwatch", "meteo", "deck"] as const;
 export const PageModeUtil = LiteralUtilType.create(PAGE_MODES);
 export type PageMode = LiteralType<typeof PAGE_MODES>;
 

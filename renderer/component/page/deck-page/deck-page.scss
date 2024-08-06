@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+
+.list {
+  height: 100%;
+  column-gap: 0rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+}

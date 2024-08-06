@@ -2,9 +2,10 @@
 
 
 :root {
-  --page-width: 241;
+  --page-width: 235;
   --page-height: 98;
-  --menu-height: 18;
+  --menu-height: 16;
+  --page-padding-inline: 12;
 }
 
 html {
@@ -25,4 +26,25 @@ body {
 :global(#root) {
   position: relative;
   z-index: 0;
+}
+
+html,
+body,
+:global(#root) {
+  height: 100%;
+  user-select: none;
+}
+
+*:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
+  all: unset;
+  display: revert;
+  min-block-size: 0rem;
+  min-inline-size: 0rem;
+  background-origin: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
