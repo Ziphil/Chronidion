@@ -26,8 +26,8 @@ export const DeckPage = create(
       <Page show={show}>
         <PageMain>
           <div styleName="list">
-            <CommandButton name="discord.toggleMute"/>
-            <CommandButton name="discord.toggleMute"/>
+            <CommandButton name="discord.toggleMute" arg={{}}/>
+            <CommandButton name="discord.toggleDeaf" arg={{}}/>
           </div>
         </PageMain>
         <PageFooter>

@@ -1,19 +1,13 @@
 //
 
 import discord from "./discord";
+import {createCommandCatalog} from "/main/util/command";
 
 
-type Command = (...args: Array<any>) => Promise<void>;
-type Commands = {[N in string]: Command}; ;
-
-function createApiSpecs<S extends string, T extends Commands>(scope: S, apis: T): {[N in (keyof T) & string as `${S}.${N}`]: T[N]} {
-  const apiSpecs = {} as any;
-  for (const [name, api] of Object.entries(apis)) {
-    apiSpecs[`${scope}.${name}`] = api;
-  }
-  return apiSpecs;
-}
-
-export const commands = {
-  ...createApiSpecs("discord", discord)
+export const COMMAND_CATALOG = {
+  ...createCommandCatalog("discord", discord)
 };
+
+export type CommandCatalog = typeof COMMAND_CATALOG;
+export type CommandName = keyof CommandCatalog;
+export type CommandArg<T extends CommandName> = Parameters<CommandCatalog[T]>[0];

@@ -11,7 +11,7 @@ import {
 } from "electron";
 import {client} from "electron-connect";
 import {join as joinPath} from "path";
-import {commands} from "/main/command";
+import {COMMAND_CATALOG} from "/main/command";
 
 
 dotenv.config({path: "./variable.env"});
@@ -100,7 +100,7 @@ export class Main {
   }
 
   private setupCommandIpc(): void {
-    for (const [name, command] of Object.entries(commands)) {
+    for (const [name, command] of Object.entries(COMMAND_CATALOG)) {
       ipcMain.handle(name, async (event, ...args) => {
         await (command as any)(...args);
       });

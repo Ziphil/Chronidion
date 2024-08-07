@@ -6,19 +6,22 @@ import * as react from "react";
 import {ReactElement, useCallback} from "react";
 import {create} from "/renderer/component/create";
 import {Letter} from "/renderer/component/atom/letter";
+import type{CommandArg, CommandName} from "/main/command";
 
 
 export const CommandButton = create(
   require("./command-button.scss"), "CommandButton",
-  function ({
-    name
+  function <N extends CommandName>({
+    name,
+    arg
   }: {
-    name: string
+    name: N,
+    arg: CommandArg<N>
   }): ReactElement {
 
     const handleClick = useCallback(function (): void {
-      window.api.invoke(name);
-    }, [name]);
+      window.api.invoke(name, arg);
+    }, [name, arg]);
 
     return (
       <button styleName="root" onClick={handleClick}>
