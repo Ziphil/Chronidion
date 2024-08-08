@@ -9,6 +9,7 @@ export class DiscordTokenManager {
   public readonly clientId: string;
   public readonly clientSecret: string;
 
+  private authentificationCodePromise: Promise<string> | null = null;
   private refreshToken: string | null = null;
 
   public constructor(id: string, secret: string) {
@@ -16,30 +17,35 @@ export class DiscordTokenManager {
     this.clientSecret = secret;
   }
 
-  public async getAuthentificationCode(): Promise<string> {
-    const promise = new Promise<string>((resolve, reject) => {
-      const window = new BrowserWindow({autoHideMenuBar: true, useContentSize: true});
-      window.webContents.on("will-navigate", (event, url) => {
-        const urlObject = new URL(url);
-        const code = urlObject.searchParams.get("code");
-        const error = urlObject.searchParams.get("error");
-        if (error) {
-          reject(new Error(`error occurred: ${error}`));
-        } else if (code) {
-          resolve(code);
-        } else {
-          reject(new Error("no code in url"));
-        }
-        window.removeAllListeners("closed");
-        setImmediate(() => window.close());
+  public getAuthentificationCode(): Promise<string> {
+    if (this.authentificationCodePromise) {
+      return this.authentificationCodePromise;
+    } else {
+      const promise = new Promise<string>((resolve, reject) => {
+        const window = new BrowserWindow({autoHideMenuBar: true, useContentSize: true});
+        window.webContents.on("will-navigate", (event, url) => {
+          const urlObject = new URL(url);
+          const code = urlObject.searchParams.get("code");
+          const error = urlObject.searchParams.get("error");
+          if (error) {
+            reject(new Error(`error occurred: ${error}`));
+          } else if (code) {
+            resolve(code);
+          } else {
+            reject(new Error("no code in url"));
+          }
+          window.removeAllListeners("closed");
+          setImmediate(() => window.close());
+        });
+        window.on("closed", () => {
+          reject(new Error("window closed by user"));
+        });
+        window.loadURL(`https://discord.com/oauth2/authorize?client_id=${this.clientId}&response_type=code&redirect_uri=${encodeURIComponent("http://localhost")}&scope=rpc+rpc.api+identify`);
+        window.show();
       });
-      window.on("closed", () => {
-        reject(new Error("window closed by user"));
-      });
-      window.loadURL(`https://discord.com/oauth2/authorize?client_id=${this.clientId}&response_type=code&redirect_uri=${encodeURIComponent("http://localhost")}&scope=rpc+rpc.api+identify`);
-      window.show();
-    });
-    return promise;
+      this.authentificationCodePromise = promise;
+      return promise;
+    }
   }
 
   public async getAccessToken(): Promise<string> {
