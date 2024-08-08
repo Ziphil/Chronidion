@@ -7,7 +7,7 @@ import {Page, PageFooter, PageMain} from "/renderer/component/page/page";
 import {MenuButton, MenuButtonGroup} from "/renderer/component/atom/menu-button";
 import {Letter} from "/renderer/component/atom/letter";
 import {Icon} from "/renderer/component/atom/icon";
-import {CommandButton} from "/renderer/component/compound/command-button";
+import {DiscordDeafCommandButton, DiscordMuteCommandButton} from "/renderer/component/compound/builtin-command-button";
 
 
 export const DeckPage = create(
@@ -26,8 +26,8 @@ export const DeckPage = create(
       <Page show={show}>
         <PageMain>
           <div styleName="list">
-            <CommandButton name="discord.toggleMute" arg={{}}/>
-            <CommandButton name="discord.toggleDeaf" arg={{}}/>
+            <DiscordMuteCommandButton textWhenOn="Unmute" textWhenOff="Mute"/>
+            <DiscordDeafCommandButton textWhenOn="Undeaf" textWhenOff="Deaf"/>
           </div>
         </PageMain>
         <PageFooter>

@@ -11,7 +11,7 @@ import {
 } from "electron";
 import {client} from "electron-connect";
 import {join as joinPath} from "path";
-import {COMMAND_CATALOG} from "/main/command";
+import {DiscordCommandController} from "/main/command/discord";
 
 
 dotenv.config({path: "./variable.env"});
@@ -52,12 +52,12 @@ export class Main {
   public main(): void {
     this.setupEventHandlers();
     this.setupCommonIpc();
-    this.setupCommandIpc();
   }
 
   private setupEventHandlers(): void {
     this.app.on("ready", async () => {
       this.createMainWindow();
+      this.setupCommandIpc();
     });
     this.app.on("activate", () => {
       if (this.windows.size <= 0) {
@@ -100,11 +100,8 @@ export class Main {
   }
 
   private setupCommandIpc(): void {
-    for (const [name, command] of Object.entries(COMMAND_CATALOG)) {
-      ipcMain.handle(name, async (event, ...args) => {
-        await (command as any)(...args);
-      });
-    }
+    const controller = new DiscordCommandController(this.mainWindow!);
+    controller.setup();
   }
 
   public createWindow(mode: string, parentId: number | null, props: object, options: BrowserWindowConstructorOptions & {query?: Record<string, string>}): BrowserWindow {
