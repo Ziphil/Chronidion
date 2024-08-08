@@ -16,6 +16,6 @@ export function useQueryState<N extends QueryName>(name: N): QueryState<N> | nul
     };
     window.api.on(`query:${name}`, listener);
     return () => void window.api.off(`query:${name}`, listener);
-  }, []);
+  }, [name]);
   return state;
 }
