@@ -1,7 +1,7 @@
 //
 
 import * as react from "react";
-import {ReactElement, useCallback} from "react";
+import {Fragment, ReactElement, useCallback} from "react";
 import {create} from "/renderer/component/create";
 import {Letter} from "/renderer/component/atom/letter";
 import type{CommandArg, CommandName} from "/main/command/type";
@@ -17,7 +17,7 @@ export const CommandButton = create(
   }: {
     name: N,
     arg: CommandArg<N>,
-    icon?: ReactElement,
+    icon?: ReactElement | [ReactElement, ReactElement | false | null | undefined],
     text?: string
   }): ReactElement {
 
@@ -28,7 +28,16 @@ export const CommandButton = create(
     return (
       <button styleName="root" onClick={handleClick}>
         <div styleName="left">
-          {icon}
+          {(Array.isArray(icon) && icon[1]) ? (
+            <Fragment>
+              {icon[0]}
+              <div styleName="small-icon">
+                {icon[1]}
+              </div>
+            </Fragment>
+          ) : (
+            icon
+          )}
         </div>
         <div styleName="right">
           {(text !== undefined) && <Letter wide={true} simple={true}>{text}</Letter>}

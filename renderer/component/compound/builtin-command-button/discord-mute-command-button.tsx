@@ -1,6 +1,7 @@
 //
 
 import {faDiscord} from "@fortawesome/free-brands-svg-icons";
+import {faMicrophone, faMicrophoneSlash} from "@fortawesome/pro-regular-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import * as react from "react";
 import {ReactElement} from "react";
@@ -25,7 +26,10 @@ export const DiscordMuteCommandButton = create(
       <CommandButton
         name="discord.toggleMute"
         arg={{}}
-        icon={<FontAwesomeIcon icon={faDiscord}/>}
+        icon={[
+          <FontAwesomeIcon key="main" icon={faDiscord}/>,
+          (mute !== null) && <FontAwesomeIcon key="sub" fixedWidth={true} icon={(mute) ? faMicrophoneSlash : faMicrophone}/>
+        ]}
         text={(mute === null) ? "" : (mute) ? textWhenOn : textWhenOff}
       />
     );
