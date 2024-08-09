@@ -1,31 +1,23 @@
-//
+/* eslint-disable unused-imports/no-unused-imports */
 
 import {Client} from "discord-rpc";
 import {DiscordTokenManager} from "/main/util/discord";
-import {BrowserWindow, ipcMain} from "electron";
-import type {QueryName, QueryState} from "/main/command/type";
+import {CommandController} from "/main/command/controller";
+import {command, commandController, query} from "/main/command/decorator";
 
 
 const manager = new DiscordTokenManager(process.env["DISCORD_ID"] ?? "", process.env["DISCORD_SECRET"] ?? "");
 const client = new Client({transport: "ipc"});
 
 
-export class DiscordCommandController {
+@commandController()
+export class DiscordCommandController extends CommandController {
 
-  private readonly mainWindow: BrowserWindow;
-
-  public constructor(mainWindow: BrowserWindow) {
-    this.mainWindow = mainWindow;
+  public setup(): void {
     this.setupEventHandlers();
   }
 
-  public setup(): void {
-    ipcMain.handle("command:discord.toggleMute", (event, ...args) => (this.toggleMute as any)(...args));
-    ipcMain.handle("command:discord.toggleDeaf", (event, ...args) => (this.toggleDeaf as any)(...args));
-    ipcMain.handle("query:discord.mute", (event, ...args) => (this.getMute as any)(...args));
-    ipcMain.handle("query:discord.deaf", (event, ...args) => (this.getDeaf as any)(...args));
-  }
-
+  @command("discord.toggleMute")
   public async toggleMute(arg: {}): Promise<void> {
     console.log("toggleMute");
     await this.ensureLogin();
@@ -34,6 +26,7 @@ export class DiscordCommandController {
     await client.setVoiceSettings({...settings, mute});
   }
 
+  @command("discord.toggleDeaf")
   public async toggleDeaf(arg: {}): Promise<void> {
     console.log("toggleDeaf");
     await this.ensureLogin();
@@ -42,12 +35,14 @@ export class DiscordCommandController {
     await client.setVoiceSettings({...settings, deaf});
   }
 
+  @query("discord.mute")
   public async getMute(): Promise<boolean> {
     await this.ensureLogin();
     const settings = await client.getVoiceSettings();
     return settings.mute;
   }
 
+  @query("discord.deaf")
   public async getDeaf(): Promise<boolean> {
     await this.ensureLogin();
     const settings = await client.getVoiceSettings();
@@ -71,10 +66,6 @@ export class DiscordCommandController {
       this.sendQueryStateChanged("discord.mute", mute);
       this.sendQueryStateChanged("discord.deaf", deaf);
     });
-  }
-
-  protected sendQueryStateChanged<N extends QueryName>(name: N, state: QueryState<N>): void {
-    this.mainWindow.webContents.send(`query:${name}`, state);
   }
 
 }

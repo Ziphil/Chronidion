@@ -100,8 +100,7 @@ export class Main {
   }
 
   private setupCommandIpc(): void {
-    const controller = new DiscordCommandController(this.mainWindow!);
-    controller.setup();
+    DiscordCommandController.use(this.mainWindow!);
   }
 
   public createWindow(mode: string, parentId: number | null, props: object, options: BrowserWindowConstructorOptions & {query?: Record<string, string>}): BrowserWindow {
