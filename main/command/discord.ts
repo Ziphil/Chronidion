@@ -49,7 +49,7 @@ export class DiscordCommandController extends CommandController {
     return settings.deaf;
   }
 
-  public async ensureLogin(): Promise<void> {
+  private async ensureLogin(): Promise<void> {
     if (!client.user) {
       const clientId = manager.clientId;
       const accessToken = await manager.getAccessToken();
@@ -60,7 +60,6 @@ export class DiscordCommandController extends CommandController {
 
   private setupEventHandlers(): void {
     client.on("VOICE_SETTINGS_UPDATE", (event) => {
-      console.log("VOICE_SETTINGS_UPDATE");
       const mute = event["mute"];
       const deaf = event["deaf"];
       this.sendQueryStateChanged("discord.mute", mute);
