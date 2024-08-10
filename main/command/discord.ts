@@ -4,6 +4,7 @@ import {Client} from "discord-rpc";
 import {DiscordTokenManager} from "/main/util/discord";
 import {CommandController} from "/main/command/controller";
 import {command, commandController, query} from "/main/command/decorator";
+import {CommandArg, QueryState} from "/main/command/type";
 
 
 const manager = new DiscordTokenManager(process.env["DISCORD_ID"] ?? "", process.env["DISCORD_SECRET"] ?? "");
@@ -18,7 +19,7 @@ export class DiscordCommandController extends CommandController {
   }
 
   @command("discord.toggleMute")
-  public async toggleMute(arg: {}): Promise<void> {
+  public async toggleMute(arg: CommandArg<"discord.toggleMute">): Promise<void> {
     console.log("toggleMute");
     await this.ensureLogin();
     const settings = await client.getVoiceSettings();
@@ -27,7 +28,7 @@ export class DiscordCommandController extends CommandController {
   }
 
   @command("discord.toggleDeaf")
-  public async toggleDeaf(arg: {}): Promise<void> {
+  public async toggleDeaf(arg: CommandArg<"discord.toggleDeaf">): Promise<void> {
     console.log("toggleDeaf");
     await this.ensureLogin();
     const settings = await client.getVoiceSettings();
@@ -36,14 +37,14 @@ export class DiscordCommandController extends CommandController {
   }
 
   @query("discord.mute")
-  public async getMute(): Promise<boolean> {
+  public async getMute(): Promise<QueryState<"discord.mute">> {
     await this.ensureLogin();
     const settings = await client.getVoiceSettings();
     return settings.mute;
   }
 
   @query("discord.deaf")
-  public async getDeaf(): Promise<boolean> {
+  public async getDeaf(): Promise<QueryState<"discord.deaf">> {
     await this.ensureLogin();
     const settings = await client.getVoiceSettings();
     return settings.deaf;

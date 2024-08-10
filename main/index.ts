@@ -11,7 +11,7 @@ import {
 } from "electron";
 import {client} from "electron-connect";
 import {join as joinPath} from "path";
-import {DiscordCommandController} from "/main/command/discord";
+import {DiscordCommandController, LaunchCommandController} from "/main/command";
 
 
 dotenv.config({path: "./variable.env"});
@@ -101,6 +101,7 @@ export class Main {
 
   private setupCommandIpc(): void {
     DiscordCommandController.use(this.mainWindow!);
+    LaunchCommandController.use(this.mainWindow!);
   }
 
   public createWindow(mode: string, parentId: number | null, props: object, options: BrowserWindowConstructorOptions & {query?: Record<string, string>}): BrowserWindow {

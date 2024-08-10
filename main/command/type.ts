@@ -3,7 +3,9 @@
 
 export type CommandCatalog = {
   "discord.toggleMute": {},
-  "discord.toggleDeaf": {}
+  "discord.toggleDeaf": {},
+  "launch.launch": {path: string},
+  "launch.openFile": {path: string}
 };
 export type CommandName = keyof CommandCatalog;
 export type CommandArg<N extends CommandName> = CommandCatalog[N];

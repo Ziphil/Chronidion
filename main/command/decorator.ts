@@ -46,7 +46,6 @@ export function command<N extends CommandName>(name: N): CommandHandlerDecorator
     const metadata = context.metadata["command"] as Array<CommandHandlerSpec> ?? [];
     metadata.push({key: context.name, name});
     context.metadata["command"] = metadata;
-    console.log(context.metadata);
   };
   return decorator;
 }
@@ -56,7 +55,6 @@ export function query<N extends QueryName>(name: N): QueryHandlerDecorator<N> {
     const metadata = context.metadata["query"] as Array<QueryHandlerSpec> ?? [];
     metadata.push({key: context.name, name});
     context.metadata["query"] = metadata;
-    console.log(context.metadata);
   };
   return decorator;
 }
