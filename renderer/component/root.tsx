@@ -18,7 +18,7 @@ const Root = create(
   }: {
   }): ReactElement | null {
 
-    const [mode, setMode] = useState<PageMode>("deck");
+    const [mode, setMode] = useState<PageMode>("meteo");
 
     const handlePreviousPage = useCallback(function (): void {
       setMode((mode) => PageModeUtil.previous(mode));

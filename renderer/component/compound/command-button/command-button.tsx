@@ -23,7 +23,7 @@ export const CommandButton = create(
     icon?: CommandButtonIcon,
     text?: string,
     division?: number,
-    size?: string
+    size?: "small" | "medium" | "large"
   }): ReactElement {
 
     const {name, arg} = spec;
@@ -38,7 +38,9 @@ export const CommandButton = create(
         <div styleName="left">
           {(Array.isArray(icon)) ? (
             <Fragment>
-              <FontAwesomeIcon icon={icon[0]}/>
+              {(icon[0]) && (
+                <FontAwesomeIcon icon={icon[0]}/>
+              )}
               {(icon[1]) && (
                 <div styleName="small-icon">
                   <FontAwesomeIcon icon={icon[1]}/>
@@ -61,4 +63,4 @@ export const CommandButton = create(
 );
 
 
-export type CommandButtonIcon = IconName | [IconName] | [IconName, IconName | false | null | undefined];
+export type CommandButtonIcon = IconName | [IconName] | [IconName | false | null | undefined, IconName | false | null | undefined];

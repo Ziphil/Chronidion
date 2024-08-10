@@ -1,46 +1,41 @@
 //
 
 import {
-  BsArrowDown,
-  BsArrowLeftRight,
-  BsArrowUp,
-  BsChevronDoubleDown,
-  BsChevronDoubleUp,
-  BsCloudDrizzle,
-  BsCloudHaze,
-  BsCloudSun,
-  BsCloudy,
-  BsCommand,
-  BsEmojiDizzy,
-  BsEmojiFrown,
-  BsEmojiNeutral,
-  BsEmojiSmile,
-  BsLightning,
-  BsSnow,
-  BsSun,
-  BsUmbrella
-} from "react-icons/bs";
+  faArrowDown,
+  faBoltLightning,
+  faCloudDrizzle,
+  faCloudSun,
+  faClouds,
+  faCommand,
+  faDownToLine,
+  faMinus,
+  faSlidersSimple,
+  faSmog,
+  faSnowflake,
+  faSun,
+  faUmbrella,
+  faUpToLine
+} from "@fortawesome/sharp-light-svg-icons";
 
 
-export const ICON_COMPONENTS = {
-  clear: BsSun,
-  cloudClear: BsCloudSun,
-  cloud: BsCloudy,
-  shower: BsCloudDrizzle,
-  rain: BsUmbrella,
-  snow: BsSnow,
-  mist: BsCloudHaze,
-  thunder: BsLightning,
-  page: BsCommand,
-  toggle: BsArrowLeftRight,
-  next: BsArrowDown,
-  max: BsChevronDoubleUp,
-  min: BsChevronDoubleDown,
-  arrow: BsArrowUp,
-  comfort: BsEmojiSmile,
-  neutral: BsEmojiNeutral,
-  discomfort: BsEmojiFrown,
-  dizzy: BsEmojiDizzy
+export const ICON_DEFINITIONS = {
+  clear: faSun,
+  cloudClear: faCloudSun,
+  cloud: faClouds,
+  shower: faCloudDrizzle,
+  rain: faUmbrella,
+  snow: faSnowflake,
+  mist: faSmog,
+  thunder: faBoltLightning,
+  dizzy: faMinus,
+  discomfort: faMinus,
+  neutral: faMinus,
+  comfort: faMinus,
+  page: faCommand,
+  toggle: faSlidersSimple,
+  next: faArrowDown,
+  max: faUpToLine,
+  min: faDownToLine
 };
 
-export type IconName = keyof typeof ICON_COMPONENTS;
+export type IconName = keyof typeof ICON_DEFINITIONS;

@@ -1,3 +1,12 @@
 @charset "utf-8";
 
 @use "sass:math" as *;
+
+
+.icon {
+  margin-inline-start: 2rem;
+}
+
+.head-icon {
+  margin-inline-end: 4rem;
+}

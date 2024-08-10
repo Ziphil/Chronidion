@@ -1,10 +1,11 @@
 //
 
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import * as react from "react";
-import {CSSProperties, ReactElement, createElement} from "react";
+import {CSSProperties, ReactElement} from "react";
 import {create} from "/renderer/component/create";
 import {data} from "/renderer/util/data";
-import {ICON_COMPONENTS, IconName} from "./icon-components";
+import {ICON_DEFINITIONS, IconName} from "./icon-components";
 
 
 export const Icon = create(
@@ -22,11 +23,11 @@ export const Icon = create(
     style?: CSSProperties
   }): ReactElement {
 
-    const iconComponent = ICON_COMPONENTS[name];
+    const icon = ICON_DEFINITIONS[name];
 
     return (
       <span styleName="root" {...data({large, simple})} {...rest}>
-        {(iconComponent !== undefined) && createElement(iconComponent)}
+        {(icon !== undefined) && <FontAwesomeIcon icon={icon}/>}
       </span>
     );
 

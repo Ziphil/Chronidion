@@ -45,7 +45,9 @@ const MeteoPane = create(
           </div>
         </PaneHeader>
         <PaneMain>
-          <div/>
+          <div styleName="icon">
+            {(kind === "temperature" && meteo.weatherIconName !== undefined) && <Icon name={meteo.weatherIconName}/>}
+          </div>
           <div>
             {(value === null) ? (
               <Letter>—</Letter>
@@ -75,7 +77,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
     return spec;
   } else if (kind === "maxTemperature") {
     const spec = {
-      headNode: <><span styleName="pane-head-icon"><Icon name="max"/></span><Letter wide={true}>Temp</Letter></>,
+      headNode: <><span styleName="head-icon"><Icon name="max"/></span><Letter wide={true}>Temp</Letter></>,
       value: meteo.maxTemperature,
       decimalLength: 1,
       unit: "°C"
@@ -83,7 +85,7 @@ function getMeteoKindSpec(meteo: Meteo, kind: MeteoKind): {headNode: ReactElemen
     return spec;
   } else if (kind === "minTemperature") {
     const spec = {
-      headNode: <><span styleName="pane-head-icon"><Icon name="min"/></span><Letter wide={true}>Temp</Letter></>,
+      headNode: <><span styleName="head-icon"><Icon name="min"/></span><Letter wide={true}>Temp</Letter></>,
       value: meteo.minTemperature,
       decimalLength: 1,
       unit: "°C"
