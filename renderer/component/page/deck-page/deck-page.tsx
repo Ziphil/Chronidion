@@ -8,7 +8,7 @@ import {MenuButton, MenuButtonGroup} from "/renderer/component/atom/menu-button"
 import {Letter} from "/renderer/component/atom/letter";
 import {Icon} from "/renderer/component/atom/icon";
 import {ToggleCommandButton} from "/renderer/component/compound/builtin-command-button";
-import {CommandButton} from "/renderer/component/compound/command-button";
+import {CommandButton, CommandSeparator} from "/renderer/component/compound/command-button";
 import settings from "./deck-page-settings.json";
 
 
@@ -33,9 +33,11 @@ export const DeckPage = create(
                 {buttonSpecs.map((buttonSpec, index) => (
                   (buttonSpec.type === "ToggleCommandButton") ? (
                     <ToggleCommandButton key={index} {...(buttonSpec as unknown as any)}/>
-                  ) : (
+                  ) : (buttonSpec.type === "CommandButton") ? (
                     <CommandButton key={index} {...(buttonSpec as unknown as any)}/>
-                  )
+                  ) : (buttonSpec.type === "CommandSeparator") ? (
+                    <CommandSeparator key={index}/>
+                  ) : null
                 ))}
               </div>
             ))}

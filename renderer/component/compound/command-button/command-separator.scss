@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+@use "sass:math" as *;
+@use "/renderer/component/function.scss" as *;
+
+
+.root {
+  margin-inline: 6rem;
+  color: hsl(240, 2%, 20%);
+  border-block-start: solid 0.5rem currentcolor;
+  flex: 1 1 auto;
+}

@@ -4,12 +4,11 @@
 .list {
   height: 100%;
   margin-inline: -6rem;
-  padding-block: 6rem;
+  padding-block: 4rem;
   column-gap: 0rem;
-  row-gap: 8rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .list-row {
