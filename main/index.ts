@@ -11,7 +11,11 @@ import {
 } from "electron";
 import {client} from "electron-connect";
 import {join as joinPath} from "path";
-import {DiscordCommandController, LaunchCommandController} from "/main/command";
+import {
+  DiscordCommandController,
+  LaunchCommandController,
+  ObsCommandController
+} from "/main/command";
 
 
 dotenv.config({path: "./variable.env"});
@@ -101,6 +105,7 @@ export class Main {
 
   private setupCommandIpc(): void {
     DiscordCommandController.use(this.mainWindow!);
+    ObsCommandController.use(this.mainWindow!);
     LaunchCommandController.use(this.mainWindow!);
   }
 

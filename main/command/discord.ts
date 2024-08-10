@@ -21,7 +21,7 @@ export class DiscordCommandController extends CommandController {
   @command("discord.toggleMute")
   public async toggleMute(arg: CommandArg<"discord.toggleMute">): Promise<void> {
     console.log("toggleMute");
-    await this.ensureLogin();
+    await this.ensureConnected();
     const settings = await client.getVoiceSettings();
     const mute = !settings.mute;
     await client.setVoiceSettings({...settings, mute});
@@ -30,7 +30,7 @@ export class DiscordCommandController extends CommandController {
   @command("discord.toggleDeaf")
   public async toggleDeaf(arg: CommandArg<"discord.toggleDeaf">): Promise<void> {
     console.log("toggleDeaf");
-    await this.ensureLogin();
+    await this.ensureConnected();
     const settings = await client.getVoiceSettings();
     const deaf = !settings.deaf;
     await client.setVoiceSettings({...settings, deaf});
@@ -38,19 +38,19 @@ export class DiscordCommandController extends CommandController {
 
   @query("discord.mute")
   public async getMute(): Promise<QueryState<"discord.mute">> {
-    await this.ensureLogin();
+    await this.ensureConnected();
     const settings = await client.getVoiceSettings();
     return settings.mute;
   }
 
   @query("discord.deaf")
   public async getDeaf(): Promise<QueryState<"discord.deaf">> {
-    await this.ensureLogin();
+    await this.ensureConnected();
     const settings = await client.getVoiceSettings();
     return settings.deaf;
   }
 
-  private async ensureLogin(): Promise<void> {
+  private async ensureConnected(): Promise<void> {
     if (!client.user) {
       const clientId = manager.clientId;
       const accessToken = await manager.getAccessToken();

@@ -10,16 +10,16 @@ import type{CommandArg, CommandName} from "/main/command/type";
 export const CommandButton = create(
   require("./command-button.scss"), "CommandButton",
   function <N extends CommandName>({
-    name,
-    arg,
+    spec,
     icon,
     text
   }: {
-    name: N,
-    arg: CommandArg<N>,
-    icon?: ReactElement | [ReactElement, ReactElement | false | null | undefined],
+    spec: {name: N, arg: CommandArg<N>},
+    icon?: CommandButtonIcon,
     text?: string
   }): ReactElement {
+
+    const {name, arg} = spec;
 
     const handleClick = useCallback(function (): void {
       window.api.invoke(`command:${name}`, arg);
@@ -47,3 +47,6 @@ export const CommandButton = create(
 
   }
 );
+
+
+export type CommandButtonIcon = ReactElement | [ReactElement, ReactElement | false | null | undefined];
