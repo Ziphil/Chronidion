@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+@use "sass:math" as *;
+
+
+@mixin background($light-color, $dark-color) {
+  background-image: repeating-linear-gradient(135deg, $light-color, $light-color 50%, $dark-color 50%, $dark-color);
+  background-attachment: fixed, fixed;
+  background-size: 6rem 6rem, auto;
+  background-repeat: repeat, repeat;
+}

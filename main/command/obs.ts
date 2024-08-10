@@ -36,6 +36,12 @@ export class ObsCommandController extends CommandController {
     await client.call("ToggleVirtualCam");
   }
 
+  @command("obs.refreshBrowserSource")
+  public async refreshBrowserSource(arg: CommandArg<"obs.refreshBrowserSource">): Promise<void> {
+    await this.ensureConnected();
+    await client.call("PressInputPropertiesButton", {inputName: "チャット", propertyName: "refreshnocache"});
+  }
+
   @query("obs.stream")
   public async getStream(): Promise<QueryState<"obs.stream">> {
     await this.ensureConnected();
@@ -58,7 +64,11 @@ export class ObsCommandController extends CommandController {
   }
 
   private async ensureConnected(): Promise<void> {
-    await client.connect(process.env["OBS_URL"] ?? "", process.env["OBS_SECRET"] ?? "");
+    try {
+      await client.reidentify({});
+    } catch (error) {
+      await client.connect(process.env["OBS_URL"] ?? "", process.env["OBS_SECRET"] ?? "");
+    }
   }
 
   private setupEventHandlers(): void {

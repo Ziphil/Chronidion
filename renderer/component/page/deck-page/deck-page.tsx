@@ -28,12 +28,16 @@ export const DeckPage = create(
       <Page show={show}>
         <PageMain>
           <div styleName="list">
-            {settings.buttons.map((buttonSpec, index) => (
-              (buttonSpec.type === "ToggleCommandButton") ? (
-                <ToggleCommandButton key={index} {...(buttonSpec as unknown as any)}/>
-              ) : (
-                <CommandButton key={index} {...(buttonSpec as unknown as any)}/>
-              )
+            {settings.buttons.map((buttonSpecs, index) => (
+              <div key={index} styleName="list-row">
+                {buttonSpecs.map((buttonSpec, index) => (
+                  (buttonSpec.type === "ToggleCommandButton") ? (
+                    <ToggleCommandButton key={index} {...(buttonSpec as unknown as any)}/>
+                  ) : (
+                    <CommandButton key={index} {...(buttonSpec as unknown as any)}/>
+                  )
+                ))}
+              </div>
             ))}
           </div>
         </PageMain>

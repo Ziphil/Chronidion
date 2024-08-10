@@ -1,13 +1,12 @@
 @charset "utf-8";
 
+@use "/renderer/component/function.scss" as *;
+
 
 .root {
+  @include background(hsl(240, 2%, 15%), hsl(240, 2%, 0%));
   width: 100vw;
   height: 100vh;
-  background-image: repeating-linear-gradient(135deg, hsl(240, 2%, 15%), hsl(240, 2%, 15%) 50%, black 50%, black);
-  background-attachment: fixed, fixed;
-  background-size: 8rem 8rem, auto;
-  background-repeat: repeat, repeat;
   display: flex;
   flex-direction: column;
   align-items: center;

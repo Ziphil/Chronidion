@@ -7,6 +7,7 @@ export type CommandCatalog = {
   "obs.toggleStream": {},
   "obs.toggleRecord": {},
   "obs.toggleVirtualCam": {},
+  "obs.refreshBrowserSource": {},
   "launch.launch": {path: string},
   "launch.openFile": {path: string}
 };

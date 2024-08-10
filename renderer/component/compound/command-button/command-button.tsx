@@ -7,6 +7,7 @@ import {Fragment, ReactElement, useCallback} from "react";
 import {create} from "/renderer/component/create";
 import {Letter} from "/renderer/component/atom/letter";
 import type {CommandArg, CommandName} from "/main/command/type";
+import {data} from "/renderer/util/data";
 
 
 export const CommandButton = create(
@@ -14,21 +15,26 @@ export const CommandButton = create(
   function <N extends CommandName>({
     spec,
     icon,
-    text
+    text,
+    division = 3,
+    size = "medium"
   }: {
     spec: {name: N, arg: CommandArg<N>},
     icon?: CommandButtonIcon,
-    text?: string
+    text?: string,
+    division?: number,
+    size?: string
   }): ReactElement {
 
     const {name, arg} = spec;
+    const hasText = text !== undefined;
 
     const handleClick = useCallback(function (): void {
       window.api.invoke(`command:${name}`, arg);
     }, [name, arg]);
 
     return (
-      <button styleName="root" onClick={handleClick}>
+      <button styleName="root" onClick={handleClick} {...data({division, size, hasText})}>
         <div styleName="left">
           {(Array.isArray(icon)) ? (
             <Fragment>
@@ -43,9 +49,11 @@ export const CommandButton = create(
             <FontAwesomeIcon icon={icon}/>
           )}
         </div>
-        <div styleName="right">
-          {(text !== undefined) && <Letter wide={true} simple={true}>{text}</Letter>}
-        </div>
+        {(text !== undefined) && (
+          <div styleName="right">
+            <Letter wide={true} simple={true}>{text}</Letter>
+          </div>
+        )}
       </button>
     );
 

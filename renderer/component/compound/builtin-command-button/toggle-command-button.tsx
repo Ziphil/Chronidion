@@ -14,12 +14,16 @@ export const ToggleCommandButton = create(
     commandSpec,
     querySpec,
     icon,
-    text
+    text,
+    division,
+    size
   }: {
     commandSpec: {name: CN, arg: CommandArg<CN>},
     querySpec: {name: QN},
     icon?: {on?: CommandButtonIcon, off?: CommandButtonIcon, loading?: CommandButtonIcon},
-    text?: {on?: string, off?: string, loading?: string}
+    text?: {on?: string, off?: string, loading?: string},
+    division?: number,
+    size?: string
   }): ReactElement {
 
     const state = useQueryState(querySpec.name);
@@ -29,6 +33,8 @@ export const ToggleCommandButton = create(
         spec={commandSpec}
         icon={(state === null) ? icon?.loading : (state) ? icon?.on : icon?.off}
         text={(state === null) ? text?.loading : (state) ? text?.on : text?.off}
+        division={division}
+        size={size}
       />
     );
 

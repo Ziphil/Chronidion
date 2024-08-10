@@ -1,26 +1,43 @@
 @charset "utf-8";
 
 @use "sass:math" as *;
+@use "/renderer/component/function.scss" as *;
 
 
 .root {
-  width: calc((var(--page-width) - var(--page-padding-inline) * 2 - 8) / 2 * 1rem);
-  height: 24rem;
+  &[data-division="2"] {
+    --width: calc((var(--page-width) - var(--page-padding-inline) * 2 - 6 * 1) / 2 * 1rem);
+  }
+  &[data-division="3"] {
+    --width: calc((var(--page-width) - var(--page-padding-inline) * 2 - 6 * 2) / 3 * 1rem);
+  }
+  &:not([data-has-text]) {
+    --width: var(--height);
+  }
+  &[data-size="large"] {
+    --height: 24rem;
+    --font-size: 8rem;
+  }
+  &[data-size="medium"] {
+    --height: 18rem;
+    --font-size: 7rem;
+  }
+}
+
+.root {
+  @include background(hsl(240, 2%, 35%), hsl(240, 2%, 30%));
+  width: var(--width);
+  height: var(--height);
   border-radius: 2rem;
   color: hsl(240, 10%, 75%);
-  background-image: repeating-linear-gradient(135deg, hsl(240, 2%, 35%), hsl(240, 2%, 35%) 50%, hsl(240, 2%, 30%) 50%, hsl(240, 2%, 30%));
-  background-attachment: fixed, fixed;
-  background-size: 8rem 8rem, auto;
-  background-repeat: repeat, repeat;
   display: flex;
   cursor: pointer;
   overflow: hidden;
 }
 
 .left {
-  width: 24rem;
-  padding-inline: 4rem;
-  font-size: 16rem;
+  width: var(--height);
+  font-size: calc(var(--height) * 0.65);
   flex: 0 0 auto;
   display: flex;
   align-items: center;
@@ -29,15 +46,13 @@
 }
 
 .right {
+  @include background(hsl(240, 2%, 25%), hsl(240, 2%, 20%));
   margin-block: 0.5rem;
   margin-inline-end: 0.5rem;
+  padding-inline: calc(var(--font-size) * 0.5);
   border-start-end-radius: 1.5rem;
   border-end-end-radius: 1.5rem;
-  font-size: 8rem;
-  background-image: repeating-linear-gradient(135deg, hsl(240, 2%, 25%), hsl(240, 2%, 25%) 50%, hsl(240, 2%, 20%) 50%, hsl(240, 2%, 20%));
-  background-attachment: fixed, fixed;
-  background-size: 8rem 8rem, auto;
-  background-repeat: repeat, repeat;
+  font-size: var(--font-size);
   flex: 1 1 auto;
   display: flex;
   align-items: center;
@@ -45,16 +60,13 @@
 }
 
 .small-icon {
-  width: 10rem;
-  height: 10rem;
-  inset-inline-end: 1rem;
-  inset-block-end: 1rem;
+  @include background(hsl(240, 2%, 35%), hsl(240, 2%, 30%));
+  width: calc(var(--height) * 0.45);
+  height: calc(var(--height) * 0.45);
+  inset-inline-end: calc(var(--height) * 0.05);
+  inset-block-end: calc(var(--height) * 0.05);
   border-radius: 1rem;
-  font-size: 7rem;
-  background-image: repeating-linear-gradient(135deg, hsla(240, 2%, 35%), hsla(240, 2%, 35%) 50%, hsla(240, 2%, 30%) 50%, hsl(240, 2%, 30%));
-  background-attachment: fixed, fixed;
-  background-size: 8rem 8rem, auto;
-  background-repeat: repeat, repeat;
+  font-size: calc(var(--height) * 0.65 * 0.45);
   display: flex;
   align-items: center;
   justify-content: center;

@@ -3,11 +3,16 @@
 
 .list {
   height: 100%;
+  margin-inline: -6rem;
+  padding-block: 6rem;
   column-gap: 0rem;
-  row-gap: 4rem;
+  row-gap: 8rem;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  align-content: center;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.list-row {
+  display: flex;
+  justify-content: space-evenly;
 }
