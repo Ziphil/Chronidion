@@ -1,11 +1,9 @@
 /* eslint-disable unused-imports/no-unused-imports */
 
-import {shell} from "electron";
 import ObsWebSocket from "obs-websocket-js";
 import {CommandController} from "/main/command/controller";
 import {command, commandController, query} from "/main/command/decorator";
 import {CommandArg, QueryState} from "/main/command/type";
-import pathUtil from "path";
 
 
 const client = new ObsWebSocket();
@@ -16,6 +14,13 @@ export class ObsCommandController extends CommandController {
 
   public setup(): void {
     this.setupEventHandlers();
+  }
+
+  @command("obs.toggleMute")
+  public async toggleMute(arg: CommandArg<"obs.toggleMute">): Promise<void> {
+    console.log("toggleMute");
+    await this.ensureConnected();
+    await client.call("ToggleInputMute", {inputName: "マイク"});
   }
 
   @command("obs.toggleStream")
@@ -40,6 +45,13 @@ export class ObsCommandController extends CommandController {
   public async refreshBrowserSource(arg: CommandArg<"obs.refreshBrowserSource">): Promise<void> {
     await this.ensureConnected();
     await client.call("PressInputPropertiesButton", {inputName: "チャット", propertyName: "refreshnocache"});
+  }
+
+  @query("obs.mute")
+  public async getMute(): Promise<QueryState<"obs.mute">> {
+    await this.ensureConnected();
+    const data = await client.call("GetInputMute", {inputName: "マイク"});
+    return data.inputMuted;
   }
 
   @query("obs.stream")
@@ -80,6 +92,11 @@ export class ObsCommandController extends CommandController {
     });
     client.on("VirtualcamStateChanged", (data) => {
       this.sendQueryStateChanged("obs.virtualCam", data.outputActive);
+    });
+    client.on("InputMuteStateChanged", (data) => {
+      if (data.inputName === "マイク") {
+        this.sendQueryStateChanged("obs.mute", data.inputMuted);
+      }
     });
   }
 

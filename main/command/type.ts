@@ -4,6 +4,9 @@
 export type CommandCatalog = {
   "discord.toggleMute": {},
   "discord.toggleDeaf": {},
+  "discord.joinVoiceChannel": {id: string},
+  "obs.toggleMute": {},
+  "obs.toggleDeaf": {},
   "obs.toggleStream": {},
   "obs.toggleRecord": {},
   "obs.toggleVirtualCam": {},
@@ -18,6 +21,8 @@ export type CommandArg<N extends CommandName> = CommandCatalog[N];
 export type QueryCatalog = {
   "discord.mute": boolean,
   "discord.deaf": boolean,
+  "obs.mute": boolean,
+  "obs.deaf": boolean,
   "obs.stream": boolean,
   "obs.record": boolean,
   "obs.virtualCam": boolean,

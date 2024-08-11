@@ -36,6 +36,13 @@ export class DiscordCommandController extends CommandController {
     await client.setVoiceSettings({...settings, deaf});
   }
 
+  @command("discord.joinVoiceChannel")
+  public async joinVoiceChannel(arg: CommandArg<"discord.joinVoiceChannel">): Promise<void> {
+    console.log("joihdiscord.joinVoiceChannel");
+    await this.ensureConnected();
+    await client.selectVoiceChannel(arg.id);
+  }
+
   @query("discord.mute")
   public async getMute(): Promise<QueryState<"discord.mute">> {
     await this.ensureConnected();
