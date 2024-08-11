@@ -9,7 +9,7 @@
     "develop": "cross-env NODE_ENV=development webpack --watch --mode development --config webpack-develop.ts",
     "build": "webpack --mode production --config webpack-product.ts",
     "pack:windows": "electron-builder -w",
-    "start": "run-p start:electron start:server",
+    "start": "run-p start:electron",
     "start:electron": "electron dist/index.js",
     "start:server": "node dist/server.js",
     "lint": "eslint main/**/*.ts renderer/**/*.ts renderer/**/*.tsx server/**/*.ts",

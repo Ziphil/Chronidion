@@ -23,7 +23,7 @@ export const ToggleCommandButton = create(
     icon?: {on?: CommandButtonIcon, off?: CommandButtonIcon, loading?: CommandButtonIcon},
     text?: {on?: string, off?: string, loading?: string},
     division?: number,
-    size?: string
+    size?: "small" | "medium" | "large"
   }): ReactElement {
 
     const state = useQueryState(querySpec.name);
